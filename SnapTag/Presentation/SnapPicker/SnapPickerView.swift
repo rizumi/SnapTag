@@ -11,6 +11,7 @@ import PhotosUI
 struct SnapPickerView: View {
     @State var selectedImage: UIImage?
     @State var selectedItem: PhotosPickerItem?
+    let tags = ["SwiftUI", "iOS", "Programming", "Development", "Tag", "Flexible", "Dynamic", "Grid", "Swift"]
     
     var body: some View {
         VStack {
@@ -29,7 +30,27 @@ struct SnapPickerView: View {
             PhotosPicker(selection: $selectedItem, matching: .images) {
                 Text("写真を追加")
             }
+            
+            // TODO: ここにタグ一覧を表示
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))], alignment: .leading, spacing: 8) {
+                ForEach(tags, id: \.self) { tag in
+                    Text(tag)
+                        .padding(8)
+                        .background(Color.blue.opacity(0.2))
+                        .cornerRadius(8)
+                        .lineLimit(1)
+                }
+            }
+            .padding()
+            
             Spacer()
+
+            Button {
+                print("tap save")
+            } label: {
+                Text("保存")
+            }
+
         }
         .padding(.vertical)
         .onChange(of: selectedItem) { _, newItem in
