@@ -20,7 +20,7 @@ final class HomeViewCoordinator: Coordinator {
     }
     
     func start() {
-        let vc = UIHostingController(rootView: SnapGridView())
+        let vc = UIHostingController(rootView: SnapPickerView())
         let nav = UINavigationController(rootViewController: vc)
         
         window.rootViewController = nav
