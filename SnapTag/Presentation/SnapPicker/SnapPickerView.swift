@@ -66,9 +66,13 @@ struct SnapPickerView: View {
                     let uiImage = UIImage(data: data)
                 {
                     selectedImage = uiImage
-                    let gen = TagGenerator()
-                    gen.classifyImage(uiImage) { tags in
+                    selectedItem = nil
+                    let snapTagger = SnapTagger()
+                    do {
+                        let tags = try await snapTagger.generateTags(from: uiImage)
                         print(tags)
+                    } catch {
+                        print(error)
                     }
                 }
             }
