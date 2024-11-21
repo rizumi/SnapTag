@@ -9,7 +9,7 @@ import SwiftData
 import SwiftUI
 
 struct HomeView: View {
-    let coordinator: HomeViewFlow
+    let flow: HomeViewFlow
     @State var tests: [SnapTest] = []
 
     var body: some View {
@@ -25,7 +25,7 @@ struct HomeView: View {
                     Spacer()
 
                     Button {
-                        coordinator.toUploadSnapView()
+                        flow.toUploadSnapView()
                     } label: {
                         Image(systemName: "plus")
                             .font(.system(size: 24))
@@ -47,5 +47,5 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView(coordinator: HomeViewCoordinator(window: .init()))
+    HomeView(flow: HomeViewCoordinator(window: .init()))
 }

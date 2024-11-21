@@ -22,7 +22,7 @@ final class HomeViewCoordinator: Coordinator {
 
     func start() {
         let vc = UIHostingController(
-            rootView: HomeView(coordinator: self)
+            rootView: HomeView(flow: self)
         )
         let nav = UINavigationController(rootViewController: vc)
 
@@ -36,20 +36,5 @@ extension HomeViewCoordinator: HomeViewFlow {
         guard let navigator else { return }
         let coordinator = SnapPickerViewCoordinator(navigator: navigator)
         coordinator.start()
-    }
-}
-
-final class SnapPickerViewCoordinator: Coordinator {
-    private let navigator: UINavigationController
-
-    init(navigator: UINavigationController) {
-        self.navigator = navigator
-    }
-
-    func start() {
-        let vc = UIHostingController(
-            rootView: SnapPickerView()
-        )
-        navigator.present(vc, animated: true)
     }
 }

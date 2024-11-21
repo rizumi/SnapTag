@@ -19,13 +19,13 @@ class SnapTest {
 }
 
 struct SnapPickerView: View {
-    @Environment(\.modelContext) private var modelContext
     @State var selectedImage: UIImage?
     @State var selectedItem: PhotosPickerItem?
     let tags = [
         "SwiftUI", "iOS", "Programming", "Development", "Tag", "Flexible", "Dynamic", "Grid",
         "Swift",
     ]
+    let flow: any SnapPickerViewFlow
 
     var body: some View {
         GeometryReader { geometry in
@@ -72,12 +72,7 @@ struct SnapPickerView: View {
                 }
 
                 Button {
-                    do {
-                        let result = try modelContext.fetch(FetchDescriptor<SnapTest>())
-                        print(result)
-                    } catch {
-                        print(error.localizedDescription)
-                    }
+                    flow.dismiss()
                 } label: {
                     Text("Load")
                 }
@@ -112,5 +107,5 @@ struct SnapPickerView: View {
 }
 
 #Preview {
-    SnapPickerView()
+    SnapPickerView(flow: SnapPickerViewCoordinator(navigator: .init()))
 }
