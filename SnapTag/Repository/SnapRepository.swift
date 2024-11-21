@@ -6,12 +6,18 @@
 //
 
 import SwiftData
+import UIKit
 
 final class SnapRepository {
     private let context: ModelContext
+    private let imageStorage: ImageStorage
 
-    init(context: ModelContext) {
+    init(
+        context: ModelContext,
+        imageStorage: ImageStorage
+    ) {
         self.context = context
+        self.imageStorage = imageStorage
     }
 
     func fetch() -> [SnapTest] {
@@ -21,6 +27,16 @@ final class SnapRepository {
     func add(_ test: SnapTest) {
         context.insert(test)
         do {
+            try context.save()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+
+    func save(_ image: UIImage, tags: [String]) {
+        do {
+            let path = try imageStorage.save(image: image, with: UUID().uuidString)
+            context.insert(SnapTest(name: path))
             try context.save()
         } catch {
             print(error.localizedDescription)

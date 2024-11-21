@@ -14,7 +14,6 @@ struct HomeView: View {
 
     var body: some View {
         ZStack {
-            Text("Hello, World!")
             List(tests) { test in
                 Text(test.name)
             }
@@ -40,7 +39,9 @@ struct HomeView: View {
             }
         }
         .onAppear {
-            let repo = SnapRepository(context: AppModelContainer.shared.modelContext)
+            let repo = SnapRepository(
+                context: AppModelContainer.shared.modelContext,
+                imageStorage: LocalImageStorage())
             tests = repo.fetch()
         }
     }
