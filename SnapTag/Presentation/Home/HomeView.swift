@@ -5,12 +5,19 @@
 //  Created by izumi on 2024/11/20.
 //
 
+import SwiftData
 import SwiftUI
 
 struct HomeView: View {
+    let coordinator: HomeViewFlow
+    @State var tests: [SnapTest] = []
+
     var body: some View {
         ZStack {
             Text("Hello, World!")
+            List(tests) { test in
+                Text(test.name)
+            }
 
             VStack {
                 Spacer()
@@ -18,7 +25,7 @@ struct HomeView: View {
                     Spacer()
 
                     Button {
-                        print("FAB tapped!")
+                        coordinator.toUploadSnapView()
                     } label: {
                         Image(systemName: "plus")
                             .font(.system(size: 24))
@@ -32,9 +39,13 @@ struct HomeView: View {
                 }
             }
         }
+        .onAppear {
+            let repo = SnapRepository()
+            tests = repo.fetch()
+        }
     }
 }
 
 #Preview {
-    HomeView()
+    HomeView(coordinator: HomeViewCoordinator(window: .init()))
 }

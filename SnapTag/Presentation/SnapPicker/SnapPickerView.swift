@@ -6,9 +6,20 @@
 //
 
 import PhotosUI
+import SwiftData
 import SwiftUI
 
+@Model
+class SnapTest {
+    var name: String
+
+    init(name: String) {
+        self.name = name
+    }
+}
+
 struct SnapPickerView: View {
+    @Environment(\.modelContext) private var modelContext
     @State var selectedImage: UIImage?
     @State var selectedItem: PhotosPickerItem?
     let tags = [
@@ -53,8 +64,22 @@ struct SnapPickerView: View {
 
                 Button {
                     print("tap save")
+                    let snaptest = SnapTest(name: "save")
+                    let repo = SnapRepository()
+                    repo.add(snaptest)
                 } label: {
                     Text("保存")
+                }
+
+                Button {
+                    do {
+                        let result = try modelContext.fetch(FetchDescriptor<SnapTest>())
+                        print(result)
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                } label: {
+                    Text("Load")
                 }
 
             }
