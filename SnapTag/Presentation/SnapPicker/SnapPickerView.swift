@@ -5,14 +5,17 @@
 //  Created by izumi on 2024/11/20.
 //
 
-import SwiftUI
 import PhotosUI
+import SwiftUI
 
 struct SnapPickerView: View {
     @State var selectedImage: UIImage?
     @State var selectedItem: PhotosPickerItem?
-    let tags = ["SwiftUI", "iOS", "Programming", "Development", "Tag", "Flexible", "Dynamic", "Grid", "Swift"]
-    
+    let tags = [
+        "SwiftUI", "iOS", "Programming", "Development", "Tag", "Flexible", "Dynamic", "Grid",
+        "Swift",
+    ]
+
     var body: some View {
         GeometryReader { geometry in
             VStack {
@@ -31,9 +34,11 @@ struct SnapPickerView: View {
                 PhotosPicker(selection: $selectedItem, matching: .images) {
                     Text("写真を追加")
                 }
-                
+
                 // TODO: ここにタグ一覧を表示
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))], alignment: .leading, spacing: 8) {
+                LazyVGrid(
+                    columns: [GridItem(.adaptive(minimum: 160))], alignment: .leading, spacing: 8
+                ) {
                     ForEach(tags, id: \.self) { tag in
                         Text(tag)
                             .padding(8)
@@ -43,7 +48,7 @@ struct SnapPickerView: View {
                     }
                 }
                 .padding()
-                
+
                 Spacer()
 
                 Button {
@@ -58,7 +63,8 @@ struct SnapPickerView: View {
         .onChange(of: selectedItem) { _, newItem in
             Task {
                 if let data = try? await newItem?.loadTransferable(type: Data.self),
-                   let uiImage = UIImage(data: data) {
+                    let uiImage = UIImage(data: data)
+                {
                     selectedImage = uiImage
                     let gen = TagGenerator()
                     gen.classifyImage(uiImage) { tags in
@@ -68,7 +74,7 @@ struct SnapPickerView: View {
             }
         }
     }
-    
+
     private func imageHeight(_ geometry: GeometryProxy) -> CGFloat {
         // iPadは横にサイズが大きく、タグ表示に複数行なくても良いので画像を大きく表示する
         let isIPad = UIDevice.current.userInterfaceIdiom == .pad

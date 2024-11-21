@@ -7,5 +7,5 @@
 
 struct Snap {
     let path: String
-    let tags: [String] // TODO: tag型にする
+    let tags: [String]  // TODO: tag型にする
 }

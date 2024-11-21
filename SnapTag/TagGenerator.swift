@@ -6,13 +6,18 @@
 //
 
 import CoreML
-import Vision
 import UIKit
+import Vision
 
 final class TagGenerator {
-    func classifyImage(_ image: UIImage, completion: @escaping ([String]) -> Void) {
+    func classifyImage(
+        _ image: UIImage, completion: @escaping ([String]) -> Void
+    ) {
         // MobileNetV2 モデルをロード
-        guard let model = try? VNCoreMLModel(for: MobileNetV2FP16(configuration: .init()).model) else {
+        guard
+            let model = try? VNCoreMLModel(
+                for: MobileNetV2FP16(configuration: .init()).model)
+        else {
             print("Failed to load Core ML model")
             completion([])
             return
@@ -22,7 +27,9 @@ final class TagGenerator {
         let request = VNCoreMLRequest(model: model) { request, error in
             if let results = request.results as? [VNClassificationObservation] {
                 // 上位3つの結果を取得
-                let topResults = results.prefix(3).map { "\($0.identifier): \($0.confidence * 100)%" }
+                let topResults = results.prefix(3).map {
+                    "\($0.identifier): \($0.confidence * 100)%"
+                }
                 completion(topResults)
             } else {
                 completion([])

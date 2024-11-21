@@ -5,8 +5,8 @@
 //  Created by izumi on 2024/11/19.
 //
 
-import UIKit
 import SwiftUI
+import UIKit
 
 protocol HomeViewFlow {
     func toUploadSnapView()
@@ -14,15 +14,15 @@ protocol HomeViewFlow {
 
 final class HomeViewCoordinator: Coordinator {
     private let window: UIWindow
-    
+
     init(window: UIWindow) {
         self.window = window
     }
-    
+
     func start() {
         let vc = UIHostingController(rootView: SnapPickerView())
         let nav = UINavigationController(rootViewController: vc)
-        
+
         window.rootViewController = nav
     }
 }
