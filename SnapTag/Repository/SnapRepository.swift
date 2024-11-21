@@ -8,11 +8,10 @@
 import SwiftData
 
 final class SnapRepository {
-    private var context: ModelContext {
-        AppModelContainer.shared.modelContext
-    }
+    private let context: ModelContext
 
-    init() {
+    init(context: ModelContext) {
+        self.context = context
     }
 
     func fetch() -> [SnapTest] {

@@ -40,7 +40,7 @@ struct HomeView: View {
             }
         }
         .onAppear {
-            let repo = SnapRepository()
+            let repo = SnapRepository(context: AppModelContainer.shared.modelContext)
             tests = repo.fetch()
         }
     }

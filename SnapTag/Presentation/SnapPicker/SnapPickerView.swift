@@ -65,7 +65,7 @@ struct SnapPickerView: View {
                 Button {
                     print("tap save")
                     let snaptest = SnapTest(name: "save")
-                    let repo = SnapRepository()
+                    let repo = SnapRepository(context: AppModelContainer.shared.modelContext)
                     repo.add(snaptest)
                 } label: {
                     Text("保存")

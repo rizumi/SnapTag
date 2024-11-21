@@ -9,7 +9,7 @@ import SwiftData
 
 final class AppModelContainer {
     static let shared: AppModelContainer = AppModelContainer()
-    private(set) var modelContainer: ModelContainer!
+    private var modelContainer: ModelContainer!
     lazy var modelContext: ModelContext = {
         ModelContext(modelContainer)
     }()
