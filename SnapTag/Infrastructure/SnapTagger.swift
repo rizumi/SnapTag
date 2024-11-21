@@ -27,7 +27,6 @@ final class SnapTagger {
         guard let ciImage = CIImage(image: image) else {
             throw SnapTaggerError.imageConversionError
         }
-        let handler = VNImageRequestHandler(ciImage: ciImage)
 
         return try await withCheckedThrowingContinuation { continuation in
             let request = VNCoreMLRequest(model: model) { request, error in
@@ -45,7 +44,7 @@ final class SnapTagger {
             }
 
             do {
-                try handler.perform([request])
+                try VNImageRequestHandler(ciImage: ciImage).perform([request])
             } catch {
                 continuation.resume(throwing: SnapTaggerError.classificationFailed)
             }
