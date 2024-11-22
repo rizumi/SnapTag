@@ -26,25 +26,8 @@ struct HomeView: View {
                 }
             }
 
-            // FAB
-            VStack {
-                Spacer()
-                HStack {
-                    Spacer()
-
-                    Button {
-                        flow.toSnapPicker()
-                    } label: {
-                        Image(systemName: "plus")
-                            .font(.system(size: 24))
-                            .foregroundStyle(.white)
-                            .padding()
-                            .background(Circle().fill())
-                            .shadow(radius: 5)
-                    }
-                    .padding()
-
-                }
+            FloatingActionButton {
+                flow.toSnapPicker()
             }
         }
         .onAppear {

@@ -22,7 +22,6 @@ final class HomeViewModel: ObservableObject {
     }
 
     func loadImage(path: String) -> UIImage? {
-        print("load")
         return snapRepository.load(name: path)
     }
 }
