@@ -20,7 +20,7 @@ struct HomeView: View {
         ZStack {
             ScrollView {
                 LazyVGrid(
-                    columns: Array(repeating: .init(.flexible(), spacing: 2), count: 4), spacing: 2
+                    columns: Array(repeating: .init(.flexible(), spacing: 2), count: 3), spacing: 2
                 ) {
                     ForEach(viewModel.snaps) { snap in
                         if let image = viewModel.loadImage(path: snap.imagePath) {
@@ -38,6 +38,7 @@ struct HomeView: View {
                     }
                 }
                 .animation(.easeInOut, value: viewModel.snaps)
+                .padding(.bottom, 80)  // 最後の項目とActionButtonが被らないようにするための余白
             }
 
             FloatingActionButton {
