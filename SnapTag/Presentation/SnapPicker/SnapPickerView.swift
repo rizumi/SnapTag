@@ -51,6 +51,7 @@ struct SnapPickerView: View {
                     Text("写真を選択")
                         .frame(maxWidth: .infinity, minHeight: 44)
                         .background(.gray)
+                        .foregroundStyle(.white)
                 }
                 .padding(.horizontal, 16)
                 .buttonStyle(InteractiveButtonStyle())
