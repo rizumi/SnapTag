@@ -18,11 +18,24 @@ struct HomeView: View {
 
     var body: some View {
         ZStack {
-            List(viewModel.snaps) { snap in
-                if let image = viewModel.loadImage(path: snap.imagePath) {
-                    Image(uiImage: image)
-                        .resizable()
-                        .scaledToFit()
+            ScrollView {
+                LazyVGrid(
+                    columns: Array(repeating: .init(.flexible(), spacing: 2), count: 4), spacing: 2
+                ) {
+                    ForEach(viewModel.snaps) { snap in
+                        if let image = viewModel.loadImage(path: snap.imagePath) {
+                            Color.gray
+                                .aspectRatio(1, contentMode: .fill)
+                                .overlay {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .clipped()
+                                }
+                                .clipped()
+                                .contentShape(Rectangle())
+                        }
+                    }
                 }
             }
 
