@@ -10,7 +10,7 @@ import UIKit
 
 protocol ImageStorage {
     func save(image: UIImage, with name: String) throws -> String
-    func loadImage(path: String) -> UIImage?
+    func loadImage(name: String) -> UIImage?
     func deleteImage(path: String) throws
 }
 
@@ -34,16 +34,19 @@ final class LocalImageStorage: ImageStorage {
                 domain: "ImageStorageError", code: 1,
                 userInfo: [NSLocalizedDescriptionKey: "Failed to convert image to JPEG data"])
         }
-        let fileURL = directory.appendingPathComponent(name).appendingPathExtension("jpg")
-        try data.write(to: fileURL)
-        return fileURL.path
+        try data.write(to: fileURL(from: name))
+        return name
     }
 
-    func loadImage(path: String) -> UIImage? {
-        return UIImage(contentsOfFile: path)
+    func loadImage(name: String) -> UIImage? {
+        return UIImage(contentsOfFile: fileURL(from: name).path)
     }
 
     func deleteImage(path: String) throws {
         try FileManager.default.removeItem(atPath: path)
+    }
+
+    private func fileURL(from name: String) -> URL {
+        return directory.appendingPathComponent(name).appendingPathExtension("jpg")
     }
 }

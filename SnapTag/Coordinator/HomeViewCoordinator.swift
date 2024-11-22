@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 
 protocol HomeViewFlow {
-    func toUploadSnapView()
+    func toSnapPicker()
 }
 
 final class HomeViewCoordinator: Coordinator {
@@ -22,7 +22,12 @@ final class HomeViewCoordinator: Coordinator {
 
     func start() {
         let vc = UIHostingController(
-            rootView: HomeView(flow: self)
+            rootView: HomeView(
+                flow: self,
+                viewModel: .init(
+                    snapRepository: SnapRepository(
+                        context: AppModelContainer.shared.modelContext,
+                        imageStorage: LocalImageStorage())))
         )
         let nav = UINavigationController(rootViewController: vc)
 
@@ -32,7 +37,7 @@ final class HomeViewCoordinator: Coordinator {
 }
 
 extension HomeViewCoordinator: HomeViewFlow {
-    func toUploadSnapView() {
+    func toSnapPicker() {
         guard let navigator else { return }
         let coordinator = SnapPickerViewCoordinator(navigator: navigator)
         coordinator.start()

@@ -5,9 +5,15 @@
 //  Created by izumi on 2024/11/20.
 //
 
-import UIKit
+import SwiftData
 
-struct Snap {
-    let image: UIImage
-    let tags: [String]  // TODO: tag型にする
+@Model
+class Snap {
+    private(set) var imagePath: String
+    private(set) var tags: [String]  // TODO: tag型にする
+
+    init(imagePath: String, tags: [String]) {
+        self.imagePath = imagePath
+        self.tags = tags
+    }
 }

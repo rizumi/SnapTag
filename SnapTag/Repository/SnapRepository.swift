@@ -20,8 +20,12 @@ final class SnapRepository {
         self.imageStorage = imageStorage
     }
 
-    func fetch() -> [SnapTest] {
-        return (try? context.fetch(FetchDescriptor<SnapTest>())) ?? []
+    func fetch() -> [Snap] {
+        return (try? context.fetch(FetchDescriptor<Snap>())) ?? []
+    }
+
+    func load(name: String) -> UIImage? {
+        return imageStorage.loadImage(name: name)
     }
 
     func add(_ test: SnapTest) {
@@ -35,8 +39,9 @@ final class SnapRepository {
 
     func save(_ image: UIImage, tags: [String]) {
         do {
+            // TODO: Imageのsaveを別にした方が良いか検討
             let path = try imageStorage.save(image: image, with: UUID().uuidString)
-            context.insert(SnapTest(name: path))
+            context.insert(Snap(imagePath: path, tags: []))
             try context.save()
         } catch {
             print(error.localizedDescription)

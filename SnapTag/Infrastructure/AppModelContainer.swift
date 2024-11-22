@@ -16,7 +16,7 @@ final class AppModelContainer {
 
     private init() {
         do {
-            modelContainer = try ModelContainer(for: SnapTest.self)
+            modelContainer = try ModelContainer(for: Snap.self)
         } catch {
             print("Failed to initialize ModelContainer: \(error)")
             fatalError()

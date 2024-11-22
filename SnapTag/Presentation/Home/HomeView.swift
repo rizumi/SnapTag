@@ -10,21 +10,31 @@ import SwiftUI
 
 struct HomeView: View {
     let flow: HomeViewFlow
-    @State var tests: [SnapTest] = []
+    @StateObject private var viewModel: HomeViewModel
+
+    init(flow: HomeViewFlow, viewModel: HomeViewModel) {
+        self.flow = flow
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
 
     var body: some View {
         ZStack {
-            List(tests) { test in
-                Text(test.name)
+            List(viewModel.snaps) { snap in
+                if let image = viewModel.loadImage(path: snap.imagePath) {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFit()
+                }
             }
 
+            // FAB
             VStack {
                 Spacer()
                 HStack {
                     Spacer()
 
                     Button {
-                        flow.toUploadSnapView()
+                        flow.toSnapPicker()
                     } label: {
                         Image(systemName: "plus")
                             .font(.system(size: 24))
@@ -39,14 +49,11 @@ struct HomeView: View {
             }
         }
         .onAppear {
-            let repo = SnapRepository(
-                context: AppModelContainer.shared.modelContext,
-                imageStorage: LocalImageStorage())
-            tests = repo.fetch()
+            viewModel.onAppear()
         }
     }
 }
 
 #Preview {
-    HomeView(flow: HomeViewCoordinator(window: .init()))
+    // HomeView(flow: HomeViewCoordinator(window: .init()))
 }
