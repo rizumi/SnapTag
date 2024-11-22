@@ -53,7 +53,7 @@ struct SnapPickerView: View {
                         .background(.gray)
                 }
                 .padding(.horizontal, 16)
-                .buttonStyle(InteractiveButton())
+                .buttonStyle(InteractiveButtonStyle())
 
                 Button {
                     viewModel.onTapSave()
@@ -65,7 +65,7 @@ struct SnapPickerView: View {
                         .foregroundStyle(.white)
                 }
                 .padding(.horizontal, 16)
-                .buttonStyle(InteractiveButton())
+                .buttonStyle(InteractiveButtonStyle())
             }
         }
         .padding(.vertical)
