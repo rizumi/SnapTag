@@ -21,7 +21,12 @@ final class SnapPickerViewCoordinator: Coordinator {
 
     func start() {
         let vc = UIHostingController(
-            rootView: SnapPickerView(flow: self)
+            rootView: SnapPickerView(
+                viewModel: .init(
+                    snapRepository: SnapRepository(
+                        context: AppModelContainer.shared.modelContext,
+                        imageStorage: LocalImageStorage())),
+                flow: self)
         )
         navigator.present(vc, animated: true)
     }

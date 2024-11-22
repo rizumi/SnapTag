@@ -9,13 +9,13 @@ import PhotosUI
 import SwiftUI
 
 struct SnapPickerView: View {
-    @State var selectedImage: UIImage?
-    @State var selectedItem: PhotosPickerItem?
-    let tags = [
-        "SwiftUI", "iOS", "Programming", "Development", "Tag", "Flexible", "Dynamic", "Grid",
-        "Swift",
-    ]
+    @StateObject var viewModel: SnapPickerViewModel
     let flow: any SnapPickerViewFlow
+
+    init(viewModel: SnapPickerViewModel, flow: any SnapPickerViewFlow) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+        self.flow = flow
+    }
 
     var body: some View {
         GeometryReader { geometry in
@@ -24,7 +24,7 @@ struct SnapPickerView: View {
                     Color.black
                         .frame(height: imageHeight(geometry))
 
-                    if let image = selectedImage {
+                    if let image = viewModel.selectedImage {
                         Image(uiImage: image)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -32,15 +32,15 @@ struct SnapPickerView: View {
                     }
                 }
 
-                PhotosPicker(selection: $selectedItem, matching: .images) {
+                // TODO: OnAppearで写真選択開くようにする
+                PhotosPicker(selection: $viewModel.selectedItem, matching: .images) {
                     Text("写真を追加")
                 }
 
-                // TODO: ここにタグ一覧を表示
                 LazyVGrid(
                     columns: [GridItem(.adaptive(minimum: 160))], alignment: .leading, spacing: 8
                 ) {
-                    ForEach(tags, id: \.self) { tag in
+                    ForEach(viewModel.tags, id: \.self) { tag in
                         Text(tag)
                             .padding(8)
                             .background(Color.blue.opacity(0.2))
@@ -53,10 +53,7 @@ struct SnapPickerView: View {
                 Spacer()
 
                 Button {
-                    let repo = SnapRepository(
-                        context: AppModelContainer.shared.modelContext,
-                        imageStorage: LocalImageStorage())
-                    repo.save(selectedImage!, tags: [])
+                    viewModel.onTapSave()
                 } label: {
                     Text("保存")
                 }
@@ -66,27 +63,9 @@ struct SnapPickerView: View {
                 } label: {
                     Text("Load")
                 }
-
             }
         }
         .padding(.vertical)
-        .onChange(of: selectedItem) { _, newItem in
-            Task {
-                if let data = try? await newItem?.loadTransferable(type: Data.self),
-                    let uiImage = UIImage(data: data)
-                {
-                    selectedImage = uiImage
-                    selectedItem = nil
-                    let snapTagger = SnapTagger()
-                    do {
-                        let tags = try await snapTagger.generateTags(from: uiImage)
-                        print(tags)
-                    } catch {
-                        print(error)
-                    }
-                }
-            }
-        }
     }
 
     private func imageHeight(_ geometry: GeometryProxy) -> CGFloat {
@@ -97,5 +76,10 @@ struct SnapPickerView: View {
 }
 
 #Preview {
-    SnapPickerView(flow: SnapPickerViewCoordinator(navigator: .init()))
+    // TODO: mockに差し替え
+    let repo = SnapRepository(
+        context: AppModelContainer.shared.modelContext, imageStorage: LocalImageStorage())
+    SnapPickerView(
+        viewModel: .init(snapRepository: repo),
+        flow: SnapPickerViewCoordinator(navigator: .init()))
 }
