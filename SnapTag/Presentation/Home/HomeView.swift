@@ -5,7 +5,6 @@
 //  Created by izumi on 2024/11/20.
 //
 
-import SwiftData
 import SwiftUI
 
 struct HomeView: View {
@@ -55,5 +54,10 @@ struct HomeView: View {
 }
 
 #Preview {
-    // HomeView(flow: HomeViewCoordinator(window: .init()))
+    // TODO: mockに差し替え
+    let repo = SnapRepository(
+        context: AppModelContainer.shared.modelContext, imageStorage: LocalImageStorage())
+    HomeView(
+        flow: HomeViewCoordinator(window: .init()),
+        viewModel: .init(snapRepository: repo))
 }

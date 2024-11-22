@@ -63,8 +63,6 @@ struct SnapPickerView: View {
                 Spacer()
 
                 Button {
-                    print("tap save")
-                    let snaptest = SnapTest(name: "save")
                     let repo = SnapRepository(
                         context: AppModelContainer.shared.modelContext,
                         imageStorage: LocalImageStorage())

@@ -11,20 +11,18 @@ import UIKit
 @MainActor
 final class HomeViewModel: ObservableObject {
     @Published private(set) var snaps: [Snap] = []
-    private let snapRepository: SnapRepository
+    private let snapRepository: SnapRepositoryProtocol
 
-    init(snapRepository: SnapRepository) {
-        print("init")
+    init(snapRepository: SnapRepositoryProtocol) {
         self.snapRepository = snapRepository
     }
 
     func onAppear() {
-        print("onAppear")
         snaps = snapRepository.fetch()
     }
 
     func loadImage(path: String) -> UIImage? {
-        print(path)
+        print("load")
         return snapRepository.load(name: path)
     }
 }

@@ -8,7 +8,13 @@
 import SwiftData
 import UIKit
 
-final class SnapRepository {
+protocol SnapRepositoryProtocol {
+    func fetch() -> [Snap]
+    func load(name: String) -> UIImage?
+    func save(_ image: UIImage, tags: [String])
+}
+
+final class SnapRepository: SnapRepositoryProtocol {
     private let context: ModelContext
     private let imageStorage: ImageStorage
 
@@ -26,15 +32,6 @@ final class SnapRepository {
 
     func load(name: String) -> UIImage? {
         return imageStorage.loadImage(name: name)
-    }
-
-    func add(_ test: SnapTest) {
-        context.insert(test)
-        do {
-            try context.save()
-        } catch {
-            print(error.localizedDescription)
-        }
     }
 
     func save(_ image: UIImage, tags: [String]) {
