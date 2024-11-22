@@ -54,14 +54,9 @@ struct SnapPickerView: View {
 
                 Button {
                     viewModel.onTapSave()
+                    flow.dismiss(isCompleted: true)
                 } label: {
                     Text("保存")
-                }
-
-                Button {
-                    flow.dismiss()
-                } label: {
-                    Text("Load")
                 }
             }
         }
@@ -81,5 +76,5 @@ struct SnapPickerView: View {
         context: AppModelContainer.shared.modelContext, imageStorage: LocalImageStorage())
     SnapPickerView(
         viewModel: .init(snapRepository: repo),
-        flow: SnapPickerViewCoordinator(navigator: .init()))
+        flow: SnapPickerViewCoordinator(navigator: .init(), completion: {}))
 }

@@ -17,7 +17,7 @@ final class HomeViewModel: ObservableObject {
         self.snapRepository = snapRepository
     }
 
-    func onAppear() {
+    func refresh() {
         snaps = snapRepository.fetch()
     }
 

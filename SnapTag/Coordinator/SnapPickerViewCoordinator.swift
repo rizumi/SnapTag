@@ -9,14 +9,16 @@ import SwiftUI
 import UIKit
 
 protocol SnapPickerViewFlow {
-    func dismiss()
+    func dismiss(isCompleted: Bool)
 }
 
 final class SnapPickerViewCoordinator: Coordinator {
     private let navigator: UINavigationController
+    private let completion: () -> Void
 
-    init(navigator: UINavigationController) {
+    init(navigator: UINavigationController, completion: @escaping () -> Void) {
         self.navigator = navigator
+        self.completion = completion
     }
 
     func start() {
@@ -33,7 +35,11 @@ final class SnapPickerViewCoordinator: Coordinator {
 }
 
 extension SnapPickerViewCoordinator: SnapPickerViewFlow {
-    func dismiss() {
-        navigator.dismiss(animated: true)
+    func dismiss(isCompleted: Bool) {
+        navigator.dismiss(animated: true) { [weak self] in
+            if isCompleted {
+                self?.completion()
+            }
+        }
     }
 }

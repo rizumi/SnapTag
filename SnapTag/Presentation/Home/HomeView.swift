@@ -37,14 +37,17 @@ struct HomeView: View {
                         }
                     }
                 }
+                .animation(.easeInOut, value: viewModel.snaps)
             }
 
             FloatingActionButton {
-                flow.toSnapPicker()
+                flow.toSnapPicker {
+                    viewModel.refresh()
+                }
             }
         }
         .onAppear {
-            viewModel.onAppear()
+            viewModel.refresh()
         }
     }
 }

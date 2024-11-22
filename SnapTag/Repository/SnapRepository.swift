@@ -27,7 +27,8 @@ final class SnapRepository: SnapRepositoryProtocol {
     }
 
     func fetch() -> [Snap] {
-        return (try? context.fetch(FetchDescriptor<Snap>())) ?? []
+        let sort = SortDescriptor(\Snap.imagePath)
+        return (try? context.fetch(FetchDescriptor<Snap>(sortBy: [sort]))) ?? []
     }
 
     func load(name: String) -> UIImage? {

@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 
 protocol HomeViewFlow {
-    func toSnapPicker()
+    func toSnapPicker(_ completion: @escaping () -> Void)
 }
 
 final class HomeViewCoordinator: Coordinator {
@@ -37,9 +37,9 @@ final class HomeViewCoordinator: Coordinator {
 }
 
 extension HomeViewCoordinator: HomeViewFlow {
-    func toSnapPicker() {
+    func toSnapPicker(_ completion: @escaping () -> Void) {
         guard let navigator else { return }
-        let coordinator = SnapPickerViewCoordinator(navigator: navigator)
+        let coordinator = SnapPickerViewCoordinator(navigator: navigator, completion: completion)
         coordinator.start()
     }
 }
