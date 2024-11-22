@@ -32,11 +32,6 @@ struct SnapPickerView: View {
                     }
                 }
 
-                // TODO: OnAppearで写真選択開くようにする
-                PhotosPicker(selection: $viewModel.selectedItem, matching: .images) {
-                    Text("写真を追加")
-                }
-
                 LazyVGrid(
                     columns: [GridItem(.adaptive(minimum: 160))], alignment: .leading, spacing: 8
                 ) {
@@ -51,13 +46,26 @@ struct SnapPickerView: View {
                 .padding()
 
                 Spacer()
+                // TODO: OnAppearで写真選択開くようにする
+                PhotosPicker(selection: $viewModel.selectedItem, matching: .images) {
+                    Text("写真を選択")
+                        .frame(maxWidth: .infinity, minHeight: 44)
+                        .background(.gray)
+                }
+                .padding(.horizontal, 16)
+                .buttonStyle(InteractiveButton())
 
                 Button {
                     viewModel.onTapSave()
                     flow.dismiss(isCompleted: true)
                 } label: {
                     Text("保存")
+                        .frame(maxWidth: .infinity, minHeight: 44)
+                        .background(.blue)
+                        .foregroundStyle(.white)
                 }
+                .padding(.horizontal, 16)
+                .buttonStyle(InteractiveButton())
             }
         }
         .padding(.vertical)

@@ -17,12 +17,3 @@ class Snap {
         self.tags = tags
     }
 }
-
-@Model
-class Tag {
-    @Attribute(.unique) private(set) var name: String
-
-    init(name: String) {
-        self.name = name
-    }
-}

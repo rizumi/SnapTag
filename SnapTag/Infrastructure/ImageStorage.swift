@@ -30,8 +30,8 @@ final class LocalImageStorage: ImageStorage {
 
     func save(image: UIImage, with name: String) throws -> String {
         // NOTE:
-        // 今回はデータを全てLocalに画像保存するため、メモリ節約のために小さくリサイズしたデータだけ保持しています
-        // 実際に運用するサービスなどでサーバーやクラウドストレージに保存する場合は
+        // 今回はデータを全てLocalに画像保存する関係でメモリ節約のために小さくリサイズしたデータだけ保持しています
+        // 実際に運用するサービスでサーバーやクラウドストレージに保存する場合は
         // Thumbnail用の小さい画像と詳細表示用の大きい画像でそれぞれ保存しておいて使い分けると良い
         guard let resizedImage = image.resizedIfNeeded(maxSize: .init(width: 256, height: 256))
         else {
