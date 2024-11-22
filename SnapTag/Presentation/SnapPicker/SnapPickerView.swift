@@ -6,17 +6,7 @@
 //
 
 import PhotosUI
-import SwiftData
 import SwiftUI
-
-@Model
-class SnapTest {
-    var name: String
-
-    init(name: String) {
-        self.name = name
-    }
-}
 
 struct SnapPickerView: View {
     @State var selectedImage: UIImage?

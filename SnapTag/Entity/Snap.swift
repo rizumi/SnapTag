@@ -10,10 +10,19 @@ import SwiftData
 @Model
 class Snap {
     private(set) var imagePath: String
-    private(set) var tags: [String]  // TODO: tag型にする
+    @Relationship private(set) var tags: [Tag]
 
-    init(imagePath: String, tags: [String]) {
+    init(imagePath: String, tags: [Tag]) {
         self.imagePath = imagePath
         self.tags = tags
+    }
+}
+
+@Model
+class Tag {
+    @Attribute(.unique) private(set) var name: String
+
+    init(name: String) {
+        self.name = name
     }
 }
