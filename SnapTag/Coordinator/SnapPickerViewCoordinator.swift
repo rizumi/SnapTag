@@ -8,6 +8,7 @@
 import SwiftUI
 import UIKit
 
+@MainActor
 protocol SnapPickerViewFlow {
     func dismiss(isCompleted: Bool)
 }

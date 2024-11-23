@@ -8,6 +8,7 @@
 import SwiftUI
 import UIKit
 
+@MainActor
 protocol HomeViewFlow {
     func toSnapPicker(_ completion: @escaping () -> Void)
 }
