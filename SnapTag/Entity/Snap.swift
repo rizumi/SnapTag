@@ -8,7 +8,7 @@
 import SwiftData
 
 @Model
-class Snap {
+final class Snap {
     private(set) var imagePath: String
     @Relationship private(set) var tags: [Tag]
 
