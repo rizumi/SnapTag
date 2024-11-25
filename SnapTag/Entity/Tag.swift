@@ -11,6 +11,8 @@ import SwiftData
 final class Tag {
     @Attribute(.unique) private(set) var name: String
 
+    var snaps: [Snap] = []
+
     init(name: String) {
         self.name = name
     }

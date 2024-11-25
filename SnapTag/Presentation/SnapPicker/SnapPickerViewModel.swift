@@ -39,7 +39,7 @@ final class SnapPickerViewModel: ObservableObject {
             return
         }
 
-        snapRepository.save(image, tags: tags)
+        snapRepository.save(image, tagNames: tags)
     }
 
     private func onChangeSelectedItem(item: PhotosPickerItem) {

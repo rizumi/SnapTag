@@ -10,7 +10,11 @@ import SwiftData
 @Model
 final class Snap {
     private(set) var imagePath: String
-    @Relationship private(set) var tags: [Tag]
+
+    // iOS17ではRelationshipをoptionalにしないとinsert時にcrashする
+    // 参考: https://forums.developer.apple.com/forums/thread/738961
+    @Relationship(inverse: \Tag.snaps)
+    private(set) var tags: [Tag]!
 
     init(imagePath: String, tags: [Tag]) {
         self.imagePath = imagePath

@@ -11,7 +11,7 @@ import UIKit
 protocol SnapRepositoryProtocol {
     func fetch() -> [Snap]
     func load(name: String) -> UIImage?
-    func save(_ image: UIImage, tags: [String])
+    func save(_ image: UIImage, tagNames: [String])
 }
 
 final class SnapRepository: SnapRepositoryProtocol {
@@ -37,11 +37,33 @@ final class SnapRepository: SnapRepositoryProtocol {
         return imageStorage.loadImage(name: name)
     }
 
-    func save(_ image: UIImage, tags: [String]) {
+    func save(_ image: UIImage, tagNames: [String]) {
         do {
             // TODO: Imageのsaveを別にした方が良いか検討
             let path = try imageStorage.save(image: image, with: UUID().uuidString)
-            let tagModels = tags.map { Tag(name: $0) }
+            let tagModels = tagNames.map { name in
+                let tag = try? context.fetch(
+                    FetchDescriptor<Tag>(
+                        predicate: #Predicate {
+                            $0.name == name
+                        }
+                    )
+                )
+
+                print("Context Singleton ID:", ObjectIdentifier(context))
+                tag?.forEach({ tag in
+                    print(tag.name)
+                })
+
+                if let tag = tag?.first {
+                    return tag
+                } else {
+                    let tag = Tag(name: name)
+                    return tag
+                }
+            }
+
+            print("Context Singleton ID:", ObjectIdentifier(context))
             context.insert(Snap(imagePath: path, tags: tagModels))
             try context.save()
         } catch {

@@ -38,7 +38,7 @@ final class SnapTagger {
                     // カンマ区切りを別々にする
                     let result = topResults.flatMap {
                         $0.split(separator: ",")
-                    }.map { String($0) }
+                    }.map { String($0).trimmingCharacters(in: .whitespaces) }
 
                     continuation.resume(returning: result)
                 } else if let error = error {
