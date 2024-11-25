@@ -32,10 +32,15 @@ final class SnapTagger {
             let request = VNCoreMLRequest(model: model) { request, error in
                 if let results = request.results as? [VNClassificationObservation] {
                     let topResults = results.prefix(3).map {
-                        // TODO: カンマ区切りのものは別々にする
-                        "\($0.identifier): \($0.confidence * 100)%"
+                        print("\($0.identifier): \($0.confidence * 100)%")
+                        return $0.identifier
                     }
-                    continuation.resume(returning: topResults)
+                    // カンマ区切りを別々にする
+                    let result = topResults.flatMap {
+                        $0.split(separator: ",")
+                    }.map { String($0) }
+
+                    continuation.resume(returning: result)
                 } else if let error = error {
                     continuation.resume(throwing: error)
                 } else {
