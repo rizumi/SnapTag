@@ -50,10 +50,6 @@ final class SnapRepository: SnapRepositoryProtocol {
                     )
                 )
 
-                tag?.forEach({ tag in
-                    print(tag.name)
-                })
-
                 if let tag = tag?.first {
                     return tag
                 } else {
