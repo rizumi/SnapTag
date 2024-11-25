@@ -48,7 +48,7 @@ struct SnapPickerView: View {
                 Spacer()
                 // TODO: OnAppearで写真選択開くようにする
                 PhotosPicker(selection: $viewModel.selectedItem, matching: .images) {
-                    Text("写真を選択")
+                    Text("Select Snap")
                         .frame(maxWidth: .infinity, minHeight: 44)
                         .background(.gray)
                         .foregroundStyle(.white)
@@ -60,7 +60,7 @@ struct SnapPickerView: View {
                     viewModel.onTapSave()
                     flow.dismiss(isCompleted: true)
                 } label: {
-                    Text("保存")
+                    Text("Save")
                         .frame(maxWidth: .infinity, minHeight: 44)
                         .background(.blue)
                         .foregroundStyle(.white)
