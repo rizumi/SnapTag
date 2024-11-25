@@ -41,7 +41,8 @@ final class SnapRepository: SnapRepositoryProtocol {
         do {
             // TODO: Imageのsaveを別にした方が良いか検討
             let path = try imageStorage.save(image: image, with: UUID().uuidString)
-            context.insert(Snap(imagePath: path, tags: []))
+            let tagModels = tags.map { Tag(name: $0) }
+            context.insert(Snap(imagePath: path, tags: tagModels))
             try context.save()
         } catch {
             print(error.localizedDescription)
