@@ -50,7 +50,6 @@ final class SnapRepository: SnapRepositoryProtocol {
                     )
                 )
 
-                print("Context Singleton ID:", ObjectIdentifier(context))
                 tag?.forEach({ tag in
                     print(tag.name)
                 })
@@ -63,7 +62,6 @@ final class SnapRepository: SnapRepositoryProtocol {
                 }
             }
 
-            print("Context Singleton ID:", ObjectIdentifier(context))
             context.insert(Snap(imagePath: path, tags: tagModels))
             try context.save()
         } catch {
