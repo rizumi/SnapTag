@@ -28,7 +28,8 @@ final class HomeViewCoordinator: Coordinator {
                 viewModel: .init(
                     snapRepository: SnapRepository(
                         context: AppModelContainer.shared.modelContext,
-                        imageStorage: LocalImageStorage())))
+                        imageStorage: LocalImageStorage()),
+                    tagRepository: TagRepository(context: AppModelContainer.shared.modelContext)))
         )
         let nav = UINavigationController(rootViewController: vc)
 

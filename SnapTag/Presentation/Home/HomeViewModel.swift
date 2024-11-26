@@ -12,9 +12,14 @@ import UIKit
 final class HomeViewModel: ObservableObject {
     @Published private(set) var snaps: [Snap] = []
     private let snapRepository: SnapRepositoryProtocol
+    private let tagRepository: TagRepositoryProtocol
 
-    init(snapRepository: SnapRepositoryProtocol) {
+    init(
+        snapRepository: SnapRepositoryProtocol,
+        tagRepository: TagRepositoryProtocol
+    ) {
         self.snapRepository = snapRepository
+        self.tagRepository = tagRepository
     }
 
     func refresh() {

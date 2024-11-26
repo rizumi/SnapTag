@@ -57,7 +57,9 @@ struct HomeView: View {
     // TODO: mockに差し替え
     let repo = SnapRepository(
         context: AppModelContainer.shared.modelContext, imageStorage: LocalImageStorage())
+    let tagRepo = TagRepository(
+        context: AppModelContainer.shared.modelContext)
     HomeView(
         flow: HomeViewCoordinator(window: .init()),
-        viewModel: .init(snapRepository: repo))
+        viewModel: .init(snapRepository: repo, tagRepository: tagRepo))
 }
