@@ -1,5 +1,5 @@
 //
-//  HomeView.swift
+//  SnapListView.swift
 //  SnapTag
 //
 //  Created by izumi on 2024/11/20.
@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct HomeView: View {
-    let flow: HomeViewFlow
-    @StateObject private var viewModel: HomeViewModel
+struct SnapListView: View {
+    let flow: SnapListViewFlow
+    @StateObject private var viewModel: SnapListViewModel
 
-    init(flow: HomeViewFlow, viewModel: HomeViewModel) {
+    init(flow: SnapListViewFlow, viewModel: SnapListViewModel) {
         self.flow = flow
         _viewModel = StateObject(wrappedValue: viewModel)
     }
@@ -59,7 +59,7 @@ struct HomeView: View {
         context: AppModelContainer.shared.modelContext, imageStorage: LocalImageStorage())
     let tagRepo = TagRepository(
         context: AppModelContainer.shared.modelContext)
-    HomeView(
-        flow: HomeViewCoordinator(window: .init()),
+    SnapListView(
+        flow: SnapListViewCoordinator(window: .init()),
         viewModel: .init(snapRepository: repo, tagRepository: tagRepo))
 }

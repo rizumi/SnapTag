@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         window.makeKeyAndVisible()
 
-        let coordinator = HomeViewCoordinator(window: window)
+        let coordinator = SnapListViewCoordinator(window: window)
         coordinator.start()
     }
 

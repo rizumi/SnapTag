@@ -1,5 +1,5 @@
 //
-//  RootViewCoordinator.swift
+//  SnapListViewCoordinator.swift
 //  SnapTag
 //
 //  Created by izumi on 2024/11/19.
@@ -9,11 +9,11 @@ import SwiftUI
 import UIKit
 
 @MainActor
-protocol HomeViewFlow {
+protocol SnapListViewFlow {
     func toSnapPicker(_ completion: @escaping () -> Void)
 }
 
-final class HomeViewCoordinator: Coordinator {
+final class SnapListViewCoordinator: Coordinator {
     private let window: UIWindow
     private var navigator: UINavigationController?
 
@@ -23,7 +23,7 @@ final class HomeViewCoordinator: Coordinator {
 
     func start() {
         let vc = UIHostingController(
-            rootView: HomeView(
+            rootView: SnapListView(
                 flow: self,
                 viewModel: .init(
                     snapRepository: SnapRepository(
@@ -38,7 +38,7 @@ final class HomeViewCoordinator: Coordinator {
     }
 }
 
-extension HomeViewCoordinator: HomeViewFlow {
+extension SnapListViewCoordinator: SnapListViewFlow {
     func toSnapPicker(_ completion: @escaping () -> Void) {
         guard let navigator else { return }
         let coordinator = SnapPickerViewCoordinator(navigator: navigator, completion: completion)
