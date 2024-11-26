@@ -32,8 +32,6 @@ final class SnapRepository: SnapRepositoryProtocol {
         return (try? context.fetch(FetchDescriptor<SnapModel>(sortBy: [sort]))) ?? []
     }
 
-    // TODO: タグによる絞り込みを追加
-
     func load(name: String) -> UIImage? {
         return imageStorage.loadImage(name: name)
     }

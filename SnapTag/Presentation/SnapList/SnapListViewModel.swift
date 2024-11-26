@@ -8,16 +8,11 @@
 import Foundation
 import UIKit
 
-struct TagContent {
-    var id: String
-    var name: String
-}
-
 @MainActor
 final class SnapListViewModel: ObservableObject {
     @Published private(set) var snaps: [SnapModel] = []
-    @Published private(set) var tags: [TagContent] = [.init(id: "", name: "all")]
-    @Published private(set) var selectedTag: TagContent? = nil
+    @Published private(set) var tags: [Tag] = [.init(id: "", name: "all")]
+    @Published private(set) var selectedTag: Tag? = nil
     private let snapRepository: SnapRepositoryProtocol
     private let tagRepository: TagRepositoryProtocol
 
@@ -43,7 +38,7 @@ final class SnapListViewModel: ObservableObject {
         return snapRepository.load(name: path)
     }
 
-    func onSelectedTag(_ tag: TagContent) {
+    func onSelectedTag(_ tag: Tag) {
 
     }
 }
