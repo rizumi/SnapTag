@@ -8,6 +8,7 @@
 import SwiftData
 import UIKit
 
+/// @mockable
 protocol SnapRepositoryProtocol {
     func fetch() -> [Snap]
     func load(name: String) -> UIImage?

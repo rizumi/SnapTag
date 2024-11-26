@@ -7,6 +7,7 @@
 
 import SwiftData
 
+/// @mockable
 protocol TagRepositoryProtocol {
     func fetch() -> [Tag]
 }
