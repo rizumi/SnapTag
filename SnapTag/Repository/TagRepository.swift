@@ -22,7 +22,7 @@ final class TagRepository: TagRepositoryProtocol {
     }
 
     func fetch() -> [TagContent] {
-        let tags = (try? context.fetch(FetchDescriptor<Tag>())) ?? []
+        let tags = (try? context.fetch(FetchDescriptor<TagModel>())) ?? []
         return tags.map { .init(id: $0.id, name: $0.name) }
     }
 }

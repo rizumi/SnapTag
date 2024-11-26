@@ -10,7 +10,7 @@ import UIKit
 
 /// @mockable
 protocol SnapRepositoryProtocol {
-    func fetch() -> [Snap]
+    func fetch() -> [SnapModel]
     func load(name: String) -> UIImage?
     func save(_ image: UIImage, tagNames: [String])
 }
@@ -27,9 +27,9 @@ final class SnapRepository: SnapRepositoryProtocol {
         self.imageStorage = imageStorage
     }
 
-    func fetch() -> [Snap] {
-        let sort = SortDescriptor(\Snap.imagePath)
-        return (try? context.fetch(FetchDescriptor<Snap>(sortBy: [sort]))) ?? []
+    func fetch() -> [SnapModel] {
+        let sort = SortDescriptor(\SnapModel.imagePath)
+        return (try? context.fetch(FetchDescriptor<SnapModel>(sortBy: [sort]))) ?? []
     }
 
     // TODO: タグによる絞り込みを追加
@@ -44,7 +44,7 @@ final class SnapRepository: SnapRepositoryProtocol {
             let path = try imageStorage.save(image: image, with: UUID().uuidString)
             let tagModels = tagNames.map { name in
                 let tag = try? context.fetch(
-                    FetchDescriptor<Tag>(
+                    FetchDescriptor<TagModel>(
                         predicate: #Predicate {
                             $0.name == name
                         }
@@ -54,12 +54,12 @@ final class SnapRepository: SnapRepositoryProtocol {
                 if let tag = tag?.first {
                     return tag
                 } else {
-                    let tag = Tag(name: name)
+                    let tag = TagModel(name: name)
                     return tag
                 }
             }
 
-            context.insert(Snap(imagePath: path, tags: tagModels))
+            context.insert(SnapModel(imagePath: path, tags: tagModels))
             try context.save()
         } catch {
             print(error.localizedDescription)

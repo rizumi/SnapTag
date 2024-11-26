@@ -15,8 +15,7 @@ struct TagContent {
 
 @MainActor
 final class SnapListViewModel: ObservableObject {
-    private let allTag = "all"
-    @Published private(set) var snaps: [Snap] = []
+    @Published private(set) var snaps: [SnapModel] = []
     @Published private(set) var tags: [TagContent] = [.init(id: "", name: "all")]
     @Published private(set) var selectedTag: TagContent? = nil
     private let snapRepository: SnapRepositoryProtocol
