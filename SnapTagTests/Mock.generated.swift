@@ -29,13 +29,13 @@ final class SnapRepositoryProtocolMock: SnapRepositoryProtocol {
 
 
     private(set) var fetchCallCount = 0
-    var fetchHandler: (() -> ([SnapModel]))?
-    func fetch() -> [SnapModel] {
+    var fetchHandler: (() -> ([Snap]))?
+    func fetch() -> [Snap] {
         fetchCallCount += 1
         if let fetchHandler = fetchHandler {
             return fetchHandler()
         }
-        return [SnapModel]()
+        return [Snap]()
     }
 
     private(set) var loadCallCount = 0

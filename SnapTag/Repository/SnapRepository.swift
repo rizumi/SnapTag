@@ -10,7 +10,7 @@ import UIKit
 
 /// @mockable
 protocol SnapRepositoryProtocol {
-    func fetch() -> [SnapModel]
+    func fetch() -> [Snap]
     func load(name: String) -> UIImage?
     func save(_ image: UIImage, tagNames: [String])
 }
@@ -27,9 +27,15 @@ final class SnapRepository: SnapRepositoryProtocol {
         self.imageStorage = imageStorage
     }
 
-    func fetch() -> [SnapModel] {
+    func fetch() -> [Snap] {
         let sort = SortDescriptor(\SnapModel.imagePath)
-        return (try? context.fetch(FetchDescriptor<SnapModel>(sortBy: [sort]))) ?? []
+        let models = (try? context.fetch(FetchDescriptor<SnapModel>(sortBy: [sort]))) ?? []
+        // TODO: タグ生成を分離してリファクタ
+        return models.map {
+            .init(
+                id: $0.id, imagePath: $0.imagePath,
+                tags: $0.tags.map { .init(id: $0.id, name: $0.name) })
+        }
     }
 
     func load(name: String) -> UIImage? {

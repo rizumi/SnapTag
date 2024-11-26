@@ -24,6 +24,7 @@ struct SnapListView: View {
                         ForEach(viewModel.tags, id: \.id) { tag in
                             Button {
                                 print("onTap \(tag.name)")
+                                viewModel.onSelectedTag(tag)
                             } label: {
                                 Text(tag.name)
                                     .padding(8)
@@ -42,7 +43,7 @@ struct SnapListView: View {
                         columns: Array(repeating: .init(.flexible(), spacing: 2), count: 3),
                         spacing: 2
                     ) {
-                        ForEach(viewModel.snaps) { snap in
+                        ForEach(viewModel.snaps, id: \.id) { snap in
                             if let image = viewModel.loadImage(path: snap.imagePath) {
                                 Color.gray
                                     .aspectRatio(1, contentMode: .fill)

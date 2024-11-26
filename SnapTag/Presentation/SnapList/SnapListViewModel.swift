@@ -10,11 +10,12 @@ import UIKit
 
 @MainActor
 final class SnapListViewModel: ObservableObject {
-    @Published private(set) var snaps: [SnapModel] = []
+    @Published private(set) var snaps: [Snap] = []
     @Published private(set) var tags: [Tag] = [.init(id: "", name: "all")]
     @Published private(set) var selectedTag: Tag? = nil
     private let snapRepository: SnapRepositoryProtocol
     private let tagRepository: TagRepositoryProtocol
+    private var allSnaps: [Snap] = []
 
     init(
         snapRepository: SnapRepositoryProtocol,
@@ -25,8 +26,9 @@ final class SnapListViewModel: ObservableObject {
     }
 
     func refresh() {
-        snaps = snapRepository.fetch()
-        tags += tagRepository.fetch()
+        allSnaps = snapRepository.fetch()
+        snaps = allSnaps
+        tags = tagRepository.fetch()
 
         tags.forEach { tag in
             print(tag.id)
@@ -39,6 +41,12 @@ final class SnapListViewModel: ObservableObject {
     }
 
     func onSelectedTag(_ tag: Tag) {
+        selectedTag = tag
+        snaps = allSnaps.filter { $0.tags.contains(tag) }
+    }
 
+    func onSelectedAll() {
+        selectedTag = nil
+        snaps = allSnaps
     }
 }
