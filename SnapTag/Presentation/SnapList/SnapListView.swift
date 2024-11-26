@@ -18,27 +18,48 @@ struct SnapListView: View {
 
     var body: some View {
         ZStack {
-            ScrollView {
-                LazyVGrid(
-                    columns: Array(repeating: .init(.flexible(), spacing: 2), count: 3), spacing: 2
-                ) {
-                    ForEach(viewModel.snaps) { snap in
-                        if let image = viewModel.loadImage(path: snap.imagePath) {
-                            Color.gray
-                                .aspectRatio(1, contentMode: .fill)
-                                .overlay {
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .scaledToFill()
-                                        .clipped()
-                                }
-                                .clipped()
-                                .contentShape(Rectangle())
+            VStack {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(viewModel.tags) { tag in
+                            Button {
+                                print("onTap \(tag.name)")
+                            } label: {
+                                Text(tag.name)
+                                    .padding(8)
+                                    .background(Color.blue.opacity(0.2))
+                                    .foregroundStyle(Color.black)
+                                    .cornerRadius(8)
+                                    .lineLimit(1)
+
+                            }
                         }
                     }
+                    .padding(.horizontal)
                 }
-                .animation(.easeInOut, value: viewModel.snaps)
-                .padding(.bottom, 80)  // 最後の項目とActionButtonが被らないようにするための余白
+                ScrollView {
+                    LazyVGrid(
+                        columns: Array(repeating: .init(.flexible(), spacing: 2), count: 3),
+                        spacing: 2
+                    ) {
+                        ForEach(viewModel.snaps) { snap in
+                            if let image = viewModel.loadImage(path: snap.imagePath) {
+                                Color.gray
+                                    .aspectRatio(1, contentMode: .fill)
+                                    .overlay {
+                                        Image(uiImage: image)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .clipped()
+                                    }
+                                    .clipped()
+                                    .contentShape(Rectangle())
+                            }
+                        }
+                    }
+                    .animation(.easeInOut, value: viewModel.snaps)
+                    .padding(.bottom, 80)  // 最後の項目とActionButtonが被らないようにするための余白
+                }
             }
 
             FloatingActionButton {

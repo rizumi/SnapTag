@@ -8,9 +8,14 @@
 import Foundation
 import UIKit
 
+struct TagContent {
+    var name: String
+}
+
 @MainActor
 final class SnapListViewModel: ObservableObject {
     @Published private(set) var snaps: [Snap] = []
+    @Published private(set) var tags: [Tag] = []
     private let snapRepository: SnapRepositoryProtocol
     private let tagRepository: TagRepositoryProtocol
 
@@ -24,9 +29,8 @@ final class SnapListViewModel: ObservableObject {
 
     func refresh() {
         snaps = snapRepository.fetch()
+        tags = tagRepository.fetch()
 
-        let repo = TagRepository(context: AppModelContainer.shared.modelContext)
-        let tags = repo.fetch()
         tags.forEach { tag in
             print(tag.name)
             print(tag.snaps.map { $0.imagePath })
