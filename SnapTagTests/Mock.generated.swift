@@ -14,13 +14,13 @@ final class TagRepositoryProtocolMock: TagRepositoryProtocol {
 
 
     private(set) var fetchCallCount = 0
-    var fetchHandler: (() -> ([Tag]))?
-    func fetch() -> [Tag] {
+    var fetchHandler: (() -> ([TagContent]))?
+    func fetch() -> [TagContent] {
         fetchCallCount += 1
         if let fetchHandler = fetchHandler {
             return fetchHandler()
         }
-        return [Tag]()
+        return [TagContent]()
     }
 }
 

@@ -9,7 +9,7 @@ import SwiftData
 
 /// @mockable
 protocol TagRepositoryProtocol {
-    func fetch() -> [Tag]
+    func fetch() -> [TagContent]
 }
 
 final class TagRepository: TagRepositoryProtocol {
@@ -21,7 +21,8 @@ final class TagRepository: TagRepositoryProtocol {
         self.context = context
     }
 
-    func fetch() -> [Tag] {
-        return (try? context.fetch(FetchDescriptor<Tag>())) ?? []
+    func fetch() -> [TagContent] {
+        let tags = (try? context.fetch(FetchDescriptor<Tag>())) ?? []
+        return tags.map { .init(name: $0.name) }
     }
 }

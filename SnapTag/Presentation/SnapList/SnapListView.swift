@@ -21,7 +21,7 @@ struct SnapListView: View {
             VStack {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
-                        ForEach(viewModel.tags) { tag in
+                        ForEach(viewModel.tags, id: \.name) { tag in
                             Button {
                                 print("onTap \(tag.name)")
                             } label: {

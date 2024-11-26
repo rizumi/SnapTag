@@ -14,8 +14,10 @@ struct TagContent {
 
 @MainActor
 final class SnapListViewModel: ObservableObject {
+    private let allTag = "all"
     @Published private(set) var snaps: [Snap] = []
-    @Published private(set) var tags: [Tag] = []
+    @Published private(set) var tags: [TagContent] = [.init(name: "all")]
+    @Published private(set) var selectedTag: TagContent? = nil
     private let snapRepository: SnapRepositoryProtocol
     private let tagRepository: TagRepositoryProtocol
 
@@ -33,7 +35,6 @@ final class SnapListViewModel: ObservableObject {
 
         tags.forEach { tag in
             print(tag.name)
-            print(tag.snaps.map { $0.imagePath })
         }
     }
 
