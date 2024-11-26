@@ -35,9 +35,9 @@ final class SnapTagger {
                         print("\($0.identifier): \($0.confidence * 100)%")
                         return $0.identifier
                     }
-                    // カンマ区切りを別々にする
-                    let result = topResults.flatMap {
-                        $0.split(separator: ",")
+                    // カンマ区切りで類似単語が入っているので先頭だけ取得する
+                    let result = topResults.compactMap {
+                        $0.split(separator: ",").first
                     }.map { String($0).trimmingCharacters(in: .whitespaces) }
 
                     continuation.resume(returning: result)

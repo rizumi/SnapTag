@@ -6,9 +6,11 @@
 //
 
 import SwiftData
+import Foundation
 
 @Model
 final class Snap {
+    @Attribute(.unique) private(set) var id: String = UUID().uuidString
     private(set) var imagePath: String
 
     // iOS17ではRelationshipをoptionalにしないとinsert時にcrashする

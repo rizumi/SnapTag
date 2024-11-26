@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 struct TagContent {
+    var id: String
     var name: String
 }
 
@@ -16,7 +17,7 @@ struct TagContent {
 final class SnapListViewModel: ObservableObject {
     private let allTag = "all"
     @Published private(set) var snaps: [Snap] = []
-    @Published private(set) var tags: [TagContent] = [.init(name: "all")]
+    @Published private(set) var tags: [TagContent] = [.init(id: "", name: "all")]
     @Published private(set) var selectedTag: TagContent? = nil
     private let snapRepository: SnapRepositoryProtocol
     private let tagRepository: TagRepositoryProtocol
@@ -31,14 +32,19 @@ final class SnapListViewModel: ObservableObject {
 
     func refresh() {
         snaps = snapRepository.fetch()
-        tags = tagRepository.fetch()
+        tags += tagRepository.fetch()
 
         tags.forEach { tag in
+            print(tag.id)
             print(tag.name)
         }
     }
 
     func loadImage(path: String) -> UIImage? {
         return snapRepository.load(name: path)
+    }
+
+    func onSelectedTag(_ tag: TagContent) {
+
     }
 }
