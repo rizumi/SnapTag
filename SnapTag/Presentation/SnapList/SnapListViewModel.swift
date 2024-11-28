@@ -29,11 +29,6 @@ final class SnapListViewModel: ObservableObject {
         allSnaps = snapRepository.fetch()
         snaps = allSnaps
         tags = tagRepository.fetch()
-
-        tags.forEach { tag in
-            print(tag.id)
-            print(tag.name)
-        }
     }
 
     func loadImage(path: String) -> UIImage? {
