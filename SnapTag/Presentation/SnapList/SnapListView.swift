@@ -26,7 +26,7 @@ struct SnapListView: View {
                         } label: {
                             Text("all")
                                 .padding(8)
-                                .background(Color.blue.opacity(0.2))
+                                .background(tagColor(nil))
                                 .foregroundStyle(Color.black)
                                 .cornerRadius(8)
                                 .lineLimit(1)
@@ -38,11 +38,10 @@ struct SnapListView: View {
                             } label: {
                                 Text(tag.name)
                                     .padding(8)
-                                    .background(Color.blue.opacity(0.2))
+                                    .background(tagColor(tag))
                                     .foregroundStyle(Color.black)
                                     .cornerRadius(8)
                                     .lineLimit(1)
-
                             }
                         }
                     }
@@ -83,6 +82,15 @@ struct SnapListView: View {
             viewModel.refresh()
         }
     }
+
+    private func tagColor(_ tag: Tag?) -> Color {
+        if tag == viewModel.selectedTag {
+            return Color.red.opacity(0.2)
+        } else {
+            return Color.blue.opacity(0.2)
+        }
+    }
+
 }
 
 #Preview {
