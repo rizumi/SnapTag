@@ -25,6 +25,12 @@ final class TagRepositoryProtocolMock: TagRepositoryProtocol {
     }
 }
 
+final class SnapDetailViewFlowMock: SnapDetailViewFlow {
+    init() { }
+
+
+}
+
 final class SnapRepositoryProtocolMock: SnapRepositoryProtocol {
     init() { }
 
@@ -70,6 +76,16 @@ final class SnapListViewFlowMock: SnapListViewFlow {
         toSnapPickerCallCount += 1
         if let toSnapPickerHandler = toSnapPickerHandler {
             toSnapPickerHandler(completion)
+        }
+        
+    }
+
+    private(set) var toSnapDetailCallCount = 0
+    var toSnapDetailHandler: (() -> ())?
+    func toSnapDetail()  {
+        toSnapDetailCallCount += 1
+        if let toSnapDetailHandler = toSnapDetailHandler {
+            toSnapDetailHandler()
         }
         
     }

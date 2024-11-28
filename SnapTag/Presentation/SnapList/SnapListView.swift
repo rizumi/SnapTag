@@ -53,7 +53,7 @@ struct SnapListView: View {
                         ForEach(viewModel.snaps, id: \.id) { snap in
                             if let image = viewModel.loadImage(path: snap.imagePath) {
                                 Button {
-                                    print("onSelectedSnap")
+                                    viewModel.onSelectSnap()
                                 } label: {
                                     Color.gray
                                         .aspectRatio(1, contentMode: .fill)

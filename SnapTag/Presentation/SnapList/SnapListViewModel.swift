@@ -56,4 +56,8 @@ final class SnapListViewModel: ObservableObject {
             self?.refresh()
         }
     }
+
+    func onSelectSnap() {
+        flow.toSnapDetail()
+    }
 }
