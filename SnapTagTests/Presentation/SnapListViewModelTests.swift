@@ -6,45 +6,111 @@
 //
 
 import Testing
+
 @testable import SnapTag
 
 @MainActor
 struct SnapListViewModelTests {
 
-    @Test func testOnSelectedTag() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
-        
+    @Test("RefreshでSnapとTagの一覧が取得されること")
+    func testRefresh() async throws {
         // Arrange
         let snapRepository = SnapRepositoryProtocolMock()
         let tagRepository = TagRepositoryProtocolMock()
-        
+
         let tagA = Tag(id: "1", name: "a")
         let tagB = Tag(id: "2", name: "b")
         let tagC = Tag(id: "2", name: "c")
-        
+
         let snapA = Snap(id: "1", imagePath: "", tags: [tagA])
         let snapB = Snap(id: "2", imagePath: "", tags: [tagA, tagB])
         let snapC = Snap(id: "3", imagePath: "", tags: [tagB])
         let snapD = Snap(id: "4", imagePath: "", tags: [tagC])
 
-        let snaps: [Snap] = {
-            return [
-                snapA, snapB, snapC, snapD
-            ]
-        }()
-        
-        snapRepository.fetchHandler = {
-            return snaps
+        tagRepository.fetchHandler = {
+            return [tagA, tagB, tagC]
         }
-        
-        let viewModel = SnapListViewModel(snapRepository: snapRepository, tagRepository: tagRepository)
-        viewModel.refresh()
-        
+        snapRepository.fetchHandler = {
+            return [snapA, snapB, snapC, snapD]
+        }
+
+        let viewModel = SnapListViewModel(
+            snapRepository: snapRepository, tagRepository: tagRepository)
+
         // Act
-        viewModel.onSelectedTag(tagA)
-        
+        viewModel.refresh()
+
         // Assert
+        #expect(viewModel.tags == [tagA, tagB, tagC])
+        #expect(viewModel.snaps == [snapA, snapB, snapC, snapD])
+    }
+
+    @Test("タグ選択時に該当タグを含むSnapに絞り込まれること")
+    func testOnSelectedTag() async throws {
+        // Arrange
+        let snapRepository = SnapRepositoryProtocolMock()
+        let tagRepository = TagRepositoryProtocolMock()
+
+        let tagA = Tag(id: "1", name: "a")
+        let tagB = Tag(id: "2", name: "b")
+        let tagC = Tag(id: "2", name: "c")
+
+        let snapA = Snap(id: "1", imagePath: "", tags: [tagA])
+        let snapB = Snap(id: "2", imagePath: "", tags: [tagA, tagB])
+        let snapC = Snap(id: "3", imagePath: "", tags: [tagB])
+        let snapD = Snap(id: "4", imagePath: "", tags: [tagC])
+
+        tagRepository.fetchHandler = {
+            return [tagA, tagB, tagC]
+        }
+        snapRepository.fetchHandler = {
+            return [snapA, snapB, snapC, snapD]
+        }
+
+        let viewModel = SnapListViewModel(
+            snapRepository: snapRepository, tagRepository: tagRepository)
+
+        // Act
+        viewModel.refresh()
+        viewModel.onSelectedTag(tagA)
+
+        // Assert
+        #expect(viewModel.selectedTag == tagA)
         #expect(viewModel.snaps == [snapA, snapB])
     }
 
+    @Test("すべてを選択時にタグ選択がリセットされること")
+    func testOnSelectedAll() async throws {
+        // Arrange
+        let snapRepository = SnapRepositoryProtocolMock()
+        let tagRepository = TagRepositoryProtocolMock()
+
+        let tagA = Tag(id: "1", name: "a")
+        let tagB = Tag(id: "2", name: "b")
+        let tagC = Tag(id: "2", name: "c")
+
+        let snapA = Snap(id: "1", imagePath: "", tags: [tagA])
+        let snapB = Snap(id: "2", imagePath: "", tags: [tagA, tagB])
+        let snapC = Snap(id: "3", imagePath: "", tags: [tagB])
+        let snapD = Snap(id: "4", imagePath: "", tags: [tagC])
+
+        tagRepository.fetchHandler = {
+            return [tagA, tagB, tagC]
+        }
+        snapRepository.fetchHandler = {
+            return [snapA, snapB, snapC, snapD]
+        }
+
+        let viewModel = SnapListViewModel(
+            snapRepository: snapRepository, tagRepository: tagRepository)
+
+        // Act
+        viewModel.refresh()
+        viewModel.onSelectedTag(tagA)
+        viewModel.onSelectedAll()
+
+        // Assert
+        #expect(viewModel.selectedTag == tagA)
+        #expect(viewModel.snaps == [snapA, snapB])
+    }
 }

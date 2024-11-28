@@ -265,7 +265,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "swift format -i -r SnapTag\n";
+			shellScript = "swift format -i -r SnapTag SnapTagTests\n";
 		};
 		FDAACC722CF610FB004EA36D /* Update Mock */ = {
 			isa = PBXShellScriptBuildPhase;
