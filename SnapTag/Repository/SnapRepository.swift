@@ -66,6 +66,7 @@ final class SnapRepository: SnapRepositoryProtocol {
             context.insert(SnapModel(imagePath: path, tags: tagModels))
             try context.save()
         } catch {
+            // TODO: Error Handling
             print(error.localizedDescription)
         }
     }

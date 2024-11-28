@@ -17,6 +17,7 @@ final class SnapPickerViewModel: ObservableObject {
     @Published var selectedImage: UIImage?
     @Published var selectedItem: PhotosPickerItem?
     @Published var tags: [String] = []
+    @Published var presentedPhotosPicker = false
 
     private let snapRepository: SnapRepositoryProtocol
 
@@ -39,13 +40,23 @@ final class SnapPickerViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
+    func onAppear() {
+        presentedPhotosPicker = true
+    }
+
+    func onTapSelectSnap() {
+        presentedPhotosPicker = true
+    }
+
     func onTapSave() {
         guard let image = selectedImage else {
             print("image not selected")
+            // TODO: Dialog表示
             return
         }
 
         snapRepository.save(image, tagNames: tags)
+        flow.dismiss(isCompleted: true)
     }
 
     private func onChangeSelectedItem(item: PhotosPickerItem) {
@@ -63,8 +74,6 @@ final class SnapPickerViewModel: ObservableObject {
                     // TODO: SnapTaggerをDIする
                     let snapTagger = SnapTagger()
                     tags = try await snapTagger.generateTags(from: uiImage)
-
-                    flow.dismiss(isCompleted: true)
                 }
             } catch {
                 // TODO error表示

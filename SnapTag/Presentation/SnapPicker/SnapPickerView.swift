@@ -44,8 +44,10 @@ struct SnapPickerView: View {
                 .padding()
 
                 Spacer()
-                // TODO: OnAppearで写真選択開くようにする
-                PhotosPicker(selection: $viewModel.selectedItem, matching: .images) {
+
+                Button {
+                    viewModel.onTapSelectSnap()
+                } label: {
                     Text("Select Snap")
                         .frame(maxWidth: .infinity, minHeight: 44)
                         .background(.gray)
@@ -66,6 +68,13 @@ struct SnapPickerView: View {
                 .buttonStyle(InteractiveButtonStyle())
             }
         }
+        .onAppear {
+            viewModel.onAppear()
+        }
+        .photosPicker(
+            isPresented: $viewModel.presentedPhotosPicker, selection: $viewModel.selectedItem,
+            matching: .images
+        )
         .padding(.vertical)
     }
 
