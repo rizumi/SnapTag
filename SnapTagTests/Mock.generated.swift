@@ -75,3 +75,18 @@ final class SnapListViewFlowMock: SnapListViewFlow {
     }
 }
 
+final class SnapPickerViewFlowMock: SnapPickerViewFlow {
+    init() { }
+
+
+    private(set) var dismissCallCount = 0
+    var dismissHandler: ((Bool) -> ())?
+    func dismiss(isCompleted: Bool)  {
+        dismissCallCount += 1
+        if let dismissHandler = dismissHandler {
+            dismissHandler(isCompleted)
+        }
+        
+    }
+}
+

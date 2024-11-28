@@ -20,10 +20,16 @@ final class SnapPickerViewModel: ObservableObject {
 
     private let snapRepository: SnapRepositoryProtocol
 
+    private let flow: SnapPickerViewFlow
+
     private var cancellables: Set<AnyCancellable> = []
 
-    init(snapRepository: SnapRepositoryProtocol) {
+    init(
+        snapRepository: SnapRepositoryProtocol,
+        flow: SnapPickerViewFlow
+    ) {
         self.snapRepository = snapRepository
+        self.flow = flow
 
         $selectedItem
             .compactMap { $0 }
@@ -57,6 +63,8 @@ final class SnapPickerViewModel: ObservableObject {
                     // TODO: SnapTaggerをDIする
                     let snapTagger = SnapTagger()
                     tags = try await snapTagger.generateTags(from: uiImage)
+
+                    flow.dismiss(isCompleted: true)
                 }
             } catch {
                 // TODO error表示

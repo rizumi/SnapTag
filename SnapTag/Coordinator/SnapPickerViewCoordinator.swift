@@ -8,6 +8,7 @@
 import SwiftUI
 import UIKit
 
+/// @mockable
 @MainActor
 protocol SnapPickerViewFlow {
     func dismiss(isCompleted: Bool)
@@ -28,8 +29,9 @@ final class SnapPickerViewCoordinator: Coordinator {
                 viewModel: .init(
                     snapRepository: SnapRepository(
                         context: AppModelContainer.shared.modelContext,
-                        imageStorage: LocalImageStorage())),
-                flow: self)
+                        imageStorage: LocalImageStorage()),
+                    flow: self)
+            )
         )
         navigator.present(vc, animated: true)
     }

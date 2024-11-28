@@ -10,11 +10,9 @@ import SwiftUI
 
 struct SnapPickerView: View {
     @StateObject var viewModel: SnapPickerViewModel
-    let flow: any SnapPickerViewFlow
 
-    init(viewModel: SnapPickerViewModel, flow: any SnapPickerViewFlow) {
+    init(viewModel: SnapPickerViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
-        self.flow = flow
     }
 
     var body: some View {
@@ -58,7 +56,6 @@ struct SnapPickerView: View {
 
                 Button {
                     viewModel.onTapSave()
-                    flow.dismiss(isCompleted: true)
                 } label: {
                     Text("Save")
                         .frame(maxWidth: .infinity, minHeight: 44)
@@ -83,7 +80,9 @@ struct SnapPickerView: View {
     // TODO: mockに差し替え
     let repo = SnapRepository(
         context: AppModelContainer.shared.modelContext, imageStorage: LocalImageStorage())
+    let flow = SnapPickerViewCoordinator(navigator: .init(), completion: {})
+
     SnapPickerView(
-        viewModel: .init(snapRepository: repo),
-        flow: SnapPickerViewCoordinator(navigator: .init(), completion: {}))
+        viewModel: .init(snapRepository: repo, flow: flow)
+    )
 }
