@@ -21,9 +21,19 @@ struct SnapListView: View {
             VStack {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
+                        Button {
+                            viewModel.onSelectedAll()
+                        } label: {
+                            Text("all")
+                                .padding(8)
+                                .background(Color.blue.opacity(0.2))
+                                .foregroundStyle(Color.black)
+                                .cornerRadius(8)
+                                .lineLimit(1)
+                        }
+
                         ForEach(viewModel.tags, id: \.id) { tag in
                             Button {
-                                print("onTap \(tag.name)")
                                 viewModel.onSelectedTag(tag)
                             } label: {
                                 Text(tag.name)
