@@ -14,13 +14,6 @@
 			remoteGlobalIDString = FD98D01C2CECE305007C6B5C;
 			remoteInfo = SnapTag;
 		};
-		FD98D03E2CECE306007C6B5C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FD98D0152CECE305007C6B5C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = FD98D01C2CECE305007C6B5C;
-			remoteInfo = SnapTag;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -63,13 +56,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FD98D0302CECE306007C6B5C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FD98D03A2CECE306007C6B5C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -165,10 +151,6 @@
 						CreatedOnToolsVersion = 16.1;
 						TestTargetID = FD98D01C2CECE305007C6B5C;
 					};
-					FD98D03C2CECE306007C6B5C = {
-						CreatedOnToolsVersion = 16.1;
-						TestTargetID = FD98D01C2CECE305007C6B5C;
-					};
 				};
 			};
 			buildConfigurationList = FD98D0182CECE305007C6B5C /* Build configuration list for PBXProject "SnapTag" */;
@@ -201,13 +183,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FD98D0312CECE306007C6B5C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FD98D03B2CECE306007C6B5C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -291,13 +266,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FD98D0392CECE306007C6B5C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -305,11 +273,6 @@
 			isa = PBXTargetDependency;
 			target = FD98D01C2CECE305007C6B5C /* SnapTag */;
 			targetProxy = FD98D0342CECE306007C6B5C /* PBXContainerItemProxy */;
-		};
-		FD98D03F2CECE306007C6B5C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = FD98D01C2CECE305007C6B5C /* SnapTag */;
-			targetProxy = FD98D03E2CECE306007C6B5C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
