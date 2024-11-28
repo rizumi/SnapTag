@@ -17,6 +17,7 @@ struct SnapListViewModelTests {
         // Arrange
         let snapRepository = SnapRepositoryProtocolMock()
         let tagRepository = TagRepositoryProtocolMock()
+        let flow = SnapListViewFlowMock()
 
         let tagA = Tag(id: "1", name: "a")
         let tagB = Tag(id: "2", name: "b")
@@ -35,7 +36,7 @@ struct SnapListViewModelTests {
         }
 
         let viewModel = SnapListViewModel(
-            snapRepository: snapRepository, tagRepository: tagRepository)
+            snapRepository: snapRepository, tagRepository: tagRepository, flow: flow)
 
         // Act
         viewModel.refresh()
@@ -50,6 +51,7 @@ struct SnapListViewModelTests {
         // Arrange
         let snapRepository = SnapRepositoryProtocolMock()
         let tagRepository = TagRepositoryProtocolMock()
+        let flow = SnapListViewFlowMock()
 
         let tagA = Tag(id: "1", name: "a")
         let tagB = Tag(id: "2", name: "b")
@@ -68,7 +70,7 @@ struct SnapListViewModelTests {
         }
 
         let viewModel = SnapListViewModel(
-            snapRepository: snapRepository, tagRepository: tagRepository)
+            snapRepository: snapRepository, tagRepository: tagRepository, flow: flow)
 
         // Act
         viewModel.refresh()
@@ -84,6 +86,7 @@ struct SnapListViewModelTests {
         // Arrange
         let snapRepository = SnapRepositoryProtocolMock()
         let tagRepository = TagRepositoryProtocolMock()
+        let flow = SnapListViewFlowMock()
 
         let tagA = Tag(id: "1", name: "a")
         let tagB = Tag(id: "2", name: "b")
@@ -102,7 +105,7 @@ struct SnapListViewModelTests {
         }
 
         let viewModel = SnapListViewModel(
-            snapRepository: snapRepository, tagRepository: tagRepository)
+            snapRepository: snapRepository, tagRepository: tagRepository, flow: flow)
 
         // Act
         viewModel.refresh()

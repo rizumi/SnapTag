@@ -8,11 +8,9 @@
 import SwiftUI
 
 struct SnapListView: View {
-    let flow: SnapListViewFlow
     @StateObject private var viewModel: SnapListViewModel
 
-    init(flow: SnapListViewFlow, viewModel: SnapListViewModel) {
-        self.flow = flow
+    init(viewModel: SnapListViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
 
@@ -54,16 +52,20 @@ struct SnapListView: View {
                     ) {
                         ForEach(viewModel.snaps, id: \.id) { snap in
                             if let image = viewModel.loadImage(path: snap.imagePath) {
-                                Color.gray
-                                    .aspectRatio(1, contentMode: .fill)
-                                    .overlay {
-                                        Image(uiImage: image)
-                                            .resizable()
-                                            .scaledToFill()
-                                            .clipped()
-                                    }
-                                    .clipped()
-                                    .contentShape(Rectangle())
+                                Button {
+                                    print("onSelectedSnap")
+                                } label: {
+                                    Color.gray
+                                        .aspectRatio(1, contentMode: .fill)
+                                        .overlay {
+                                            Image(uiImage: image)
+                                                .resizable()
+                                                .scaledToFill()
+                                                .clipped()
+                                        }
+                                        .clipped()
+                                        .contentShape(Rectangle())
+                                }
                             }
                         }
                     }
@@ -73,9 +75,7 @@ struct SnapListView: View {
             }
 
             FloatingActionButton {
-                flow.toSnapPicker {
-                    viewModel.refresh()
-                }
+                viewModel.onTapActionButton()
             }
         }
         .onAppear {
@@ -99,7 +99,7 @@ struct SnapListView: View {
         context: AppModelContainer.shared.modelContext, imageStorage: LocalImageStorage())
     let tagRepo = TagRepository(
         context: AppModelContainer.shared.modelContext)
+    let flow = SnapListViewCoordinator(window: .init())
     SnapListView(
-        flow: SnapListViewCoordinator(window: .init()),
-        viewModel: .init(snapRepository: repo, tagRepository: tagRepo))
+        viewModel: .init(snapRepository: repo, tagRepository: tagRepo, flow: flow))
 }

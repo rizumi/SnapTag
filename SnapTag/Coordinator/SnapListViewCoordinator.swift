@@ -8,6 +8,7 @@
 import SwiftUI
 import UIKit
 
+/// @mockable
 @MainActor
 protocol SnapListViewFlow {
     func toSnapPicker(_ completion: @escaping () -> Void)
@@ -24,12 +25,13 @@ final class SnapListViewCoordinator: Coordinator {
     func start() {
         let vc = UIHostingController(
             rootView: SnapListView(
-                flow: self,
                 viewModel: .init(
                     snapRepository: SnapRepository(
                         context: AppModelContainer.shared.modelContext,
                         imageStorage: LocalImageStorage()),
-                    tagRepository: TagRepository(context: AppModelContainer.shared.modelContext)))
+                    tagRepository: TagRepository(context: AppModelContainer.shared.modelContext),
+                    flow: self
+                ))
         )
         let nav = UINavigationController(rootViewController: vc)
 

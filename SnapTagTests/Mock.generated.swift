@@ -5,6 +5,7 @@
 
 
 import SwiftData
+import SwiftUI
 import UIKit
 @testable import SnapTag
 
@@ -54,6 +55,21 @@ final class SnapRepositoryProtocolMock: SnapRepositoryProtocol {
         saveCallCount += 1
         if let saveHandler = saveHandler {
             saveHandler(image, tagNames)
+        }
+        
+    }
+}
+
+final class SnapListViewFlowMock: SnapListViewFlow {
+    init() { }
+
+
+    private(set) var toSnapPickerCallCount = 0
+    var toSnapPickerHandler: ((@escaping () -> Void) -> ())?
+    func toSnapPicker(_ completion: @escaping () -> Void)  {
+        toSnapPickerCallCount += 1
+        if let toSnapPickerHandler = toSnapPickerHandler {
+            toSnapPickerHandler(completion)
         }
         
     }
