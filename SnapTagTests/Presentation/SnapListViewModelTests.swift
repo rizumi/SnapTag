@@ -110,7 +110,7 @@ struct SnapListViewModelTests {
         viewModel.onSelectedAll()
 
         // Assert
-        #expect(viewModel.selectedTag == tagA)
-        #expect(viewModel.snaps == [snapA, snapB])
+        #expect(viewModel.selectedTag == nil)
+        #expect(viewModel.snaps == [snapA, snapB, snapC, snapD])
     }
 }
