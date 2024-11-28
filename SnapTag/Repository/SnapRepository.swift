@@ -30,12 +30,7 @@ final class SnapRepository: SnapRepositoryProtocol {
     func fetch() -> [Snap] {
         let sort = SortDescriptor(\SnapModel.imagePath)
         let models = (try? context.fetch(FetchDescriptor<SnapModel>(sortBy: [sort]))) ?? []
-        // TODO: タグ生成を分離してリファクタ
-        return models.map {
-            .init(
-                id: $0.id, imagePath: $0.imagePath,
-                tags: $0.tags.map { .init(id: $0.id, name: $0.name) })
-        }
+        return models.map { $0.toSnap() }
     }
 
     func load(name: String) -> UIImage? {
