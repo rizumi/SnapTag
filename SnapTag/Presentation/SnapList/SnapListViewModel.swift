@@ -58,6 +58,6 @@ final class SnapListViewModel: ObservableObject {
     }
 
     func onSelectSnap() {
-        flow.toSnapDetail()
+        flow.toSnapDetail(snaps: snaps)
     }
 }

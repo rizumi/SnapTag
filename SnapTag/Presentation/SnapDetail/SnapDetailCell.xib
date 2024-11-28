@@ -29,6 +29,9 @@
                 <constraint firstItem="Acw-X3-QE3" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="qzg-hX-dqU"/>
             </constraints>
             <size key="customSize" width="376" height="402"/>
+            <connections>
+                <outlet property="imageView" destination="Acw-X3-QE3" id="n1I-FO-SHa"/>
+            </connections>
             <point key="canvasLocation" x="387.78625954198469" y="123.94366197183099"/>
         </collectionViewCell>
     </objects>

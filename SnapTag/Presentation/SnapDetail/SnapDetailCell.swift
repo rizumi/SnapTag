@@ -9,9 +9,18 @@ import UIKit
 
 final class SnapDetailCell: UICollectionViewCell {
 
+    @IBOutlet weak var imageView: UIImageView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
+    }
+
+    func configure(_ viewModel: SnapDetailCellViewModel) {
+        imageView.image = viewModel.image
+    }
 }

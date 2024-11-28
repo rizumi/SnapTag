@@ -14,13 +14,19 @@ protocol SnapDetailViewFlow {
 
 final class SnapDetailViewCoordinator: Coordinator {
     private var navigator: UINavigationController?
+    private let snaps: [Snap]
 
-    init(navigator: UINavigationController) {
+    init(
+        snaps: [Snap],
+        navigator: UINavigationController
+    ) {
+        self.snaps = snaps
         self.navigator = navigator
     }
 
     func start() {
-        let vc = SnapDetailViewController()
+        let viewModel = SnapDetailViewModel(currentIndex: 0, snaps: snaps)
+        let vc = SnapDetailViewController(viewModel: viewModel)
         vc.modalPresentationStyle = .fullScreen
 
         navigator?.present(vc, animated: true)
