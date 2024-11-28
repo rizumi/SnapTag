@@ -53,11 +53,6 @@
 			path = SnapTagTests;
 			sourceTree = "<group>";
 		};
-		FD98D0402CECE306007C6B5C /* SnapTagUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = SnapTagUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,7 +85,6 @@
 			children = (
 				FD98D01F2CECE305007C6B5C /* SnapTag */,
 				FD98D0362CECE306007C6B5C /* SnapTagTests */,
-				FD98D0402CECE306007C6B5C /* SnapTagUITests */,
 				FD98D01E2CECE305007C6B5C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -139,6 +133,7 @@
 				FD98D02F2CECE306007C6B5C /* Sources */,
 				FD98D0302CECE306007C6B5C /* Frameworks */,
 				FD98D0312CECE306007C6B5C /* Resources */,
+				FD5C19F62CF8AFF500E5E59B /* SwiftFormat */,
 			);
 			buildRules = (
 			);
@@ -167,9 +162,6 @@
 			);
 			dependencies = (
 				FD98D03F2CECE306007C6B5C /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				FD98D0402CECE306007C6B5C /* SnapTagUITests */,
 			);
 			name = SnapTagUITests;
 			packageProductDependencies = (
@@ -248,6 +240,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		FD5C19F62CF8AFF500E5E59B /* SwiftFormat */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftFormat;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "swift format -i -r SnapTagTests\n";
+		};
 		FD98D0892CEF3F22007C6B5C /* SwiftFormat */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -265,7 +276,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "swift format -i -r SnapTag SnapTagTests\n";
+			shellScript = "swift format -i -r SnapTag\n";
 		};
 		FDAACC722CF610FB004EA36D /* Update Mock */ = {
 			isa = PBXShellScriptBuildPhase;
