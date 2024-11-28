@@ -46,7 +46,7 @@ struct SnapPickerView: View {
                 Spacer()
 
                 Button {
-                    viewModel.onTapSelectSnap()
+                    viewModel.showPhotoPicker()
                 } label: {
                     Text("Select Snap")
                         .frame(maxWidth: .infinity, minHeight: 44)
@@ -69,11 +69,33 @@ struct SnapPickerView: View {
             }
         }
         .onAppear {
-            viewModel.onAppear()
+            viewModel.showPhotoPicker()
         }
         .photosPicker(
             isPresented: $viewModel.presentedPhotosPicker, selection: $viewModel.selectedItem,
             matching: .images
+        )
+        .alert(
+            "Failed to save",
+            isPresented: $viewModel.presentedSaveErrorAlert,
+            actions: {},
+            message: {
+                Text("Please try again.")
+            }
+        )
+        .alert(
+            "Failed to save",
+            isPresented: $viewModel.presentedImageNotSelectedErrorAlert,
+            actions: {
+                Button {
+                    viewModel.showPhotoPicker()
+                } label: {
+                    Text("OK")
+                }
+            },
+            message: {
+                Text("Please select photo.")
+            }
         )
         .padding(.vertical)
     }

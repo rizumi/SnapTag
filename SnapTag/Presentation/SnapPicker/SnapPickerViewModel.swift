@@ -18,6 +18,8 @@ final class SnapPickerViewModel: ObservableObject {
     @Published var selectedItem: PhotosPickerItem?
     @Published var tags: [String] = []
     @Published var presentedPhotosPicker = false
+    @Published var presentedSaveErrorAlert = false
+    @Published var presentedImageNotSelectedErrorAlert = false
 
     private let snapRepository: SnapRepositoryProtocol
 
@@ -40,23 +42,22 @@ final class SnapPickerViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func onAppear() {
-        presentedPhotosPicker = true
-    }
-
-    func onTapSelectSnap() {
+    func showPhotoPicker() {
         presentedPhotosPicker = true
     }
 
     func onTapSave() {
         guard let image = selectedImage else {
-            print("image not selected")
-            // TODO: Dialog表示
+            presentedImageNotSelectedErrorAlert = true
             return
         }
 
-        snapRepository.save(image, tagNames: tags)
-        flow.dismiss(isCompleted: true)
+        do {
+            try snapRepository.save(image, tagNames: tags)
+            flow.dismiss(isCompleted: true)
+        } catch {
+            presentedSaveErrorAlert = true
+        }
     }
 
     private func onChangeSelectedItem(item: PhotosPickerItem) {

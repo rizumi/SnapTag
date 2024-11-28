@@ -50,11 +50,11 @@ final class SnapRepositoryProtocolMock: SnapRepositoryProtocol {
     }
 
     private(set) var saveCallCount = 0
-    var saveHandler: ((UIImage, [String]) -> ())?
-    func save(_ image: UIImage, tagNames: [String])  {
+    var saveHandler: ((UIImage, [String]) throws -> ())?
+    func save(_ image: UIImage, tagNames: [String]) throws  {
         saveCallCount += 1
         if let saveHandler = saveHandler {
-            saveHandler(image, tagNames)
+            try saveHandler(image, tagNames)
         }
         
     }
