@@ -77,8 +77,8 @@ final class SnapPickerViewModel: ObservableObject {
                     selectedImage = uiImage
 
                     // TODO: SnapTaggerをDIする
-                    let snapTagger = SnapTagger()
-                    tags = try await snapTagger.generateTags(from: uiImage)
+                    let recommender = CoreMLTagRecommender()
+                    tags = try await recommender.recommendTags(from: uiImage)
                 }
             } catch {
                 // TODO error表示

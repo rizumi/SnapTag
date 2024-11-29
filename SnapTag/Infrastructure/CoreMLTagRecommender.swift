@@ -1,5 +1,5 @@
 //
-//  SnapTagger.swift
+//  CoreMLTagRecommender.swift
 //  SnapTag
 //
 //  Created by izumi on 2024/11/20.
@@ -9,23 +9,23 @@ import CoreML
 import UIKit
 import Vision
 
-final class SnapTagger {
-    enum SnapTaggerError: Error {
+final class CoreMLTagRecommender: TagRecommender {
+    enum CoreMLTagRecommenderError: Error {
         case modelLoadError
         case imageConversionError
         case classificationFailed
     }
 
-    func generateTags(from image: UIImage) async throws -> [String] {
+    func recommendTags(from image: UIImage) async throws -> [String] {
         guard
             let model = try? VNCoreMLModel(
                 for: MobileNetV2FP16(configuration: .init()).model)
         else {
-            throw SnapTaggerError.modelLoadError
+            throw CoreMLTagRecommenderError.modelLoadError
         }
 
         guard let ciImage = CIImage(image: image) else {
-            throw SnapTaggerError.imageConversionError
+            throw CoreMLTagRecommenderError.imageConversionError
         }
 
         return try await withCheckedThrowingContinuation { continuation in
@@ -50,7 +50,7 @@ final class SnapTagger {
             do {
                 try VNImageRequestHandler(ciImage: ciImage).perform([request])
             } catch {
-                continuation.resume(throwing: SnapTaggerError.classificationFailed)
+                continuation.resume(throwing: CoreMLTagRecommenderError.classificationFailed)
             }
         }
     }
