@@ -19,10 +19,7 @@ final class SnapDetailViewController: UIViewController {
             [weak self] collectionView, indexPath, item in
             guard let self else { return nil }
 
-            let cell =
-                collectionView.dequeueReusableCell(
-                    withReuseIdentifier: String(describing: SnapDetailCell.self), for: indexPath)
-                as? SnapDetailCell
+            let cell = collectionView.dequeueReusableCell(with: SnapDetailCell.self, for: indexPath)
 
             // TODO: DI
             cell?.configure(
@@ -64,10 +61,8 @@ final class SnapDetailViewController: UIViewController {
         collectionView.isPagingEnabled = true
         collectionView.dataSource = dataSource
         collectionView.delegate = self
-        collectionView.register(
-            .init(nibName: String(describing: SnapDetailCell.self), bundle: nil),
-            forCellWithReuseIdentifier: String(describing: SnapDetailCell.self)
-        )
+
+        collectionView.register(type: SnapDetailCell.self)
 
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
