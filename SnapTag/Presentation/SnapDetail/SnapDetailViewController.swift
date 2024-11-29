@@ -12,6 +12,7 @@ import UIKit
 final class SnapDetailViewController: UIViewController {
 
     private let viewModel: SnapDetailViewModel
+    private var tagView: UIView?
     private var cancellables: Set<AnyCancellable> = []
 
     @IBOutlet weak var collectionView: UICollectionView!
@@ -64,6 +65,7 @@ final class SnapDetailViewController: UIViewController {
     private func setupTagsView() {
         let hostingController = UIHostingController(
             rootView: SnapDetailTagView(viewModel: viewModel))
+        tagView = hostingController.view
 
         addChild(hostingController)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -99,12 +101,25 @@ final class SnapDetailViewController: UIViewController {
         layout.minimumLineSpacing = 0
 
         collectionView.collectionViewLayout = layout
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
+        view.addGestureRecognizer(tapGesture)
+    }
+
+    @objc func handleTap(sender: UITapGestureRecognizer) {
+        viewModel.onTapView()
     }
 
     private func bindViewModel() {
         viewModel.$snaps
             .sink { [weak self] snaps in
                 self?.update(snaps)
+            }
+            .store(in: &cancellables)
+
+        viewModel.$showUI
+            .sink { [weak self] isShow in
+                self?.showUI(isShow)
             }
             .store(in: &cancellables)
     }
@@ -117,6 +132,31 @@ final class SnapDetailViewController: UIViewController {
             guard let self else { return }
             self.collectionView.scrollToItem(
                 at: self.viewModel.currentIndexPath, at: .centeredHorizontally, animated: false)
+        }
+    }
+
+    private func showUI(_ isShow: Bool) {
+        if isShow {
+            closeButton.isHidden = false
+            tagView?.isHidden = false
+
+            UIView.animate(
+                withDuration: 0.3,
+                animations: { [weak self] in
+                    self?.closeButton.alpha = 1
+                    self?.tagView?.alpha = 1
+                })
+        } else {
+            UIView.animate(
+                withDuration: 0.3,
+                animations: { [weak self] in
+                    self?.closeButton.alpha = 0
+                    self?.tagView?.alpha = 0
+                },
+                completion: { [weak self] _ in
+                    self?.closeButton.isHidden = true
+                    self?.tagView?.isHidden = true
+                })
         }
     }
 }

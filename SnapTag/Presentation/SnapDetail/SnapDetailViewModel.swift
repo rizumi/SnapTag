@@ -12,8 +12,9 @@ import Foundation
 final class SnapDetailViewModel: ObservableObject {
 
     private var snap: Snap
-    @Published var snaps: [Snap] = []
-    @Published var tags: [String] = []
+    @Published private(set) var snaps: [Snap] = []
+    @Published private(set) var tags: [String] = []
+    @Published private(set) var showUI: Bool = true
 
     var currentIndexPath: IndexPath {
         .init(item: snaps.firstIndex(of: snap) ?? 0, section: 0)
@@ -29,5 +30,9 @@ final class SnapDetailViewModel: ObservableObject {
         guard index < snaps.count else { return }
         snap = snaps[index]
         tags = snap.tags.map { $0.name }
+    }
+
+    func onTapView() {
+        showUI.toggle()
     }
 }
