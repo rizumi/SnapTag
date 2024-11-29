@@ -32,7 +32,7 @@ final class SnapTagger {
             let request = VNCoreMLRequest(model: model) { request, error in
                 if let results = request.results as? [VNClassificationObservation] {
                     let topResults = results.prefix(3)
-                        .filter { $0.confidence >= 0.3 }
+                        // .filter { $0.confidence >= 0.3 }
                         .map { $0.identifier }
                     // カンマ区切りで類似単語が入っているので先頭だけ取得する
                     let result = topResults.compactMap {

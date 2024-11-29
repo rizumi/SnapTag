@@ -31,15 +31,24 @@ struct SnapPickerView: View {
                 }
 
                 LazyVGrid(
-                    columns: [GridItem(.adaptive(minimum: 160))], alignment: .leading, spacing: 8
+                    columns: [GridItem(.adaptive(minimum: 160))], alignment: .leading,
+                    spacing: 8
                 ) {
                     ForEach(viewModel.tags, id: \.self) { tag in
-                        Text(tag)
-                            .padding(8)
-                            .background(Color.blue)
-                            .foregroundStyle(Color.white)
-                            .cornerRadius(8)
-                            .lineLimit(1)
+                        HStack {
+                            Text(tag)
+                                .lineLimit(1)
+
+                            Button {
+                                viewModel.onTapDeleteTag(tag)
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                            }
+                        }
+                        .padding(8)
+                        .background(Color.blue)
+                        .foregroundStyle(Color.white)
+                        .cornerRadius(8)
                     }
                 }
                 .padding()

@@ -60,6 +60,10 @@ final class SnapPickerViewModel: ObservableObject {
         }
     }
 
+    func onTapDeleteTag(_ tag: String) {
+        tags.removeAll { $0 == tag }
+    }
+
     private func onChangeSelectedItem(item: PhotosPickerItem) {
         Task {
             defer {
