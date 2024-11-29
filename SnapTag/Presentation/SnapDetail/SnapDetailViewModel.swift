@@ -5,13 +5,19 @@
 //  Created by izumi on 2024/11/29.
 //
 
+import Foundation
+
 @MainActor
 final class SnapDetailViewModel {
-    var currentIndex: Int = 0
-    var snaps: [Snap] = []
+    let snap: Snap
+    let snaps: [Snap]
 
-    init(currentIndex: Int, snaps: [Snap]) {
-        self.currentIndex = currentIndex
+    var startIndexPath: IndexPath {
+        .init(item: snaps.firstIndex(of: snap) ?? 0, section: 0)
+    }
+
+    init(snap: Snap, snaps: [Snap]) {
+        self.snap = snap
         self.snaps = snaps
     }
 }

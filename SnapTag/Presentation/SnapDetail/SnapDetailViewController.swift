@@ -75,7 +75,15 @@ final class SnapDetailViewController: UIViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Int, Snap>()
         snapshot.appendSections([0])
         snapshot.appendItems(viewModel.snaps)
-        dataSource.apply(snapshot)
+        dataSource.apply(snapshot) { [weak self] in
+            guard let self else { return }
+            self.collectionView.scrollToItem(
+                at: self.viewModel.startIndexPath, at: .centeredHorizontally, animated: false)
+        }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
 }
 

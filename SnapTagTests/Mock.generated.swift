@@ -81,11 +81,11 @@ final class SnapListViewFlowMock: SnapListViewFlow {
     }
 
     private(set) var toSnapDetailCallCount = 0
-    var toSnapDetailHandler: (([Snap]) -> ())?
-    func toSnapDetail(snaps: [Snap])  {
+    var toSnapDetailHandler: ((Snap, [Snap]) -> ())?
+    func toSnapDetail(snap: Snap, snaps: [Snap])  {
         toSnapDetailCallCount += 1
         if let toSnapDetailHandler = toSnapDetailHandler {
-            toSnapDetailHandler(snaps)
+            toSnapDetailHandler(snap, snaps)
         }
         
     }

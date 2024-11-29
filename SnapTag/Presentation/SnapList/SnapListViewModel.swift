@@ -57,7 +57,7 @@ final class SnapListViewModel: ObservableObject {
         }
     }
 
-    func onSelectSnap() {
-        flow.toSnapDetail(snaps: snaps)
+    func onSelectSnap(_ snap: Snap) {
+        flow.toSnapDetail(snap: snap, snaps: snaps)
     }
 }
