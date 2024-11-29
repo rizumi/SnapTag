@@ -12,26 +12,22 @@ import Foundation
 final class SnapDetailViewModel: ObservableObject {
 
     private var snap: Snap
-    let snapsSubject: CurrentValueSubject<[Snap], Never>
-    var snaps: AnyPublisher<[Snap], Never> {
-        snapsSubject.eraseToAnyPublisher()
-    }
-
+    @Published var snaps: [Snap] = []
     @Published var tags: [String] = []
 
     var currentIndexPath: IndexPath {
-        .init(item: snapsSubject.value.firstIndex(of: snap) ?? 0, section: 0)
+        .init(item: snaps.firstIndex(of: snap) ?? 0, section: 0)
     }
 
     init(snap: Snap, snaps: [Snap]) {
         self.snap = snap
-        self.snapsSubject = .init(snaps)
+        self.snaps = snaps
         tags = snap.tags.map { $0.name }
     }
 
     func onChangeSnap(_ index: Int) {
-        guard index < snapsSubject.value.count else { return }
-        snap = snapsSubject.value[index]
+        guard index < snaps.count else { return }
+        snap = snaps[index]
         tags = snap.tags.map { $0.name }
     }
 }

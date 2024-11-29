@@ -102,7 +102,7 @@ final class SnapDetailViewController: UIViewController {
     }
 
     private func bindViewModel() {
-        viewModel.snaps
+        viewModel.$snaps
             .sink { [weak self] snaps in
                 self?.update(snaps)
             }
