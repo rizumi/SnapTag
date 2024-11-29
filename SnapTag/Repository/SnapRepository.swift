@@ -43,7 +43,6 @@ final class SnapRepository: SnapRepositoryProtocol {
 
     func save(_ image: UIImage, tagNames: [String]) throws {
         do {
-            // TODO: Imageのsaveを別にした方が良いか検討
             let path = try imageStorage.save(image: image, with: UUID().uuidString)
             let tagModels = tagNames.map { name in
                 let tag = try? context.fetch(
