@@ -51,6 +51,15 @@ final class SnapDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        closeButton.addAction(
+            .init(handler: { [weak self] _ in
+                self?.dismiss(animated: true)
+            }), for: .touchUpInside)
+
+        setupCollectionView()
+    }
+
+    private func setupCollectionView() {
         collectionView.backgroundColor = .black
         collectionView.isPagingEnabled = true
         collectionView.dataSource = dataSource
@@ -67,11 +76,6 @@ final class SnapDetailViewController: UIViewController {
 
         collectionView.collectionViewLayout = layout
 
-        closeButton.addAction(
-            .init(handler: { [weak self] _ in
-                self?.dismiss(animated: true)
-            }), for: .touchUpInside)
-
         var snapshot = NSDiffableDataSourceSnapshot<Int, Snap>()
         snapshot.appendSections([0])
         snapshot.appendItems(viewModel.snaps)
@@ -80,10 +84,6 @@ final class SnapDetailViewController: UIViewController {
             self.collectionView.scrollToItem(
                 at: self.viewModel.startIndexPath, at: .centeredHorizontally, animated: false)
         }
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
     }
 }
 
