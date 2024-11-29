@@ -6,7 +6,35 @@
 //
 
 import Combine
+import SwiftUI
 import UIKit
+
+struct SnapDetailTagView: View {
+    @ObservedObject var viewModel: SnapDetailViewModel
+
+    var body: some View {
+        VStack {
+            Spacer()
+
+            LazyVGrid(
+                columns: [GridItem(.adaptive(minimum: 160))], alignment: .leading,
+                spacing: 8
+            ) {
+                ForEach(viewModel.tags, id: \.self) { tag in
+                    HStack {
+                        Text(tag)
+                            .lineLimit(1)
+                    }
+                    .padding(8)
+                    .background(Color.blue)
+                    .foregroundStyle(Color.white)
+                    .cornerRadius(8)
+                }
+            }
+            .padding()
+        }
+    }
+}
 
 final class SnapDetailViewController: UIViewController {
 
@@ -55,13 +83,38 @@ final class SnapDetailViewController: UIViewController {
                 self?.dismiss(animated: true)
             }), for: .touchUpInside)
 
+        setupTagsView()
         setupCollectionView()
         bindViewModel()
+    }
+
+    private func setupTagsView() {
+        let hostingController = UIHostingController(
+            rootView: SnapDetailTagView(viewModel: viewModel))
+
+        addChild(hostingController)
+        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        hostingController.view.isUserInteractionEnabled = false
+        hostingController.view.backgroundColor = .clear
+        view.addSubview(hostingController.view)
+        hostingController.didMove(toParent: self)
+
+        NSLayoutConstraint.activate([
+            hostingController.view.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor),
+            hostingController.view.leadingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            hostingController.view.trailingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            hostingController.view.bottomAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+        ])
     }
 
     private func setupCollectionView() {
         collectionView.backgroundColor = .black
         collectionView.isPagingEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.dataSource = dataSource
         collectionView.delegate = self
 
@@ -107,6 +160,6 @@ extension SnapDetailViewController: UICollectionViewDelegateFlowLayout {
 extension SnapDetailViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let index = ceil(collectionView.contentOffset.x / collectionView.frame.width)
-        print(index)
+        viewModel.onChangeSnap(Int(index))
     }
 }
