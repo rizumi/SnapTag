@@ -36,7 +36,8 @@ struct SnapPickerView: View {
                     ForEach(viewModel.tags, id: \.self) { tag in
                         Text(tag)
                             .padding(8)
-                            .background(Color.blue.opacity(0.2))
+                            .background(Color.blue)
+                            .foregroundStyle(Color.white)
                             .cornerRadius(8)
                             .lineLimit(1)
                     }
