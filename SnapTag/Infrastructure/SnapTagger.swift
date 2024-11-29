@@ -31,10 +31,9 @@ final class SnapTagger {
         return try await withCheckedThrowingContinuation { continuation in
             let request = VNCoreMLRequest(model: model) { request, error in
                 if let results = request.results as? [VNClassificationObservation] {
-                    let topResults = results.prefix(3).map {
-                        print("\($0.identifier): \($0.confidence * 100)%")
-                        return $0.identifier
-                    }
+                    let topResults = results.prefix(3)
+                        .filter { $0.confidence >= 0.3 }
+                        .map { $0.identifier }
                     // カンマ区切りで類似単語が入っているので先頭だけ取得する
                     let result = topResults.compactMap {
                         $0.split(separator: ",").first
