@@ -16,7 +16,7 @@ final class SnapDetailViewModel {
         snapsSubject.eraseToAnyPublisher()
     }
 
-    var startIndexPath: IndexPath {
+    var currentIndexPath: IndexPath {
         .init(item: snapsSubject.value.firstIndex(of: snap) ?? 0, section: 0)
     }
 

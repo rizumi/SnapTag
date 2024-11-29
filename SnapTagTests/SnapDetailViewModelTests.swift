@@ -11,8 +11,8 @@ import Testing
 @MainActor
 struct SnapDetailViewModelTests {
 
-    @Test("指定したSnapのindexがstartIndexPathに設定されること")
-    func testStartIndexPath() async throws {
+    @Test("指定したSnapのindexがcurrentIndexPathに設定されること")
+    func testCurrentIndexPath() async throws {
         // Arrange
         let snapA = Snap(id: "A", imagePath: "", tags: [])
         let snapB = Snap(id: "B", imagePath: "", tags: [])
@@ -23,7 +23,7 @@ struct SnapDetailViewModelTests {
         let viewModel = SnapDetailViewModel(snap: snapB, snaps: snaps)
 
         // Assert
-        #expect(viewModel.startIndexPath == .init(item: 1, section: 0))
+        #expect(viewModel.currentIndexPath == .init(item: 1, section: 0))
     }
 
 }

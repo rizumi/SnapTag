@@ -90,7 +90,7 @@ final class SnapDetailViewController: UIViewController {
         dataSource.apply(snapshot) { [weak self] in
             guard let self else { return }
             self.collectionView.scrollToItem(
-                at: self.viewModel.startIndexPath, at: .centeredHorizontally, animated: false)
+                at: self.viewModel.currentIndexPath, at: .centeredHorizontally, animated: false)
         }
     }
 }
