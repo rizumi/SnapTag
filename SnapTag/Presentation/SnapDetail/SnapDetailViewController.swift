@@ -5,11 +5,13 @@
 //  Created by izumi on 2024/11/29.
 //
 
+import Combine
 import UIKit
 
 final class SnapDetailViewController: UIViewController {
 
     private let viewModel: SnapDetailViewModel
+    private var cancellables: Set<AnyCancellable> = []
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var closeButton: UIButton!
@@ -54,6 +56,7 @@ final class SnapDetailViewController: UIViewController {
             }), for: .touchUpInside)
 
         setupCollectionView()
+        bindViewModel()
     }
 
     private func setupCollectionView() {
@@ -70,10 +73,20 @@ final class SnapDetailViewController: UIViewController {
         layout.minimumLineSpacing = 0
 
         collectionView.collectionViewLayout = layout
+    }
 
+    private func bindViewModel() {
+        viewModel.snaps
+            .sink { [weak self] snaps in
+                self?.update(snaps)
+            }
+            .store(in: &cancellables)
+    }
+
+    private func update(_ snaps: [Snap]) {
         var snapshot = NSDiffableDataSourceSnapshot<Int, Snap>()
         snapshot.appendSections([0])
-        snapshot.appendItems(viewModel.snaps)
+        snapshot.appendItems(snaps)
         dataSource.apply(snapshot) { [weak self] in
             guard let self else { return }
             self.collectionView.scrollToItem(
@@ -88,5 +101,12 @@ extension SnapDetailViewController: UICollectionViewDelegateFlowLayout {
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
         return view.frame.size
+    }
+}
+
+extension SnapDetailViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let index = ceil(collectionView.contentOffset.x / collectionView.frame.width)
+        print(index)
     }
 }
