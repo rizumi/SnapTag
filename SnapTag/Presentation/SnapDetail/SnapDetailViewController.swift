@@ -9,33 +9,6 @@ import Combine
 import SwiftUI
 import UIKit
 
-struct SnapDetailTagView: View {
-    @ObservedObject var viewModel: SnapDetailViewModel
-
-    var body: some View {
-        VStack {
-            Spacer()
-
-            LazyVGrid(
-                columns: [GridItem(.adaptive(minimum: 160))], alignment: .leading,
-                spacing: 8
-            ) {
-                ForEach(viewModel.tags, id: \.self) { tag in
-                    HStack {
-                        Text(tag)
-                            .lineLimit(1)
-                    }
-                    .padding(8)
-                    .background(Color.blue)
-                    .foregroundStyle(Color.white)
-                    .cornerRadius(8)
-                }
-            }
-            .padding()
-        }
-    }
-}
-
 final class SnapDetailViewController: UIViewController {
 
     private let viewModel: SnapDetailViewModel
