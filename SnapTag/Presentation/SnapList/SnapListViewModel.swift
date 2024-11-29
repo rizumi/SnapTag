@@ -29,11 +29,13 @@ final class SnapListViewModel: ObservableObject {
         self.snapRepository = snapRepository
         self.tagRepository = tagRepository
         self.flow = flow
+
+        refresh()
+        snaps = allSnaps
     }
 
     func refresh() {
         allSnaps = snapRepository.fetch()
-        snaps = allSnaps
         tags = tagRepository.fetch()
     }
 
