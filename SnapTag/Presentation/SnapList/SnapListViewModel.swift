@@ -37,6 +37,7 @@ final class SnapListViewModel: ObservableObject {
     func refresh() {
         allSnaps = snapRepository.fetch()
         tags = tagRepository.fetch()
+        updateSnaps()
     }
 
     func loadImage(path: String) -> UIImage? {
@@ -45,12 +46,12 @@ final class SnapListViewModel: ObservableObject {
 
     func onSelectedTag(_ tag: Tag) {
         selectedTag = tag
-        snaps = allSnaps.filter { $0.tags.contains(tag) }
+        updateSnaps()
     }
 
     func onSelectedAll() {
         selectedTag = nil
-        snaps = allSnaps
+        updateSnaps()
     }
 
     func onTapActionButton() {
@@ -61,5 +62,13 @@ final class SnapListViewModel: ObservableObject {
 
     func onSelectSnap(_ snap: Snap) {
         flow.toSnapDetail(snap: snap, snaps: snaps)
+    }
+
+    private func updateSnaps() {
+        if let selectedTag = selectedTag {
+            snaps = allSnaps.filter { $0.tags.contains(selectedTag) }
+        } else {
+            snaps = allSnaps
+        }
     }
 }

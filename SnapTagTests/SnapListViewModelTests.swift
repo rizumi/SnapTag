@@ -12,8 +12,8 @@ import Testing
 @MainActor
 struct SnapListViewModelTests {
 
-    @Test("RefreshでSnapとTagの一覧が取得されること")
-    func testRefresh() async throws {
+    @Test("SnapとTagの一覧が取得されること")
+    func testInit() async throws {
         // Arrange
         let snapRepository = SnapRepositoryProtocolMock()
         let tagRepository = TagRepositoryProtocolMock()
@@ -35,15 +35,53 @@ struct SnapListViewModelTests {
             return [snapA, snapB, snapC, snapD]
         }
 
+        // Act
         let viewModel = SnapListViewModel(
             snapRepository: snapRepository, tagRepository: tagRepository, flow: flow)
+
+        // Assert
+        #expect(viewModel.tags == [tagA, tagB, tagC])
+        #expect(viewModel.snaps == [snapA, snapB, snapC, snapD])
+    }
+
+    @Test("SnapとTagの一覧が更新されること")
+    func testRefresh() async throws {
+        // Arrange
+        let snapRepository = SnapRepositoryProtocolMock()
+        let tagRepository = TagRepositoryProtocolMock()
+        let flow = SnapListViewFlowMock()
+
+        let tagA = Tag(id: "1", name: "a")
+        let tagB = Tag(id: "2", name: "b")
+        let tagC = Tag(id: "2", name: "c")
+
+        let snapA = Snap(id: "1", imagePath: "", tags: [tagA])
+        let snapB = Snap(id: "2", imagePath: "", tags: [tagA, tagB])
+        let snapC = Snap(id: "3", imagePath: "", tags: [tagB])
+        let snapD = Snap(id: "4", imagePath: "", tags: [tagC])
+
+        tagRepository.fetchHandler = {
+            return [tagA, tagB, tagC]
+        }
+        snapRepository.fetchHandler = {
+            return [snapA, snapB, snapC, snapD]
+        }
+        let viewModel = SnapListViewModel(
+            snapRepository: snapRepository, tagRepository: tagRepository, flow: flow)
+
+        tagRepository.fetchHandler = {
+            return [tagA, tagC]
+        }
+        snapRepository.fetchHandler = {
+            return [snapA, snapB, snapD]
+        }
 
         // Act
         viewModel.refresh()
 
         // Assert
-        #expect(viewModel.tags == [tagA, tagB, tagC])
-        #expect(viewModel.snaps == [snapA, snapB, snapC, snapD])
+        #expect(viewModel.tags == [tagA, tagC])
+        #expect(viewModel.snaps == [snapA, snapB, snapD])
     }
 
     @Test("タグ選択時に該当タグを含むSnapに絞り込まれること")

@@ -117,7 +117,6 @@
 				FD98D02F2CECE306007C6B5C /* Sources */,
 				FD98D0302CECE306007C6B5C /* Frameworks */,
 				FD98D0312CECE306007C6B5C /* Resources */,
-				FD5C19F62CF8AFF500E5E59B /* SwiftFormat */,
 			);
 			buildRules = (
 			);
@@ -192,25 +191,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		FD5C19F62CF8AFF500E5E59B /* SwiftFormat */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = SwiftFormat;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "swift format -i -r SnapTagTests\n";
-		};
 		FD98D0892CEF3F22007C6B5C /* SwiftFormat */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -228,7 +208,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "swift format -i -r SnapTag\n";
+			shellScript = "swift format -i -r SnapTag SnapTagTests\n";
 		};
 		FDAACC722CF610FB004EA36D /* Update Mock */ = {
 			isa = PBXShellScriptBuildPhase;
