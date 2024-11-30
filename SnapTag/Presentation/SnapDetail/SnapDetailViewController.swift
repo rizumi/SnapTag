@@ -161,6 +161,18 @@ final class SnapDetailViewController: UIViewController {
     }
 }
 
+extension SnapDetailViewController: UICollectionViewDelegate {
+    func collectionView(
+        _ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
+        guard let cell = cell as? SnapDetailCell else { return }
+        // 表示前に拡大率をリセットする
+        // prepareForReuseはある程度スクロールしないとreuse対象にはならないので明示的に呼び出しています
+        cell.prepareForShow()
+    }
+}
+
 extension SnapDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,

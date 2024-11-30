@@ -15,37 +15,19 @@
                 <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uqS-ry-Ukc">
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uqS-ry-Ukc">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Acw-X3-QE3">
-                                <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
-                            </imageView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="Acw-X3-QE3" firstAttribute="leading" secondItem="uqS-ry-Ukc" secondAttribute="leading" id="3h5-QD-UNB"/>
-                            <constraint firstItem="Acw-X3-QE3" firstAttribute="height" secondItem="uqS-ry-Ukc" secondAttribute="height" id="Bl9-nQ-1eY"/>
-                            <constraint firstAttribute="trailing" secondItem="Acw-X3-QE3" secondAttribute="trailing" id="WUa-rx-BPc"/>
-                            <constraint firstItem="Acw-X3-QE3" firstAttribute="width" secondItem="uqS-ry-Ukc" secondAttribute="width" id="ej3-Mn-47r"/>
-                            <constraint firstItem="Acw-X3-QE3" firstAttribute="top" secondItem="uqS-ry-Ukc" secondAttribute="top" id="jvs-ih-lG9"/>
-                            <constraint firstAttribute="bottom" secondItem="Acw-X3-QE3" secondAttribute="bottom" id="yCa-WG-emT"/>
-                        </constraints>
-                        <viewLayoutGuide key="contentLayoutGuide" id="unV-ky-iGI"/>
-                        <viewLayoutGuide key="frameLayoutGuide" id="1cO-Te-wkz"/>
                     </scrollView>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="uqS-ry-Ukc" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" id="5c4-WM-EJC"/>
-                <constraint firstAttribute="bottom" secondItem="uqS-ry-Ukc" secondAttribute="bottom" id="8rP-XO-7dS"/>
-                <constraint firstAttribute="trailing" secondItem="uqS-ry-Ukc" secondAttribute="trailing" id="MMc-61-bWl"/>
-                <constraint firstItem="uqS-ry-Ukc" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="W3W-DD-jvy"/>
-                <constraint firstItem="uqS-ry-Ukc" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="sqo-rA-zbE"/>
-                <constraint firstItem="uqS-ry-Ukc" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" id="zUI-WD-bPd"/>
+                <constraint firstAttribute="trailing" secondItem="uqS-ry-Ukc" secondAttribute="trailing" id="Wyg-90-h6U"/>
+                <constraint firstItem="uqS-ry-Ukc" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="aP1-Ki-wVf"/>
+                <constraint firstAttribute="bottom" secondItem="uqS-ry-Ukc" secondAttribute="bottom" id="iu0-NY-uyF"/>
+                <constraint firstItem="uqS-ry-Ukc" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="jTr-gw-Czk"/>
             </constraints>
             <size key="customSize" width="376" height="402"/>
             <connections>
-                <outlet property="imageView" destination="Acw-X3-QE3" id="n1I-FO-SHa"/>
                 <outlet property="scrollView" destination="uqS-ry-Ukc" id="Hzt-V6-k41"/>
             </connections>
             <point key="canvasLocation" x="387.78625954198469" y="123.94366197183099"/>
