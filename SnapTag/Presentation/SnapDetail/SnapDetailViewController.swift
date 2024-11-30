@@ -19,6 +19,9 @@ final class SnapDetailViewController: UIViewController {
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
 
+    // 表示/非表示を一括で行うUIを管理するために配列で保持する
+    private var uiElements: [UIView] = []
+
     private lazy var dataSource: UICollectionViewDiffableDataSource<Int, Snap> = {
         return .init(collectionView: collectionView) {
             [weak self] collectionView, indexPath, item in
@@ -53,6 +56,7 @@ final class SnapDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        uiElements += [closeButton, deleteButton]
         setupActions()
         setupTagsView()
         setupCollectionView()
@@ -85,6 +89,7 @@ final class SnapDetailViewController: UIViewController {
         let hostingController = UIHostingController(
             rootView: SnapDetailTagView(viewModel: viewModel))
         tagView = hostingController.view
+        uiElements.append(tagView!)
 
         addChild(hostingController)
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -160,26 +165,21 @@ final class SnapDetailViewController: UIViewController {
 
     private func showUI(_ isShow: Bool) {
         if isShow {
-            closeButton.isHidden = false
-            deleteButton.isHidden = false
-            tagView?.isHidden = false
+            uiElements.forEach { $0.isHidden = false }
 
             UIView.animate(
                 withDuration: 0.3,
                 animations: { [weak self] in
-                    self?.closeButton.alpha = 1
-                    self?.tagView?.alpha = 1
+                    self?.uiElements.forEach { $0.alpha = 1 }
                 })
         } else {
             UIView.animate(
                 withDuration: 0.3,
                 animations: { [weak self] in
-                    self?.closeButton.alpha = 0
-                    self?.tagView?.alpha = 0
+                    self?.uiElements.forEach { $0.alpha = 0 }
                 },
                 completion: { [weak self] _ in
-                    self?.closeButton.isHidden = true
-                    self?.tagView?.isHidden = true
+                    self?.uiElements.forEach { $0.isHidden = true }
                 })
         }
     }
