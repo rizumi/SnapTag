@@ -1,5 +1,5 @@
 //
-//  SnapPickerViewModel.swift
+//  SnapUploadViewModel.swift
 //  SnapTag
 //
 //  Created by izumi on 2024/11/21.
@@ -12,7 +12,7 @@ import SwiftUI
 import UIKit
 
 @MainActor
-final class SnapPickerViewModel: ObservableObject {
+final class SnapUploadViewModel: ObservableObject {
 
     @Published var selectedImage: UIImage?
     @Published var selectedItem: PhotosPickerItem?
@@ -22,14 +22,13 @@ final class SnapPickerViewModel: ObservableObject {
     @Published var presentedImageNotSelectedErrorAlert = false
 
     private let snapRepository: SnapRepositoryProtocol
-
-    private let flow: SnapPickerViewFlow
+    private let flow: SnapUploadViewFlow
 
     private var cancellables: Set<AnyCancellable> = []
 
     init(
         snapRepository: SnapRepositoryProtocol,
-        flow: SnapPickerViewFlow
+        flow: SnapUploadViewFlow
     ) {
         self.snapRepository = snapRepository
         self.flow = flow

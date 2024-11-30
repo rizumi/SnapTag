@@ -44,7 +44,7 @@ final class SnapListViewCoordinator: Coordinator {
 extension SnapListViewCoordinator: SnapListViewFlow {
     func toSnapPicker(_ completion: @escaping () -> Void) {
         guard let navigator else { return }
-        let coordinator = SnapPickerViewCoordinator(navigator: navigator, completion: completion)
+        let coordinator = SnapUploadViewCoordinator(navigator: navigator, completion: completion)
         coordinator.start()
     }
 

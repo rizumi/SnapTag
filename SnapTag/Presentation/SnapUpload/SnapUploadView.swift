@@ -1,5 +1,5 @@
 //
-//  SnapPickerView.swift
+//  SnapUploadView.swift
 //  SnapTag
 //
 //  Created by izumi on 2024/11/20.
@@ -8,10 +8,10 @@
 import PhotosUI
 import SwiftUI
 
-struct SnapPickerView: View {
-    @StateObject var viewModel: SnapPickerViewModel
+struct SnapUploadView: View {
+    @StateObject var viewModel: SnapUploadViewModel
 
-    init(viewModel: SnapPickerViewModel) {
+    init(viewModel: SnapUploadViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
 
@@ -121,9 +121,9 @@ struct SnapPickerView: View {
     // TODO: mockに差し替え
     let repo = SnapRepository(
         context: AppModelContainer.shared.modelContext, imageStorage: LocalImageStorage())
-    let flow = SnapPickerViewCoordinator(navigator: .init(), completion: {})
+    let flow = SnapUploadViewCoordinator(navigator: .init(), completion: {})
 
-    SnapPickerView(
+    SnapUploadView(
         viewModel: .init(snapRepository: repo, flow: flow)
     )
 }

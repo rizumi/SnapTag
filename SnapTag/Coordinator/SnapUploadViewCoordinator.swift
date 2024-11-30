@@ -1,5 +1,5 @@
 //
-//  SnapPickerViewCoordinator.swift
+//  SnapUploadViewCoordinator.swift
 //  SnapTag
 //
 //  Created by izumi on 2024/11/22.
@@ -10,11 +10,11 @@ import UIKit
 
 /// @mockable
 @MainActor
-protocol SnapPickerViewFlow {
+protocol SnapUploadViewFlow {
     func dismiss(isCompleted: Bool)
 }
 
-final class SnapPickerViewCoordinator: Coordinator {
+final class SnapUploadViewCoordinator: Coordinator {
     private let navigator: UINavigationController
     private let completion: () -> Void
 
@@ -25,7 +25,7 @@ final class SnapPickerViewCoordinator: Coordinator {
 
     func start() {
         let vc = UIHostingController(
-            rootView: SnapPickerView(
+            rootView: SnapUploadView(
                 viewModel: .init(
                     snapRepository: SnapRepository(
                         context: AppModelContainer.shared.modelContext,
@@ -37,7 +37,7 @@ final class SnapPickerViewCoordinator: Coordinator {
     }
 }
 
-extension SnapPickerViewCoordinator: SnapPickerViewFlow {
+extension SnapUploadViewCoordinator: SnapUploadViewFlow {
     func dismiss(isCompleted: Bool) {
         navigator.dismiss(animated: true) { [weak self] in
             if isCompleted {

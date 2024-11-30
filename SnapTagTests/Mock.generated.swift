@@ -91,7 +91,7 @@ final class SnapListViewFlowMock: SnapListViewFlow {
     }
 }
 
-final class SnapPickerViewFlowMock: SnapPickerViewFlow {
+final class SnapUploadViewFlowMock: SnapUploadViewFlow {
     init() { }
 
 
