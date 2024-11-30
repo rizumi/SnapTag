@@ -64,6 +64,16 @@ final class SnapRepositoryProtocolMock: SnapRepositoryProtocol {
         }
         
     }
+
+    private(set) var deleteCallCount = 0
+    var deleteHandler: ((Snap) throws -> ())?
+    func delete(_ snap: Snap) throws  {
+        deleteCallCount += 1
+        if let deleteHandler = deleteHandler {
+            try deleteHandler(snap)
+        }
+        
+    }
 }
 
 final class SnapListViewFlowMock: SnapListViewFlow {

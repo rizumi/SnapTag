@@ -13,10 +13,12 @@ protocol SnapRepositoryProtocol {
     func fetch() -> [Snap]
     func load(name: String) -> UIImage?
     func save(_ image: UIImage, tagNames: [String]) throws
+    func delete(_ snap: Snap) throws
 }
 
 enum SnapRepositoryError: Error {
     case saveFailed
+    case deleteFailed
 }
 
 final class SnapRepository: SnapRepositoryProtocol {
@@ -65,6 +67,21 @@ final class SnapRepository: SnapRepositoryProtocol {
             try context.save()
         } catch {
             throw SnapRepositoryError.saveFailed
+        }
+    }
+
+    func delete(_ snap: Snap) throws {
+        let snapId = snap.id
+
+        do {
+            try context.delete(
+                model: SnapModel.self,
+                where: #Predicate<SnapModel> {
+                    $0.id == snapId
+                })
+            try imageStorage.deleteImage(path: snap.imagePath)
+        } catch {
+            throw SnapRepositoryError.deleteFailed
         }
     }
 }
