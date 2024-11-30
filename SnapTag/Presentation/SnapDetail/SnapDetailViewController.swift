@@ -52,14 +52,27 @@ final class SnapDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupActions()
+        setupTagsView()
+        setupCollectionView()
+        bindViewModel()
+    }
+
+    private func setupActions() {
         closeButton.addAction(
             .init(handler: { [weak self] _ in
                 self?.dismiss(animated: true)
             }), for: .touchUpInside)
 
-        setupTagsView()
-        setupCollectionView()
-        bindViewModel()
+        let doubleTapGesture = UITapGestureRecognizer(
+            target: self, action: #selector(handleDoubleTap(sender:)))
+        doubleTapGesture.numberOfTapsRequired = 2
+        view.addGestureRecognizer(doubleTapGesture)
+
+        let singleTapGesture = UITapGestureRecognizer(
+            target: self, action: #selector(handleTap(sender:)))
+        singleTapGesture.require(toFail: doubleTapGesture)
+        view.addGestureRecognizer(singleTapGesture)
     }
 
     private func setupTagsView() {
@@ -101,13 +114,17 @@ final class SnapDetailViewController: UIViewController {
         layout.minimumLineSpacing = 0
 
         collectionView.collectionViewLayout = layout
-
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
-        view.addGestureRecognizer(tapGesture)
     }
 
-    @objc func handleTap(sender: UITapGestureRecognizer) {
+    @objc private func handleTap(sender: UITapGestureRecognizer) {
         viewModel.onTapView()
+    }
+
+    @objc private func handleDoubleTap(sender: UITapGestureRecognizer) {
+        // singleTapでのUI非表示と排他的にするためViewController側でDoubleTapを検知してcellへ渡す
+        collectionView.visibleCells
+            .compactMap { $0 as? SnapDetailCell }
+            .forEach { $0.onDoubleTap(sender: sender) }
     }
 
     private func bindViewModel() {

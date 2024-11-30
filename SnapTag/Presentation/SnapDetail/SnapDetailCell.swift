@@ -77,6 +77,26 @@ final class SnapDetailCell: UICollectionViewCell {
         )
         scrollView.contentInset = edgeInsets
     }
+
+    func onDoubleTap(sender: UITapGestureRecognizer) {
+        let maximumZoomScale = scrollView.maximumZoomScale
+
+        if maximumZoomScale != scrollView.zoomScale {
+            let tapPoint = sender.location(in: imageView)
+            let size = CGSize(
+                width: scrollView.frame.size.width / maximumZoomScale,
+                height: scrollView.frame.size.height / maximumZoomScale
+            )
+            let origin = CGPoint(
+                x: tapPoint.x - size.width / 2,
+                y: tapPoint.y - size.height / 2
+            )
+
+            scrollView.zoom(to: .init(origin: origin, size: size), animated: true)
+        } else {
+            scrollView.zoom(to: scrollView.frame, animated: true)
+        }
+    }
 }
 
 extension SnapDetailCell: UIScrollViewDelegate {
