@@ -57,10 +57,15 @@ final class SnapDetailViewController: UIViewController {
         super.viewDidLoad()
 
         uiElements += [closeButton, deleteButton]
+        localize()
         setupActions()
         setupTagsView()
         setupCollectionView()
         bindViewModel()
+    }
+
+    private func localize() {
+        deleteButton.setTitle(String(localized: "delete"), for: .normal)
     }
 
     private func setupActions() {
@@ -193,17 +198,18 @@ final class SnapDetailViewController: UIViewController {
 
     private func showDeleteConfrim() {
         let alert = UIAlertController(
-            title: "本当に削除しますか？", message: "この操作は元に戻せません", preferredStyle: .alert)
+            title: String(localized: "delete_confirm_title"),
+            message: String(localized: "delete_confirm_message"), preferredStyle: .alert)
 
         alert.addAction(
             .init(
-                title: "削除する",
+                title: String(localized: "delete"),
                 style: .destructive,
                 handler: { [weak self] _ in
                     self?.viewModel.deleteSnap()
                 }))
 
-        alert.addAction(.init(title: "キャンセル", style: .cancel))
+        alert.addAction(.init(title: String(localized: "cancel"), style: .cancel))
 
         present(alert, animated: true)
     }
