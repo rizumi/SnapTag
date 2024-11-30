@@ -14,12 +14,13 @@ import UIKit
 @MainActor
 final class SnapUploadViewModel: ObservableObject {
 
-    @Published var selectedImage: UIImage?
     @Published var selectedItem: PhotosPickerItem?
-    @Published var tags: [String] = []
     @Published var presentedPhotosPicker = false
     @Published var presentedSaveErrorAlert = false
     @Published var presentedImageNotSelectedErrorAlert = false
+
+    @Published private(set) var selectedImage: UIImage?
+    @Published private(set) var tags: [String] = []
 
     private let snapRepository: SnapRepositoryProtocol
     private let flow: SnapUploadViewFlow
