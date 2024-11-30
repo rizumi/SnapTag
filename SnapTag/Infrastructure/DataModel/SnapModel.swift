@@ -13,11 +13,11 @@ final class SnapModel {
     @Attribute(.unique) private(set) var id: String = UUID().uuidString
     private(set) var imagePath: String
 
-    // iOS17ではRelationshipをoptionalにしないとinsert時にcrashする
+    // iOS17ではRelationshipをoptionalにしないとinsert時にcrashするためoptionalにしている
     // 参考: https://forums.developer.apple.com/forums/thread/738961
-    // TODO: inverseにしておくかどうか精査
-    @Relationship(inverse: \TagModel.snaps)
-    private(set) var tags: [TagModel]!
+    @Relationship(inverse: \TagModel.snaps) private(set) var tags: [TagModel]!
+
+    private(set) var createdAt: Date = Date()
 
     init(imagePath: String, tags: [TagModel]) {
         self.imagePath = imagePath

@@ -32,7 +32,7 @@ final class SnapRepository: SnapRepositoryProtocol {
     }
 
     func fetch() -> [Snap] {
-        let sort = SortDescriptor(\SnapModel.imagePath)
+        let sort = SortDescriptor(\SnapModel.createdAt, order: .reverse)
         let models = (try? context.fetch(FetchDescriptor<SnapModel>(sortBy: [sort]))) ?? []
         return models.map { $0.toSnap() }
     }
