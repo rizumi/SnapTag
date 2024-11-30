@@ -71,7 +71,7 @@ final class SnapDetailViewController: UIViewController {
 
         deleteButton.addAction(
             .init(handler: { [weak self] _ in
-                print("delete")
+                self?.viewModel.onTapDelete()
             }), for: .touchUpInside)
 
         let doubleTapGesture = UITapGestureRecognizer(
@@ -150,6 +150,13 @@ final class SnapDetailViewController: UIViewController {
                 self?.showUI(isShow)
             }
             .store(in: &cancellables)
+
+        viewModel.$presentedDeleteConfirmDialog
+            .filter { $0 }
+            .sink { [weak self] _ in
+                self?.showDeleteConfrim()
+            }
+            .store(in: &cancellables)
     }
 
     private func update(_ snaps: [Snap]) {
@@ -182,6 +189,23 @@ final class SnapDetailViewController: UIViewController {
                     self?.uiElements.forEach { $0.isHidden = true }
                 })
         }
+    }
+
+    private func showDeleteConfrim() {
+        let alert = UIAlertController(
+            title: "本当に削除しますか？", message: "この操作は元に戻せません", preferredStyle: .alert)
+
+        alert.addAction(
+            .init(
+                title: "削除する",
+                style: .destructive,
+                handler: { [weak self] _ in
+                    self?.viewModel.deleteSnap()
+                }))
+
+        alert.addAction(.init(title: "キャンセル", style: .cancel))
+
+        present(alert, animated: true)
     }
 }
 

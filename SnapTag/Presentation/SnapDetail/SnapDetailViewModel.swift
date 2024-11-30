@@ -15,6 +15,7 @@ final class SnapDetailViewModel: ObservableObject {
     @Published private(set) var snaps: [Snap] = []
     @Published private(set) var tags: [String] = []
     @Published private(set) var showUI: Bool = true
+    @Published private(set) var presentedDeleteConfirmDialog: Bool = false
 
     var currentIndexPath: IndexPath {
         .init(item: snaps.firstIndex(of: snap) ?? 0, section: 0)
@@ -34,5 +35,16 @@ final class SnapDetailViewModel: ObservableObject {
 
     func onTapView() {
         showUI.toggle()
+    }
+
+    func onTapDelete() {
+        presentedDeleteConfirmDialog = true
+    }
+
+    func deleteSnap() {
+        // TODO: repositoryを繋ぐ
+
+        // TODO: 削除完了後のスライドどうにかする
+        snaps.removeAll { $0 == snap }
     }
 }
