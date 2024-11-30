@@ -78,7 +78,7 @@ struct SnapListView: View {
                 viewModel.onTapActionButton()
             }
         }
-        .onAppear {
+        .onFirstAppear {
             viewModel.refresh()
         }
     }
