@@ -12,6 +12,7 @@
             <connections>
                 <outlet property="closeButton" destination="q6n-Ql-tU2" id="khV-Yy-PAP"/>
                 <outlet property="collectionView" destination="upo-kp-vdO" id="wIN-Yw-dPM"/>
+                <outlet property="deleteButton" destination="jPA-kN-OKH" id="eQC-YX-c3g"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -30,6 +31,15 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jPA-kN-OKH">
+                    <rect key="frame" x="311.66666666666669" y="67" width="73.333333333333314" height="35"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="filled" title="Delete">
+                        <backgroundConfiguration key="background">
+                            <color key="backgroundColor" systemColor="systemRedColor"/>
+                        </backgroundConfiguration>
+                    </buttonConfiguration>
+                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q6n-Ql-tU2" userLabel="CloseButton">
                     <rect key="frame" x="8" y="67" width="46.333333333333336" height="35"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -40,10 +50,12 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="jPA-kN-OKH" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="8" id="1gF-6o-2gi"/>
                 <constraint firstItem="upo-kp-vdO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="7ka-1T-yNA"/>
                 <constraint firstItem="q6n-Ql-tU2" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="8" id="Omu-on-0Pn"/>
                 <constraint firstItem="upo-kp-vdO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="WRy-4B-LTh"/>
                 <constraint firstItem="q6n-Ql-tU2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="dFw-v8-yWN"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="jPA-kN-OKH" secondAttribute="trailing" constant="8" id="jtR-o5-PGr"/>
                 <constraint firstAttribute="trailing" secondItem="upo-kp-vdO" secondAttribute="trailing" id="nsJ-ds-nBY"/>
                 <constraint firstAttribute="bottom" secondItem="upo-kp-vdO" secondAttribute="bottom" id="oyl-7c-6AP"/>
             </constraints>
@@ -54,6 +66,9 @@
         <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

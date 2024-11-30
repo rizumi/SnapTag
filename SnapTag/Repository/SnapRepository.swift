@@ -34,6 +34,7 @@ final class SnapRepository: SnapRepositoryProtocol {
     }
 
     func fetch() -> [Snap] {
+        // 今は一度にまとめてfetchしているが、プロダクトとして運用する場合にはページングに対応した方が良い
         let sort = SortDescriptor(\SnapModel.createdAt, order: .reverse)
         let models = (try? context.fetch(FetchDescriptor<SnapModel>(sortBy: [sort]))) ?? []
         return models.map { $0.toSnap() }

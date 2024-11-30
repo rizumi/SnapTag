@@ -17,6 +17,7 @@ final class SnapDetailViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
 
     private lazy var dataSource: UICollectionViewDiffableDataSource<Int, Snap> = {
         return .init(collectionView: collectionView) {
@@ -62,6 +63,11 @@ final class SnapDetailViewController: UIViewController {
         closeButton.addAction(
             .init(handler: { [weak self] _ in
                 self?.dismiss(animated: true)
+            }), for: .touchUpInside)
+
+        deleteButton.addAction(
+            .init(handler: { [weak self] _ in
+                print("delete")
             }), for: .touchUpInside)
 
         let doubleTapGesture = UITapGestureRecognizer(
@@ -155,6 +161,7 @@ final class SnapDetailViewController: UIViewController {
     private func showUI(_ isShow: Bool) {
         if isShow {
             closeButton.isHidden = false
+            deleteButton.isHidden = false
             tagView?.isHidden = false
 
             UIView.animate(
