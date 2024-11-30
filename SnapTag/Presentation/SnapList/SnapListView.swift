@@ -81,6 +81,7 @@ struct SnapListView: View {
         .onFirstAppear {
             viewModel.refresh()
         }
+        .navigationTitle("SnapTag")
     }
 
     private func tagColor(_ tag: Tag?) -> Color {
@@ -99,7 +100,7 @@ struct SnapListView: View {
         context: AppModelContainer.shared.modelContext, imageStorage: LocalImageStorage())
     let tagRepo = TagRepository(
         context: AppModelContainer.shared.modelContext)
-    let flow = SnapListViewCoordinator(window: .init())
+    let flow = SnapListViewCoordinator(navigator: .init())
     SnapListView(
         viewModel: .init(snapRepository: repo, tagRepository: tagRepo, flow: flow))
 }

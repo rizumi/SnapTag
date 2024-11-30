@@ -16,11 +16,10 @@ protocol SnapListViewFlow {
 }
 
 final class SnapListViewCoordinator: Coordinator {
-    private let window: UIWindow
     private var navigator: UINavigationController?
 
-    init(window: UIWindow) {
-        self.window = window
+    init(navigator: UINavigationController) {
+        self.navigator = navigator
     }
 
     func start() {
@@ -34,10 +33,8 @@ final class SnapListViewCoordinator: Coordinator {
                     flow: self
                 ))
         )
-        let nav = UINavigationController(rootViewController: vc)
-
-        self.navigator = nav
-        window.rootViewController = nav
+        vc.modalPresentationStyle = .fullScreen
+        navigator?.pushViewController(vc, animated: false)
     }
 }
 
