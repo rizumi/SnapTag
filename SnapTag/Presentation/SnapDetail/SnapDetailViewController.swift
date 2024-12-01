@@ -57,15 +57,10 @@ final class SnapDetailViewController: UIViewController {
         super.viewDidLoad()
 
         uiElements += [closeButton, deleteButton]
-        localize()
         setupActions()
         setupTagsView()
         setupCollectionView()
         bindViewModel()
-    }
-
-    private func localize() {
-        deleteButton.setTitle(String(localized: "delete"), for: .normal)
     }
 
     private func setupActions() {
