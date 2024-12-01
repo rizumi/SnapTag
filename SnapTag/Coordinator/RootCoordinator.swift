@@ -15,10 +15,15 @@ final class RootCoordinator: Coordinator {
     }
 
     func start() {
-        let nav = UINavigationController()
-        window.rootViewController = nav
+        let navigationController = UINavigationController()
+        window.rootViewController = navigationController
 
-        let coordinator = SnapListViewCoordinator(navigator: nav)
-        coordinator.start()
+        if AppLaunchChecker().ifFirstLaunch {
+            let coordinator = SetupViewCoordinator(navigator: navigationController)
+            coordinator.start()
+        } else {
+            let coordinator = SnapListViewCoordinator(navigator: navigationController)
+            coordinator.start()
+        }
     }
 }

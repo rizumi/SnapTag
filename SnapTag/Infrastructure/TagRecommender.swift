@@ -7,6 +7,7 @@
 
 import UIKit
 
+@MainActor
 protocol TagRecommender {
     func recommendTags(from image: UIImage) async throws -> [String]
 }
