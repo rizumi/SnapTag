@@ -27,6 +27,7 @@ final class SetupViewModel {
         self.flow = flow
     }
 
+    /// 初回起動時にデモ用のプリセット画像を保存するための処理
     func setupPresetSnaps() async {
         let images = sampleImages.compactMap { UIImage(named: $0) }
         await withDiscardingTaskGroup { group in
@@ -40,7 +41,7 @@ final class SetupViewModel {
         flow.toSnapList()
     }
 
-    func save(_ image: UIImage) async {
+    private func save(_ image: UIImage) async {
         do {
             if let tag = try await tagRecommender.recommendTags(from: image).first {
                 try repository.save(image, tagNames: [tag])
