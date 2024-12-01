@@ -168,10 +168,19 @@ final class SnapDetailViewController: UIViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Int, Snap>()
         snapshot.appendSections([0])
         snapshot.appendItems(snaps)
-        dataSource.apply(snapshot) { [weak self] in
-            guard let self else { return }
-            self.collectionView.scrollToItem(
-                at: self.viewModel.currentIndexPath, at: .centeredHorizontally, animated: false)
+
+        // 初回のみに絞らないと削除時に不要なスクロールが発生するため
+        // 初回の読み込み時はdataSourceの読み込み完了後にcurrentIndexPathへスクロールする
+        let isFirstTime = dataSource.snapshot().itemIdentifiers.isEmpty
+        if isFirstTime {
+            dataSource.apply(snapshot) { [weak self] in
+                guard let self else { return }
+
+                self.collectionView.scrollToItem(
+                    at: self.viewModel.currentIndexPath, at: .centeredHorizontally, animated: false)
+            }
+        } else {
+            dataSource.apply(snapshot)
         }
     }
 

@@ -11,26 +11,28 @@ import Foundation
 @MainActor
 final class SnapDetailViewModel: ObservableObject {
 
-    private var snap: Snap
     @Published private(set) var snaps: [Snap] = []
     @Published private(set) var tags: [String] = []
     @Published private(set) var showUI: Bool = true
     @Published private(set) var presentedDeleteConfirmDialog: Bool = false
 
     var currentIndexPath: IndexPath {
-        .init(item: snaps.firstIndex(of: snap) ?? 0, section: 0)
+        .init(item: currentIndex, section: 0)
     }
 
-    init(snap: Snap, snaps: [Snap]) {
-        self.snap = snap
+    private var currentIndex: Int
+    private let flow: SnapDetailViewFlow
+
+    init(snap: Snap, snaps: [Snap], flow: SnapDetailViewFlow) {
         self.snaps = snaps
+        self.currentIndex = snaps.firstIndex(of: snap) ?? 0
+        self.flow = flow
         tags = snap.tags.map { $0.name }
     }
 
     func onChangeSnap(_ index: Int) {
-        guard index < snaps.count else { return }
-        snap = snaps[index]
-        tags = snap.tags.map { $0.name }
+        currentIndex = min(max(index, 0), snaps.count - 1)
+        tags = snaps[currentIndex].tags.map { $0.name }
     }
 
     func onTapView() {
@@ -44,7 +46,11 @@ final class SnapDetailViewModel: ObservableObject {
     func deleteSnap() {
         // TODO: repositoryを繋ぐ
 
-        // TODO: 削除完了後のスライドどうにかする
-        snaps.removeAll { $0 == snap }
+        snaps.remove(at: currentIndex)
+        if snaps.isEmpty {
+            flow.dismiss()
+        } else {
+            onChangeSnap(currentIndex)
+        }
     }
 }

@@ -29,6 +29,15 @@ final class SnapDetailViewFlowMock: SnapDetailViewFlow {
     init() { }
 
 
+    private(set) var dismissCallCount = 0
+    var dismissHandler: (() -> ())?
+    func dismiss()  {
+        dismissCallCount += 1
+        if let dismissHandler = dismissHandler {
+            dismissHandler()
+        }
+        
+    }
 }
 
 final class SnapRepositoryProtocolMock: SnapRepositoryProtocol {

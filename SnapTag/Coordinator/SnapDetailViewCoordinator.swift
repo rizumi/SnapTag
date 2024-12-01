@@ -10,6 +10,7 @@ import UIKit
 /// @mockable
 @MainActor
 protocol SnapDetailViewFlow {
+    func dismiss()
 }
 
 final class SnapDetailViewCoordinator: Coordinator {
@@ -28,10 +29,16 @@ final class SnapDetailViewCoordinator: Coordinator {
     }
 
     func start() {
-        let viewModel = SnapDetailViewModel(snap: snap, snaps: snaps)
+        let viewModel = SnapDetailViewModel(snap: snap, snaps: snaps, flow: self)
         let vc = SnapDetailViewController(viewModel: viewModel)
         vc.modalPresentationStyle = .fullScreen
 
         navigator?.present(vc, animated: true)
+    }
+}
+
+extension SnapDetailViewCoordinator: SnapDetailViewFlow {
+    func dismiss() {
+        navigator?.dismiss(animated: true)
     }
 }
