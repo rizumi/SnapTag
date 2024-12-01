@@ -35,20 +35,9 @@ struct SnapUploadView: View {
                     spacing: 8
                 ) {
                     ForEach(viewModel.tags, id: \.self) { tag in
-                        HStack {
-                            Text(tag)
-                                .lineLimit(1)
-
-                            Button {
-                                viewModel.onTapDeleteTag(tag)
-                            } label: {
-                                Image(systemName: "xmark.circle.fill")
-                            }
+                        TagView(name: tag) {
+                            viewModel.onTapDeleteTag(tag)
                         }
-                        .padding(8)
-                        .background(Color.blue)
-                        .foregroundStyle(Color.white)
-                        .cornerRadius(8)
                     }
                 }
                 .padding()
