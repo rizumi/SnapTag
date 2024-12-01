@@ -75,12 +75,13 @@ final class SnapRepository: SnapRepositoryProtocol {
         let snapId = snap.id
 
         do {
+            // TODO: ファイルの削除と切り分ける
             try context.delete(
                 model: SnapModel.self,
                 where: #Predicate<SnapModel> {
                     $0.id == snapId
                 })
-            try imageStorage.deleteImage(path: snap.imagePath)
+            try imageStorage.deleteImage(name: snap.imagePath)
         } catch {
             throw SnapRepositoryError.deleteFailed
         }

@@ -47,8 +47,8 @@ final class LocalImageStorage: ImageStorage {
         return UIImage(contentsOfFile: fileURL(from: name).path)
     }
 
-    func deleteImage(path: String) throws {
-        try FileManager.default.removeItem(atPath: path)
+    func deleteImage(name: String) throws {
+        try FileManager.default.removeItem(atPath: fileURL(from: name).path)
     }
 
     private func fileURL(from name: String) -> URL {

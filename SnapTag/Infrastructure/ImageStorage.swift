@@ -11,5 +11,5 @@ import UIKit
 protocol ImageStorage {
     func save(image: UIImage, with name: String) throws -> String
     func loadImage(name: String) -> UIImage?
-    func deleteImage(path: String) throws
+    func deleteImage(name: String) throws
 }

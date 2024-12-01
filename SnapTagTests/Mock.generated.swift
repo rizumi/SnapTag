@@ -4,26 +4,12 @@
 
 
 
+import Foundation
 import SwiftData
 import SwiftUI
 import UIKit
 @testable import SnapTag
 
-
-final class TagRepositoryProtocolMock: TagRepositoryProtocol {
-    init() { }
-
-
-    private(set) var fetchCallCount = 0
-    var fetchHandler: (() -> ([Tag]))?
-    func fetch() -> [Tag] {
-        fetchCallCount += 1
-        if let fetchHandler = fetchHandler {
-            return fetchHandler()
-        }
-        return [Tag]()
-    }
-}
 
 final class SnapDetailViewFlowMock: SnapDetailViewFlow {
     init() { }
@@ -35,6 +21,16 @@ final class SnapDetailViewFlowMock: SnapDetailViewFlow {
         dismissCallCount += 1
         if let dismissHandler = dismissHandler {
             dismissHandler()
+        }
+        
+    }
+
+    private(set) var onDeleteCallCount = 0
+    var onDeleteHandler: ((Snap) -> ())?
+    func onDelete(_ snap: Snap)  {
+        onDeleteCallCount += 1
+        if let onDeleteHandler = onDeleteHandler {
+            onDeleteHandler(snap)
         }
         
     }
@@ -85,6 +81,21 @@ final class SnapRepositoryProtocolMock: SnapRepositoryProtocol {
     }
 }
 
+final class TagRepositoryProtocolMock: TagRepositoryProtocol {
+    init() { }
+
+
+    private(set) var fetchCallCount = 0
+    var fetchHandler: (() -> ([Tag]))?
+    func fetch() -> [Tag] {
+        fetchCallCount += 1
+        if let fetchHandler = fetchHandler {
+            return fetchHandler()
+        }
+        return [Tag]()
+    }
+}
+
 final class SnapListViewFlowMock: SnapListViewFlow {
     init() { }
 
@@ -100,11 +111,11 @@ final class SnapListViewFlowMock: SnapListViewFlow {
     }
 
     private(set) var toSnapDetailCallCount = 0
-    var toSnapDetailHandler: ((Snap, [Snap]) -> ())?
-    func toSnapDetail(snap: Snap, snaps: [Snap])  {
+    var toSnapDetailHandler: ((Snap, [Snap], @escaping (Snap) -> Void) -> ())?
+    func toSnapDetail(snap: Snap, snaps: [Snap], onDelete: @escaping (Snap) -> Void)  {
         toSnapDetailCallCount += 1
         if let toSnapDetailHandler = toSnapDetailHandler {
-            toSnapDetailHandler(snap, snaps)
+            toSnapDetailHandler(snap, snaps, onDelete)
         }
         
     }

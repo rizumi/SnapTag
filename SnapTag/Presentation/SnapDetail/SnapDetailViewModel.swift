@@ -22,10 +22,17 @@ final class SnapDetailViewModel: ObservableObject {
 
     private var currentIndex: Int
     private let flow: SnapDetailViewFlow
+    private let repository: SnapRepositoryProtocol
 
-    init(snap: Snap, snaps: [Snap], flow: SnapDetailViewFlow) {
+    init(
+        snap: Snap,
+        snaps: [Snap],
+        repository: SnapRepositoryProtocol,
+        flow: SnapDetailViewFlow
+    ) {
         self.snaps = snaps
         self.currentIndex = snaps.firstIndex(of: snap) ?? 0
+        self.repository = repository
         self.flow = flow
         tags = snap.tags.map { $0.name }
     }
@@ -44,13 +51,20 @@ final class SnapDetailViewModel: ObservableObject {
     }
 
     func deleteSnap() {
-        // TODO: repositoryを繋ぐ
+        do {
+            let snap = snaps[currentIndex]
+            try repository.delete(snap)
+            snaps.remove(at: currentIndex)
+            flow.onDelete(snap)
 
-        snaps.remove(at: currentIndex)
-        if snaps.isEmpty {
-            flow.dismiss()
-        } else {
-            onChangeSnap(currentIndex)
+            if snaps.isEmpty {
+                flow.dismiss()
+            } else {
+                onChangeSnap(currentIndex)
+            }
+        } catch {
+            // TODO: エラー表示
+            print(error)
         }
     }
 }

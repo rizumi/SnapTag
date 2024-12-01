@@ -15,7 +15,8 @@ final class SnapModel {
 
     // iOS17ではRelationshipをoptionalにしないとinsert時にcrashするためoptionalにしている
     // 参考: https://forums.developer.apple.com/forums/thread/738961
-    @Relationship(inverse: \TagModel.snaps) private(set) var tags: [TagModel]!
+    @Relationship(inverse: \TagModel.snaps)
+    private(set) var tags: [TagModel]!
 
     private(set) var createdAt: Date = Date()
 

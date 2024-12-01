@@ -12,7 +12,7 @@ import UIKit
 @MainActor
 protocol SnapListViewFlow {
     func toSnapPicker(_ completion: @escaping () -> Void)
-    func toSnapDetail(snap: Snap, snaps: [Snap])
+    func toSnapDetail(snap: Snap, snaps: [Snap], onDelete: @escaping (Snap) -> Void)
 }
 
 final class SnapListViewCoordinator: Coordinator {
@@ -45,9 +45,11 @@ extension SnapListViewCoordinator: SnapListViewFlow {
         coordinator.start()
     }
 
-    func toSnapDetail(snap: Snap, snaps: [Snap]) {
+    func toSnapDetail(snap: Snap, snaps: [Snap], onDelete: @escaping (Snap) -> Void) {
         guard let navigator else { return }
-        let coordinator = SnapDetailViewCoordinator(snap: snap, snaps: snaps, navigator: navigator)
+        let coordinator = SnapDetailViewCoordinator(
+            snap: snap, snaps: snaps,
+            navigator: navigator, onDelete: onDelete)
         coordinator.start()
     }
 }
