@@ -22,7 +22,7 @@ struct SnapListView: View {
                         Button {
                             viewModel.onSelectedAll()
                         } label: {
-                            Text("all")
+                            Text("All")
                                 .padding(8)
                                 .background(tagColor(nil))
                                 .foregroundStyle(Color.white)
@@ -86,9 +86,9 @@ struct SnapListView: View {
 
     private func tagColor(_ tag: Tag?) -> Color {
         if tag == viewModel.selectedTag {
-            return Color.red
-        } else {
             return Color.blue
+        } else {
+            return Color.gray
         }
     }
 

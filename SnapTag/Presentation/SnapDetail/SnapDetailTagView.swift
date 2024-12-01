@@ -14,20 +14,12 @@ struct SnapDetailTagView: View {
         VStack {
             Spacer()
 
-            // TODO: レイアウト調整
             LazyVGrid(
                 columns: [GridItem(.adaptive(minimum: 160))], alignment: .leading,
                 spacing: 8
             ) {
                 ForEach(viewModel.tags, id: \.self) { tag in
-                    HStack {
-                        Text(tag)
-                            .lineLimit(1)
-                    }
-                    .padding(8)
-                    .background(Color.blue)
-                    .foregroundStyle(Color.white)
-                    .cornerRadius(8)
+                    TagView(name: tag)
                 }
             }
             .padding()
