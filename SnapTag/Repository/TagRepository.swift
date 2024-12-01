@@ -5,6 +5,7 @@
 //  Created by izumi on 2024/11/26.
 //
 
+import Foundation
 import SwiftData
 
 /// @mockable
@@ -23,6 +24,6 @@ final class TagRepository: TagRepositoryProtocol {
 
     func fetch() -> [Tag] {
         let tags = (try? context.fetch(FetchDescriptor<TagModel>())) ?? []
-        return tags.map { $0.toTag() }
+        return tags.filter { $0.snaps?.isEmpty == false }.map { $0.toTag() }
     }
 }
