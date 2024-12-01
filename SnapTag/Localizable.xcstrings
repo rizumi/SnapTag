@@ -2,7 +2,14 @@
   "sourceLanguage" : "en",
   "strings" : {
     "All" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべて"
+          }
+        }
+      }
     },
     "cancel" : {
       "localizations" : {
