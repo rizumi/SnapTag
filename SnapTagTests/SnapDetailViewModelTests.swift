@@ -82,4 +82,74 @@ struct SnapDetailViewModelTests {
         viewModel.onTapView()
         #expect(viewModel.showUI == true)
     }
+
+    @Test("削除後にtagが更新されること")
+    func testDeleteSnap() async throws {
+        // Arrange
+        let repository = SnapRepositoryProtocolMock()
+        let flow = SnapDetailViewFlowMock()
+
+        let tagA = Tag(id: "1", name: "a")
+        let tagB = Tag(id: "2", name: "b")
+        let tagC = Tag(id: "2", name: "c")
+
+        let snapA = Snap(id: "A", imagePath: "", tags: [tagA])
+        let snapB = Snap(id: "B", imagePath: "", tags: [tagA, tagB])
+        let snapC = Snap(id: "C", imagePath: "", tags: [tagC])
+        let snaps = [snapA, snapB, snapC]
+
+        let viewModel = SnapDetailViewModel(
+            snap: snapA, snaps: snaps,
+            repository: repository, flow: flow)
+
+        // Act + Assert
+        #expect(viewModel.tags == [tagA.name])
+        viewModel.deleteSnap()
+        #expect(viewModel.tags == [tagA.name, tagB.name])
+    }
+
+    @Test("最後の1枚削除でdismissが呼ばれること")
+    func testDeleteLastSnap() async throws {
+        // Arrange
+        let repository = SnapRepositoryProtocolMock()
+        let flow = SnapDetailViewFlowMock()
+
+        let snapA = Snap(id: "A", imagePath: "", tags: [])
+        let snaps = [snapA]
+
+        let viewModel = SnapDetailViewModel(
+            snap: snapA, snaps: snaps,
+            repository: repository, flow: flow)
+
+        // Act
+        viewModel.deleteSnap()
+
+        // Assert
+        #expect(flow.dismissCallCount == 1)
+    }
+
+    @Test("削除失敗時にErrorが返ること")
+    func testDeleteSnapError() async throws {
+        // Arrange
+        let repository = SnapRepositoryProtocolMock()
+        let flow = SnapDetailViewFlowMock()
+
+        let snapA = Snap(id: "A", imagePath: "", tags: [])
+        let snaps = [snapA]
+
+        repository.deleteHandler = { _ in
+            throw SnapRepositoryError.deleteFailed
+        }
+
+        let viewModel = SnapDetailViewModel(
+            snap: snapA, snaps: snaps,
+            repository: repository, flow: flow)
+
+        // Act
+        viewModel.deleteSnap()
+
+        // Assert
+        #expect(viewModel.errorState != nil)
+        #expect(viewModel.errorState == .deleteFailed)
+    }
 }
