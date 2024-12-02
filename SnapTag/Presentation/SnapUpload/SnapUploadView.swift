@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SnapUploadView: View {
     @StateObject var viewModel: SnapUploadViewModel
+    @State var selectedItem: PhotosPickerItem?
 
     init(viewModel: SnapUploadViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -96,8 +97,21 @@ struct SnapUploadView: View {
             viewModel.showPhotoPicker()
         }
         .photosPicker(
-            isPresented: $viewModel.presentedPhotosPicker, selection: $viewModel.selectedItem,
+            isPresented: $viewModel.presentedPhotosPicker, selection: $selectedItem,
             matching: .images
+        )
+        .onChange(
+            of: selectedItem,
+            { _, newValue in
+                Task {
+                    if let data = try? await newValue?.loadTransferable(type: Data.self),
+                        let image = UIImage(data: data)
+                    {
+                        await viewModel.onSelectedImage(image)
+                        selectedItem = nil
+                    }
+                }
+            }
         )
         .alert(
             "Add Tag", isPresented: $viewModel.presentedAddTagAlert,
@@ -133,10 +147,11 @@ struct SnapUploadView: View {
 
 #Preview {
     let repo = PreviewSnapRepository()
+    let recommender = CoreMLTagRecommender()
     let flow = SnapUploadViewCoordinator(navigator: .init(), completion: {})
 
     SnapUploadView(
-        viewModel: .init(snapRepository: repo, flow: flow)
+        viewModel: .init(snapRepository: repo, recommender: recommender, flow: flow)
     )
 }
 

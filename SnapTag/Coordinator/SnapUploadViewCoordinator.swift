@@ -30,6 +30,7 @@ final class SnapUploadViewCoordinator: Coordinator {
                     snapRepository: SnapRepository(
                         context: AppModelContainer.shared.modelContext,
                         imageStorage: LocalImageStorage()),
+                    recommender: CoreMLTagRecommender(),
                     flow: self)
             )
         )

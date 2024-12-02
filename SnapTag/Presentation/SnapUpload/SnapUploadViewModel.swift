@@ -7,14 +7,12 @@
 
 import Combine
 import Foundation
-import PhotosUI
 import SwiftUI
 import UIKit
 
 @MainActor
 final class SnapUploadViewModel: ObservableObject {
 
-    @Published var selectedItem: PhotosPickerItem?
     @Published var presentedPhotosPicker = false
     @Published var presentedAddTagAlert = false
     @Published var tagText: String = ""
@@ -28,23 +26,19 @@ final class SnapUploadViewModel: ObservableObject {
     }
 
     private let snapRepository: SnapRepositoryProtocol
+    private let recommender: TagRecommender
     private let flow: SnapUploadViewFlow
 
     private var cancellables: Set<AnyCancellable> = []
 
     init(
         snapRepository: SnapRepositoryProtocol,
+        recommender: TagRecommender,
         flow: SnapUploadViewFlow
     ) {
         self.snapRepository = snapRepository
+        self.recommender = recommender
         self.flow = flow
-
-        $selectedItem
-            .compactMap { $0 }
-            .sink { [weak self] item in
-                self?.onChangeSelectedItem(item: item)
-            }
-            .store(in: &cancellables)
     }
 
     func showPhotoPicker() {
@@ -79,7 +73,8 @@ final class SnapUploadViewModel: ObservableObject {
 
     func addTag() {
         guard !tagText.isEmpty else { return }
-        // TODO: 文字数制限をするならここ
+        // タグのバリデーションなどを行う場合はここで行う
+        // (現在は特に制限をしていません)
         tags.append(tagText)
         tagText = ""
     }
@@ -93,25 +88,12 @@ final class SnapUploadViewModel: ObservableObject {
         errorState = nil
     }
 
-    private func onChangeSelectedItem(item: PhotosPickerItem) {
-        Task {
-            defer {
-                selectedItem = nil
-            }
-
-            do {
-                if let data = try await item.loadTransferable(type: Data.self),
-                    let uiImage = UIImage(data: data)
-                {
-                    selectedImage = uiImage
-
-                    // TODO: SnapTaggerをDIする
-                    let recommender = CoreMLTagRecommender()
-                    tags = try await recommender.recommendTags(from: uiImage)
-                }
-            } catch {
-                errorState = .tagRecommendFailed
-            }
+    func onSelectedImage(_ image: UIImage) async {
+        do {
+            selectedImage = image
+            tags = try await recommender.recommendTags(from: image)
+        } catch {
+            errorState = .tagRecommendFailed
         }
     }
 }
