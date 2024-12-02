@@ -52,8 +52,8 @@ final class SnapRepository: SnapRepositoryProtocol {
     func save(_ image: UIImage, tagNames: [String]) throws {
         do {
             let path = try imageStorage.save(image: image, with: UUID().uuidString)
-            let tagModels = tagNames.map { name in
-                let tag = try? context.fetch(
+            let tagModels = try tagNames.map { name in
+                let tag = try context.fetch(
                     FetchDescriptor<TagModel>(
                         predicate: #Predicate {
                             $0.name == name
@@ -61,7 +61,7 @@ final class SnapRepository: SnapRepositoryProtocol {
                     )
                 )
 
-                if let tag = tag?.first {
+                if let tag = tag.first {
                     return tag
                 } else {
                     let tag = TagModel(name: name)
