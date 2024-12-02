@@ -12,7 +12,9 @@ struct InteractiveButtonStyle: ButtonStyle {
         let scale = configuration.isPressed ? 0.9 : 1.0
         configuration.label
             .cornerRadius(8)
-            .scaleEffect(x: scale, y: scale, anchor: .center)
-            .animation(.spring(response: 0.2, dampingFraction: 0.5), value: configuration.isPressed)
+            .scaleEffect(scale)
+            .animation(
+                .spring(response: 0.2, dampingFraction: 0.9, blendDuration: 0),
+                value: scale)
     }
 }
