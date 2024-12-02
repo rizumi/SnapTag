@@ -160,8 +160,8 @@ final class SnapDetailViewController: UIViewController {
 
         viewModel.$errorState
             .compactMap { $0 }
-            .sink { [weak self] _ in
-                self?.showErrorAlert()
+            .sink { [weak self] error in
+                self?.showErrorAlert(error)
             }
             .store(in: &cancellables)
     }
@@ -225,10 +225,10 @@ final class SnapDetailViewController: UIViewController {
         present(alert, animated: true)
     }
 
-    private func showErrorAlert() {
+    private func showErrorAlert(_ error: PresentationError) {
         let alert = UIAlertController(
-            title: viewModel.errorState?.title,
-            message: viewModel.errorState?.message,
+            title: error.title,
+            message: error.message,
             preferredStyle: .alert)
 
         alert.addAction(
