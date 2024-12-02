@@ -34,12 +34,9 @@ struct SnapListView: View {
                             Button {
                                 viewModel.onSelectedTag(tag)
                             } label: {
-                                Text(tag.name)
-                                    .padding(8)
-                                    .background(tagColor(tag))
-                                    .foregroundStyle(Color.white)
-                                    .cornerRadius(8)
-                                    .lineLimit(1)
+                                TagView(
+                                    name: tag.name,
+                                    backgroundColor: tagColor(tag))
                             }
                         }
                     }

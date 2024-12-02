@@ -10,10 +10,11 @@ import SwiftUI
 struct TagView: View {
     var name: String
     var onDelete: (() -> Void)? = nil
+    var backgroundColor: Color = .gray
 
     var body: some View {
         HStack {
-            Text(name)
+            Text("#" + name)
                 .lineLimit(1)
 
             if onDelete != nil {
@@ -25,7 +26,7 @@ struct TagView: View {
             }
         }
         .padding(8)
-        .background(Color.gray)
+        .background(backgroundColor)
         .foregroundStyle(Color.white)
         .cornerRadius(8)
     }
