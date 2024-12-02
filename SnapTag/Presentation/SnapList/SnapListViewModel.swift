@@ -37,6 +37,8 @@ final class SnapListViewModel: ObservableObject {
             allSnaps = try snapRepository.fetch()
             tags = try tagRepository.fetch()
             updateSnaps()
+        } catch let error as RepositoryError {
+            errorState = error.toPresentationError()
         } catch {
             errorState = .loadFailed
         }

@@ -53,3 +53,29 @@ extension PresentationError {
         failureReason
     }
 }
+
+protocol RepositoryError: Error {
+    func toPresentationError() -> PresentationError
+}
+
+extension SnapRepositoryError: RepositoryError {
+    func toPresentationError() -> PresentationError {
+        switch self {
+        case .saveFailed:
+            return .saveFailed
+        case .deleteFailed:
+            return .deleteFailed
+        case .fetchFailed:
+            return .loadFailed
+        }
+    }
+}
+
+extension TagRepositoryError: RepositoryError {
+    func toPresentationError() -> PresentationError {
+        switch self {
+        case .fetchFailed:
+            return .loadFailed
+        }
+    }
+}

@@ -55,6 +55,8 @@ final class SnapUploadViewModel: ObservableObject {
         do {
             try snapRepository.save(image, tagNames: tags)
             flow.dismiss(isCompleted: true)
+        } catch let error as RepositoryError {
+            errorState = error.toPresentationError()
         } catch {
             errorState = .saveFailed
         }

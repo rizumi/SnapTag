@@ -63,6 +63,8 @@ final class SnapDetailViewModel: ObservableObject {
             } else {
                 onChangeSnap(currentIndex)
             }
+        } catch let error as RepositoryError {
+            errorState = error.toPresentationError()
         } catch {
             errorState = .deleteFailed
         }
