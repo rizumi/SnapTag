@@ -18,6 +18,14 @@ struct SnapUploadView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack {
+                HStack {
+                    Button("cancel") {
+                        viewModel.onTapCancel()
+                    }
+                    Spacer()
+                }
+                .padding(.horizontal)
+
                 ZStack {
                     Color.black
                         .frame(height: imageHeight(geometry))

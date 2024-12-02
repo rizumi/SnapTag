@@ -68,6 +68,10 @@ final class SnapUploadViewModel: ObservableObject {
         }
     }
 
+    func onTapCancel() {
+        flow.dismiss(isCompleted: false)
+    }
+
     func onTapDeleteTag(_ tag: String) {
         tags.removeAll { $0 == tag }
     }

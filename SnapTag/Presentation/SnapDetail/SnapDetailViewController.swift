@@ -172,7 +172,7 @@ final class SnapDetailViewController: UIViewController {
         snapshot.appendItems(snaps)
 
         // 初回のみに絞らないと削除時に不要なスクロールが発生するため
-        // 初回の読み込み時はdataSourceの読み込み完了後にcurrentIndexPathへスクロールする
+        // 初回の読み込み(=dataSourceが空)時はdataSourceの読み込み完了後にcurrentIndexPathへスクロールする
         let isFirstTime = dataSource.snapshot().itemIdentifiers.isEmpty
         if isFirstTime {
             dataSource.apply(snapshot) { [weak self] in
