@@ -157,6 +157,13 @@ final class SnapDetailViewController: UIViewController {
                 self?.showDeleteConfrim()
             }
             .store(in: &cancellables)
+
+        viewModel.$showErrorAlert
+            .filter { $0 }
+            .sink { [weak self] _ in
+                self?.showErrorAlert()
+            }
+            .store(in: &cancellables)
     }
 
     private func update(_ snaps: [Snap]) {
@@ -214,6 +221,23 @@ final class SnapDetailViewController: UIViewController {
                 }))
 
         alert.addAction(.init(title: String(localized: "cancel"), style: .cancel))
+
+        present(alert, animated: true)
+    }
+
+    private func showErrorAlert() {
+        let alert = UIAlertController(
+            title: viewModel.currentError?.title,
+            message: viewModel.currentError?.message,
+            preferredStyle: .alert)
+
+        alert.addAction(
+            .init(
+                title: String(localized: "OK"),
+                style: .default,
+                handler: { [weak self] _ in
+                    self?.viewModel.onDismissErrorAlert()
+                }))
 
         present(alert, animated: true)
     }

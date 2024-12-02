@@ -83,7 +83,7 @@ final class SnapUploadViewModel: ObservableObject {
         tagText = ""
     }
 
-    func errorAction() {
+    func onDismissErrorAlert() {
         guard let error = currentError else { return }
         if error == .imageNotSelected {
             presentedPhotosPicker = true

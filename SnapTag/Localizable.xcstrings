@@ -96,10 +96,24 @@
       }
     },
     "Failed to delete" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "削除に失敗しました"
+          }
+        }
+      }
     },
     "Failed to load" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "読み込みに失敗しました"
+          }
+        }
+      }
     },
     "Failed to recommend tags" : {
       "localizations" : {

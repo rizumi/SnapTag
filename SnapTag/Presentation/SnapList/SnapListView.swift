@@ -86,7 +86,7 @@ struct SnapListView: View {
             error: viewModel.currentError,
             actions: { _ in
                 Button("OK") {
-                    viewModel.errorAction()
+                    viewModel.onDismissErrorAlert()
                 }
             },
             message: {

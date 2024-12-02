@@ -38,3 +38,13 @@ enum PresentationError: LocalizedError {
         }
     }
 }
+
+extension PresentationError {
+    var title: String? {
+        errorDescription
+    }
+
+    var message: String? {
+        failureReason
+    }
+}

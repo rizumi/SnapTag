@@ -85,7 +85,7 @@ final class SnapListViewModel: ObservableObject {
         }
     }
 
-    func errorAction() {
+    func onDismissErrorAlert() {
         currentError = nil
     }
 
