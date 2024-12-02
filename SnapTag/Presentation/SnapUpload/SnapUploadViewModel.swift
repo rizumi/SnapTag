@@ -76,7 +76,7 @@ final class SnapUploadViewModel: ObservableObject {
 
     func addTag() {
         guard !tagText.isEmpty else { return }
-        // 文字数制限をするならここ
+        // TODO: 文字数制限をするならここ
         tags.append(tagText)
         tagText = ""
     }
