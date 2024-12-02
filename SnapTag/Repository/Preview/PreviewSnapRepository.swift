@@ -5,6 +5,8 @@
 //  Created by izumi on 2024/12/02.
 //
 
+#if DEBUG
+
 import UIKit
 
 final class PreviewSnapRepository: SnapRepositoryProtocol {
@@ -26,3 +28,5 @@ final class PreviewSnapRepository: SnapRepositoryProtocol {
     func delete(_ snap: Snap) throws {
     }
 }
+
+#endif

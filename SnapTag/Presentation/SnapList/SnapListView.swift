@@ -106,12 +106,12 @@ struct SnapListView: View {
 
 }
 
+#if DEBUG
 #Preview {
-    // TODO: mockに差し替え
     let snapRepository = PreviewSnapRepository()
-    let tagRepo = TagRepository(
-        context: AppModelContainer.shared.modelContext)
+    let tagRepo = PreviewTagRepository()
     let flow = SnapListViewCoordinator(navigator: .init())
     SnapListView(
         viewModel: .init(snapRepository: snapRepository, tagRepository: tagRepo, flow: flow))
 }
+#endif
