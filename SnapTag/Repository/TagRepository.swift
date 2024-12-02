@@ -10,7 +10,11 @@ import SwiftData
 
 /// @mockable
 protocol TagRepositoryProtocol {
-    func fetch() -> [Tag]
+    func fetch() throws -> [Tag]
+}
+
+enum TagRepositoryError: Error {
+    case fetchFailed
 }
 
 final class TagRepository: TagRepositoryProtocol {
@@ -22,8 +26,12 @@ final class TagRepository: TagRepositoryProtocol {
         self.context = context
     }
 
-    func fetch() -> [Tag] {
-        let tags = (try? context.fetch(FetchDescriptor<TagModel>())) ?? []
-        return tags.filter { $0.snaps?.isEmpty == false }.map { $0.toTag() }
+    func fetch() throws -> [Tag] {
+        do {
+            let tags = try context.fetch(FetchDescriptor<TagModel>())
+            return tags.filter { $0.snaps?.isEmpty == false }.map { $0.toTag() }
+        } catch {
+            throw TagRepositoryError.fetchFailed
+        }
     }
 }

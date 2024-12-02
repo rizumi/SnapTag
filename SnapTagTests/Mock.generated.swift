@@ -41,11 +41,11 @@ final class SnapRepositoryProtocolMock: SnapRepositoryProtocol {
 
 
     private(set) var fetchCallCount = 0
-    var fetchHandler: (() -> ([Snap]))?
-    func fetch() -> [Snap] {
+    var fetchHandler: (() throws -> ([Snap]))?
+    func fetch() throws -> [Snap] {
         fetchCallCount += 1
         if let fetchHandler = fetchHandler {
-            return fetchHandler()
+            return try fetchHandler()
         }
         return [Snap]()
     }
@@ -86,11 +86,11 @@ final class TagRepositoryProtocolMock: TagRepositoryProtocol {
 
 
     private(set) var fetchCallCount = 0
-    var fetchHandler: (() -> ([Tag]))?
-    func fetch() -> [Tag] {
+    var fetchHandler: (() throws -> ([Tag]))?
+    func fetch() throws -> [Tag] {
         fetchCallCount += 1
         if let fetchHandler = fetchHandler {
-            return fetchHandler()
+            return try fetchHandler()
         }
         return [Tag]()
     }

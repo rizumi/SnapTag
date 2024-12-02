@@ -35,10 +35,13 @@ final class SnapListViewModel: ObservableObject {
     }
 
     func refresh() {
-        allSnaps = snapRepository.fetch()
-        tags = tagRepository.fetch()
-
-        updateSnaps()
+        do {
+            allSnaps = try snapRepository.fetch()
+            tags = try tagRepository.fetch()
+            updateSnaps()
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 
     func loadImage(path: String) -> UIImage? {
@@ -69,7 +72,7 @@ final class SnapListViewModel: ObservableObject {
                 allSnaps.remove(at: index)
 
                 // 写真が削除されタグが0件になった場合選択中の状態をすべてに戻す
-                tags = tagRepository.fetch()
+                tags = (try? tagRepository.fetch()) ?? tags
                 if let selectedTag = selectedTag, !tags.contains(selectedTag) {
                     self.selectedTag = nil
                 }

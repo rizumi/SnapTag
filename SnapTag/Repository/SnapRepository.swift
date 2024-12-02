@@ -10,13 +10,14 @@ import UIKit
 
 /// @mockable
 protocol SnapRepositoryProtocol {
-    func fetch() -> [Snap]
+    func fetch() throws -> [Snap]
     func load(name: String) -> UIImage?
     func save(_ image: UIImage, tagNames: [String]) throws
     func delete(_ snap: Snap) throws
 }
 
 enum SnapRepositoryError: Error {
+    case fetchFailed
     case saveFailed
     case deleteFailed
 }
@@ -33,11 +34,15 @@ final class SnapRepository: SnapRepositoryProtocol {
         self.imageStorage = imageStorage
     }
 
-    func fetch() -> [Snap] {
-        // 今は一度にまとめてfetchしているが、プロダクトとして運用する場合にはページングに対応した方が良い
-        let sort = SortDescriptor(\SnapModel.createdAt, order: .reverse)
-        let models = (try? context.fetch(FetchDescriptor<SnapModel>(sortBy: [sort]))) ?? []
-        return models.map { $0.toSnap() }
+    func fetch() throws -> [Snap] {
+        do {
+            // 今は一度にまとめてfetchしているが、プロダクトとして運用する場合にはページングに対応した方が良い
+            let sort = SortDescriptor(\SnapModel.createdAt, order: .reverse)
+            let models = try context.fetch(FetchDescriptor<SnapModel>(sortBy: [sort]))
+            return models.map { $0.toSnap() }
+        } catch {
+            throw SnapRepositoryError.fetchFailed
+        }
     }
 
     func load(name: String) -> UIImage? {
