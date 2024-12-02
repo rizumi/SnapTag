@@ -29,7 +29,6 @@ final class SnapDetailViewController: UIViewController {
 
             let cell = collectionView.dequeueReusableCell(with: SnapDetailCell.self, for: indexPath)
 
-            // TODO: DI
             cell?.configure(
                 .init(
                     snap: item,

@@ -78,10 +78,8 @@ final class SnapRepository: SnapRepositoryProtocol {
     }
 
     func delete(_ snap: Snap) throws {
-        let snapId = snap.id
-
         do {
-            // TODO: ファイルの削除と切り分ける
+            let snapId = snap.id
             try context.delete(
                 model: SnapModel.self,
                 where: #Predicate<SnapModel> {
