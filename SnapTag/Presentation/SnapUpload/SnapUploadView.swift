@@ -44,7 +44,9 @@ struct SnapUploadView: View {
                 ) {
                     ForEach(viewModel.tags, id: \.self) { tag in
                         TagView(name: tag) {
-                            viewModel.onTapDeleteTag(tag)
+                            withAnimation {
+                                viewModel.onTapDeleteTag(tag)
+                            }
                         }
                     }
 
@@ -102,7 +104,9 @@ struct SnapUploadView: View {
             actions: {
                 TextField("Please enter a tag", text: $viewModel.tagText)
                 Button {
-                    viewModel.addTag()
+                    withAnimation {
+                        viewModel.addTag()
+                    }
                 } label: {
                     Text("OK")
                 }
@@ -121,6 +125,7 @@ struct SnapUploadView: View {
             }
         )
         .padding(.vertical)
+        .ignoresSafeArea(.keyboard)
     }
 
     private func imageHeight(_ geometry: GeometryProxy) -> CGFloat {
