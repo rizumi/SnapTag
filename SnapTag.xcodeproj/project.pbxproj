@@ -194,7 +194,7 @@
 		FD98D0892CEF3F22007C6B5C /* SwiftFormat */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -208,12 +208,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "swift format -i -r SnapTag SnapTagTests\n";
+			shellScript = "if [ \\\"$ENABLE_PREVIEWS\\\" == \\\"YES\\\" ]; then\n  exit 0\nfi\n\nswift format -i -r SnapTag SnapTagTests\n";
 		};
 		FDAACC722CF610FB004EA36D /* Update Mock */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -227,7 +227,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "SDKROOT=(xcrun --sdk macosx --show-sdk-path)\nswift run -c release --package-path BuildTools mockolo -s SnapTag/ -d SnapTagTests/Mock.generated.swift -i SnapTag --mock-final\n";
+			shellScript = "if [ \\\"$ENABLE_PREVIEWS\\\" == \\\"YES\\\" ]; then\n  exit 0\nfi\n\nSDKROOT=(xcrun --sdk macosx --show-sdk-path)\nswift run -c release --package-path BuildTools mockolo -s SnapTag/ -d SnapTagTests/Mock.generated.swift -i SnapTag --mock-final\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
