@@ -39,6 +39,14 @@ struct SnapUploadView: View {
                             viewModel.onTapDeleteTag(tag)
                         }
                     }
+
+                    if viewModel.showAddTagButton {
+                        Button {
+                            viewModel.onTapAddTag()
+                        } label: {
+                            TagView(name: "AddTag")
+                        }
+                    }
                 }
                 .padding()
 
@@ -73,6 +81,17 @@ struct SnapUploadView: View {
         .photosPicker(
             isPresented: $viewModel.presentedPhotosPicker, selection: $viewModel.selectedItem,
             matching: .images
+        )
+        .alert(
+            "タグを追加", isPresented: $viewModel.presentedAddTagAlert,
+            actions: {
+                TextField("タグを入力してください", text: $viewModel.tagText)
+                Button {
+                    viewModel.addTag()
+                } label: {
+                    Text("OK")
+                }
+            }
         )
         .alert(
             "Failed to save",

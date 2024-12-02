@@ -18,6 +18,8 @@ final class SnapUploadViewModel: ObservableObject {
     @Published var presentedPhotosPicker = false
     @Published var presentedSaveErrorAlert = false
     @Published var presentedImageNotSelectedErrorAlert = false
+    @Published var presentedAddTagAlert = false
+    @Published var tagText: String = ""
 
     @Published private(set) var selectedImage: UIImage?
     @Published private(set) var tags: [String] = []
@@ -26,6 +28,10 @@ final class SnapUploadViewModel: ObservableObject {
     private let flow: SnapUploadViewFlow
 
     private var cancellables: Set<AnyCancellable> = []
+
+    var showAddTagButton: Bool {
+        selectedImage != nil && tags.count <= 5
+    }
 
     init(
         snapRepository: SnapRepositoryProtocol,
@@ -62,6 +68,16 @@ final class SnapUploadViewModel: ObservableObject {
 
     func onTapDeleteTag(_ tag: String) {
         tags.removeAll { $0 == tag }
+    }
+
+    func onTapAddTag() {
+        presentedAddTagAlert = true
+    }
+
+    func addTag() {
+        guard !tagText.isEmpty else { return }
+        tags.append(tagText)
+        tagText = ""
     }
 
     private func onChangeSelectedItem(item: PhotosPickerItem) {
