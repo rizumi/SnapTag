@@ -8,7 +8,7 @@
 import Foundation
 
 enum PresentationError: LocalizedError {
-    case loadfailed
+    case loadFailed
     case saveFailed
     case deleteFailed
     case imageNotSelected
@@ -16,7 +16,7 @@ enum PresentationError: LocalizedError {
 
     var errorDescription: String? {
         switch self {
-        case .loadfailed:
+        case .loadFailed:
             String(localized: "Failed to load")
         case .saveFailed, .imageNotSelected:
             String(localized: "Failed to save")
@@ -29,7 +29,7 @@ enum PresentationError: LocalizedError {
 
     var failureReason: String? {
         switch self {
-        case .loadfailed, .saveFailed, .deleteFailed:
+        case .loadFailed, .saveFailed, .deleteFailed:
             String(localized: "Please try again.")
         case .imageNotSelected:
             String(localized: "Please select photo.")

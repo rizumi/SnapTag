@@ -30,9 +30,6 @@ final class SnapListViewModel: ObservableObject {
         self.snapRepository = snapRepository
         self.tagRepository = tagRepository
         self.flow = flow
-
-        refresh()
-        snaps = allSnaps
     }
 
     func refresh() {
@@ -41,7 +38,7 @@ final class SnapListViewModel: ObservableObject {
             tags = try tagRepository.fetch()
             updateSnaps()
         } catch {
-            errorState = .loadfailed
+            errorState = .loadFailed
         }
     }
 
