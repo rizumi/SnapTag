@@ -101,29 +101,15 @@ struct SnapUploadView: View {
             }
         )
         .alert(
-            "Failed to recommend tags", isPresented: $viewModel.presentedTagRecommendErrorAlert,
-            actions: {}
-        )
-        .alert(
-            "Failed to save",
-            isPresented: $viewModel.presentedSaveErrorAlert,
-            actions: {},
-            message: {
-                Text("Please try again.")
-            }
-        )
-        .alert(
-            "Failed to save",
-            isPresented: $viewModel.presentedImageNotSelectedErrorAlert,
-            actions: {
-                Button {
-                    viewModel.showPhotoPicker()
-                } label: {
-                    Text("OK")
+            isPresented: $viewModel.showErrorAlert,
+            error: viewModel.currentError,
+            actions: { _ in
+                Button("OK") {
+                    viewModel.errorAction()
                 }
             },
             message: {
-                Text("Please select photo.")
+                Text($0.failureReason ?? "")
             }
         )
         .padding(.vertical)

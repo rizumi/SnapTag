@@ -11,28 +11,53 @@ import PhotosUI
 import SwiftUI
 import UIKit
 
+enum PresentationError: LocalizedError {
+    case saveFailed
+    case imageNotSelected
+    case tagRecommendFailed
+
+    var errorDescription: String? {
+        switch self {
+        case .saveFailed, .imageNotSelected:
+            String(localized: "Failed to save")
+        case .tagRecommendFailed:
+            String(localized: "Failed to recommend tags")
+        }
+    }
+
+    var failureReason: String? {
+        switch self {
+        case .saveFailed:
+            String(localized: "Please try again.")
+        case .imageNotSelected:
+            String(localized: "Please select photo.")
+        case .tagRecommendFailed:
+            nil
+        }
+    }
+}
+
 @MainActor
 final class SnapUploadViewModel: ObservableObject {
 
     @Published var selectedItem: PhotosPickerItem?
     @Published var presentedPhotosPicker = false
-    @Published var presentedSaveErrorAlert = false
-    @Published var presentedTagRecommendErrorAlert = false
-    @Published var presentedImageNotSelectedErrorAlert = false
     @Published var presentedAddTagAlert = false
     @Published var tagText: String = ""
+    @Published var showErrorAlert: Bool = false
 
     @Published private(set) var selectedImage: UIImage?
     @Published private(set) var tags: [String] = []
+    private(set) var currentError: PresentationError?
+
+    var showAddTagButton: Bool {
+        selectedImage != nil && tags.count <= 5
+    }
 
     private let snapRepository: SnapRepositoryProtocol
     private let flow: SnapUploadViewFlow
 
     private var cancellables: Set<AnyCancellable> = []
-
-    var showAddTagButton: Bool {
-        selectedImage != nil && tags.count <= 5
-    }
 
     init(
         snapRepository: SnapRepositoryProtocol,
@@ -55,7 +80,8 @@ final class SnapUploadViewModel: ObservableObject {
 
     func onTapSave() {
         guard let image = selectedImage else {
-            presentedImageNotSelectedErrorAlert = true
+            currentError = .imageNotSelected
+            showErrorAlert = true
             return
         }
 
@@ -63,7 +89,8 @@ final class SnapUploadViewModel: ObservableObject {
             try snapRepository.save(image, tagNames: tags)
             flow.dismiss(isCompleted: true)
         } catch {
-            presentedSaveErrorAlert = true
+            currentError = .saveFailed
+            showErrorAlert = true
         }
     }
 
@@ -80,6 +107,15 @@ final class SnapUploadViewModel: ObservableObject {
         // TODO: 文字数制限をするならここ
         tags.append(tagText)
         tagText = ""
+    }
+
+    func errorAction() {
+        guard let error = currentError else { return }
+        if error == .imageNotSelected {
+            presentedPhotosPicker = true
+        }
+
+        currentError = nil
     }
 
     private func onChangeSelectedItem(item: PhotosPickerItem) {
@@ -99,7 +135,8 @@ final class SnapUploadViewModel: ObservableObject {
                     tags = try await recommender.recommendTags(from: uiImage)
                 }
             } catch {
-                presentedTagRecommendErrorAlert = true
+                currentError = .tagRecommendFailed
+                showErrorAlert = true
             }
         }
     }
