@@ -116,7 +116,7 @@ struct SnapUploadView: View {
         .alert(
             "Add Tag", isPresented: $viewModel.presentedAddTagAlert,
             actions: {
-                TextField("Please enter a tag", text: $viewModel.tagText)
+                TextField("(maximum 10 characters).", text: $viewModel.tagText)
                 Button {
                     withAnimation {
                         viewModel.addTag()

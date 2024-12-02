@@ -13,6 +13,7 @@ enum PresentationError: LocalizedError {
     case deleteFailed
     case imageNotSelected
     case tagRecommendFailed
+    case tagLengthLimit
 
     var errorDescription: String? {
         switch self {
@@ -24,6 +25,8 @@ enum PresentationError: LocalizedError {
             String(localized: "Failed to delete")
         case .tagRecommendFailed:
             String(localized: "Failed to recommend tags")
+        case .tagLengthLimit:
+            String(localized: "Failed to add the tag")
         }
     }
 
@@ -33,6 +36,8 @@ enum PresentationError: LocalizedError {
             String(localized: "Please try again.")
         case .imageNotSelected:
             String(localized: "Please select photo.")
+        case .tagLengthLimit:
+            String(localized: "Please enter a tag within 10 characters.")
         case .tagRecommendFailed:
             nil
         }

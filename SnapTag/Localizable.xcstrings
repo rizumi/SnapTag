@@ -1,6 +1,16 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "(maximum 10 characters)." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "(最大10文字)"
+          }
+        }
+      }
+    },
     "Add" : {
       "localizations" : {
         "ja" : {
@@ -95,6 +105,16 @@
         }
       }
     },
+    "Failed to add the tag" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タグの追加に失敗しました"
+          }
+        }
+      }
+    },
     "Failed to delete" : {
       "localizations" : {
         "ja" : {
@@ -145,12 +165,12 @@
         }
       }
     },
-    "Please enter a tag" : {
+    "Please enter a tag within 10 characters." : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "タグを入力してください"
+            "value" : "タグは10文字以内で入力してください"
           }
         }
       }
