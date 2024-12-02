@@ -17,6 +17,7 @@ final class SnapUploadViewModel: ObservableObject {
     @Published var selectedItem: PhotosPickerItem?
     @Published var presentedPhotosPicker = false
     @Published var presentedSaveErrorAlert = false
+    @Published var presentedTagRecommendErrorAlert = false
     @Published var presentedImageNotSelectedErrorAlert = false
     @Published var presentedAddTagAlert = false
     @Published var tagText: String = ""
@@ -98,8 +99,7 @@ final class SnapUploadViewModel: ObservableObject {
                     tags = try await recommender.recommendTags(from: uiImage)
                 }
             } catch {
-                // TODO error表示
-                print(error)
+                presentedTagRecommendErrorAlert = true
             }
         }
     }

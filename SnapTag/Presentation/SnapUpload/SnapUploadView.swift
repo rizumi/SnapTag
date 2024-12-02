@@ -100,6 +100,7 @@ struct SnapUploadView: View {
                 }
             }
         )
+        .alert("タグの推薦に失敗しました", isPresented: $viewModel.presentedTagRecommendErrorAlert, actions: {})
         .alert(
             "Failed to save",
             isPresented: $viewModel.presentedSaveErrorAlert,
