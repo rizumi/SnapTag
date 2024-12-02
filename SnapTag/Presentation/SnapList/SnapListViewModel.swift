@@ -13,6 +13,8 @@ final class SnapListViewModel: ObservableObject {
     @Published private(set) var snaps: [Snap] = []
     @Published private(set) var tags: [Tag] = []
     @Published private(set) var selectedTag: Tag? = nil
+    @Published var showErrorAlert: Bool = false
+    private(set) var currentError: PresentationError?
 
     private let snapRepository: SnapRepositoryProtocol
     private let tagRepository: TagRepositoryProtocol
@@ -40,7 +42,8 @@ final class SnapListViewModel: ObservableObject {
             tags = try tagRepository.fetch()
             updateSnaps()
         } catch {
-            print(error.localizedDescription)
+            currentError = .loadfailed
+            showErrorAlert = true
         }
     }
 
@@ -80,6 +83,10 @@ final class SnapListViewModel: ObservableObject {
                 updateSnaps()
             }
         }
+    }
+
+    func errorAction() {
+        currentError = nil
     }
 
     private func updateSnaps() {

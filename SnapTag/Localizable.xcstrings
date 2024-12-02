@@ -95,6 +95,12 @@
         }
       }
     },
+    "Failed to delete" : {
+
+    },
+    "Failed to load" : {
+
+    },
     "Failed to recommend tags" : {
       "localizations" : {
         "ja" : {
