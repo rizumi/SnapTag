@@ -2,7 +2,24 @@
   "sourceLanguage" : "en",
   "strings" : {
     "Add" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "追加"
+          }
+        }
+      }
+    },
+    "Add Tag" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タグを追加"
+          }
+        }
+      }
     },
     "All" : {
       "localizations" : {
@@ -78,6 +95,16 @@
         }
       }
     },
+    "Failed to recommend tags" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タグの推薦に失敗しました"
+          }
+        }
+      }
+    },
     "Failed to save" : {
       "localizations" : {
         "ja" : {
@@ -94,6 +121,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "OK"
+          }
+        }
+      }
+    },
+    "Please enter a tag" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タグを入力してください"
           }
         }
       }
@@ -146,16 +183,14 @@
       }
     },
     "SnapTag" : {
-
-    },
-    "タグの推薦に失敗しました" : {
-
-    },
-    "タグを入力してください" : {
-
-    },
-    "タグを追加" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SnapTag"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

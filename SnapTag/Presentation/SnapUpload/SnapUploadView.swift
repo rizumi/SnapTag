@@ -90,9 +90,9 @@ struct SnapUploadView: View {
             matching: .images
         )
         .alert(
-            "タグを追加", isPresented: $viewModel.presentedAddTagAlert,
+            "Add Tag", isPresented: $viewModel.presentedAddTagAlert,
             actions: {
-                TextField("タグを入力してください", text: $viewModel.tagText)
+                TextField("Please enter a tag", text: $viewModel.tagText)
                 Button {
                     viewModel.addTag()
                 } label: {
@@ -100,7 +100,10 @@ struct SnapUploadView: View {
                 }
             }
         )
-        .alert("タグの推薦に失敗しました", isPresented: $viewModel.presentedTagRecommendErrorAlert, actions: {})
+        .alert(
+            "Failed to recommend tags", isPresented: $viewModel.presentedTagRecommendErrorAlert,
+            actions: {}
+        )
         .alert(
             "Failed to save",
             isPresented: $viewModel.presentedSaveErrorAlert,
