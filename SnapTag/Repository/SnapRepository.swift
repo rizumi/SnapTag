@@ -52,7 +52,8 @@ final class SnapRepository: SnapRepositoryProtocol {
     func save(_ image: UIImage, tagNames: [String]) throws {
         do {
             let path = try imageStorage.save(image: image, with: UUID().uuidString)
-            let tagModels = try tagNames.map { name in
+            let tagModels: [TagModel] = try tagNames.compactMap { [weak self] name in
+                guard let self else { return nil }
                 let tag = try context.fetch(
                     FetchDescriptor<TagModel>(
                         predicate: #Predicate {
