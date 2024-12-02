@@ -112,8 +112,7 @@ struct SnapListViewModelTests {
         // Assert
         #expect(viewModel.snaps == [])
         #expect(viewModel.tags == [])
-        #expect(viewModel.errorState != nil)
-        #expect(viewModel.errorState! == .loadFailed)
+        #expect(viewModel.errorState == .loadFailed)
     }
 
     @Test("Tagのfetch失敗時にerrorStateがloadFailedとなること")
@@ -147,8 +146,7 @@ struct SnapListViewModelTests {
         // Assert
         #expect(viewModel.snaps == [])
         #expect(viewModel.tags == [])
-        #expect(viewModel.errorState != nil)
-        #expect(viewModel.errorState! == .loadFailed)
+        #expect(viewModel.errorState == .loadFailed)
     }
 
     @Test("タグ選択時に該当タグを含むSnapに絞り込まれること")

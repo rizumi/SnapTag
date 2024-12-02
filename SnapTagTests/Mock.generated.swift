@@ -11,6 +11,21 @@ import UIKit
 @testable import SnapTag
 
 
+final class TagRecommenderMock: TagRecommender {
+    init() { }
+
+
+    private(set) var recommendTagsCallCount = 0
+    var recommendTagsHandler: ((UIImage) async throws -> ([String]))?
+    func recommendTags(from image: UIImage) async throws -> [String] {
+        recommendTagsCallCount += 1
+        if let recommendTagsHandler = recommendTagsHandler {
+            return try await recommendTagsHandler(image)
+        }
+        return [String]()
+    }
+}
+
 final class SnapDetailViewFlowMock: SnapDetailViewFlow {
     init() { }
 

@@ -9,12 +9,13 @@ import CoreML
 import UIKit
 import Vision
 
+enum CoreMLTagRecommenderError: Error {
+    case modelLoadError
+    case imageConversionError
+    case classificationFailed
+}
+
 final class CoreMLTagRecommender: TagRecommender {
-    enum CoreMLTagRecommenderError: Error {
-        case modelLoadError
-        case imageConversionError
-        case classificationFailed
-    }
 
     func recommendTags(from image: UIImage) async throws -> [String] {
         guard
