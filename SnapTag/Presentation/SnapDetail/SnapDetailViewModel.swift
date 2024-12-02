@@ -15,8 +15,7 @@ final class SnapDetailViewModel: ObservableObject {
     @Published private(set) var tags: [String] = []
     @Published private(set) var showUI: Bool = true
     @Published private(set) var presentedDeleteConfirmDialog: Bool = false
-    @Published var showErrorAlert: Bool = false
-    private(set) var currentError: PresentationError?
+    @Published private(set) var errorState: PresentationError?
 
     var currentIndexPath: IndexPath {
         .init(item: currentIndex, section: 0)
@@ -65,12 +64,11 @@ final class SnapDetailViewModel: ObservableObject {
                 onChangeSnap(currentIndex)
             }
         } catch {
-            currentError = .deleteFailed
-            showErrorAlert = true
+            errorState = .deleteFailed
         }
     }
 
     func onDismissErrorAlert() {
-        currentError = nil
+        errorState = nil
     }
 }

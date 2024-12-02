@@ -81,16 +81,10 @@ struct SnapListView: View {
         .onFirstAppear {
             viewModel.refresh()
         }
-        .alert(
-            isPresented: $viewModel.showErrorAlert,
-            error: viewModel.currentError,
-            actions: { _ in
-                Button("OK") {
-                    viewModel.onDismissErrorAlert()
-                }
-            },
-            message: {
-                Text($0.failureReason ?? "")
+        .errorAlert(
+            error: viewModel.errorState,
+            onDismiss: {
+                viewModel.onDismissErrorAlert()
             }
         )
         .navigationTitle("SnapTag")

@@ -158,8 +158,8 @@ final class SnapDetailViewController: UIViewController {
             }
             .store(in: &cancellables)
 
-        viewModel.$showErrorAlert
-            .filter { $0 }
+        viewModel.$errorState
+            .compactMap { $0 }
             .sink { [weak self] _ in
                 self?.showErrorAlert()
             }
@@ -227,8 +227,8 @@ final class SnapDetailViewController: UIViewController {
 
     private func showErrorAlert() {
         let alert = UIAlertController(
-            title: viewModel.currentError?.title,
-            message: viewModel.currentError?.message,
+            title: viewModel.errorState?.title,
+            message: viewModel.errorState?.message,
             preferredStyle: .alert)
 
         alert.addAction(

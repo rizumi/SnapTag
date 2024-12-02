@@ -18,11 +18,10 @@ final class SnapUploadViewModel: ObservableObject {
     @Published var presentedPhotosPicker = false
     @Published var presentedAddTagAlert = false
     @Published var tagText: String = ""
-    @Published var showErrorAlert: Bool = false
 
     @Published private(set) var selectedImage: UIImage?
     @Published private(set) var tags: [String] = []
-    private(set) var currentError: PresentationError?
+    @Published private(set) var errorState: PresentationError?
 
     var showAddTagButton: Bool {
         selectedImage != nil && tags.count <= 5
@@ -54,8 +53,7 @@ final class SnapUploadViewModel: ObservableObject {
 
     func onTapSave() {
         guard let image = selectedImage else {
-            currentError = .imageNotSelected
-            showErrorAlert = true
+            errorState = .imageNotSelected
             return
         }
 
@@ -63,8 +61,7 @@ final class SnapUploadViewModel: ObservableObject {
             try snapRepository.save(image, tagNames: tags)
             flow.dismiss(isCompleted: true)
         } catch {
-            currentError = .saveFailed
-            showErrorAlert = true
+            errorState = .saveFailed
         }
     }
 
@@ -88,12 +85,12 @@ final class SnapUploadViewModel: ObservableObject {
     }
 
     func onDismissErrorAlert() {
-        guard let error = currentError else { return }
+        guard let error = errorState else { return }
         if error == .imageNotSelected {
             presentedPhotosPicker = true
         }
 
-        currentError = nil
+        errorState = nil
     }
 
     private func onChangeSelectedItem(item: PhotosPickerItem) {
@@ -113,8 +110,7 @@ final class SnapUploadViewModel: ObservableObject {
                     tags = try await recommender.recommendTags(from: uiImage)
                 }
             } catch {
-                currentError = .tagRecommendFailed
-                showErrorAlert = true
+                errorState = .tagRecommendFailed
             }
         }
     }
