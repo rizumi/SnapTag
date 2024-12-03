@@ -62,6 +62,27 @@ final class SnapDetailViewController: UIViewController {
         bindViewModel()
     }
 
+    override func viewWillTransition(
+        to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator
+    ) {
+        super.viewWillTransition(to: size, with: coordinator)
+
+        coordinator.animate(alongsideTransition: { [weak self] _ in
+            guard let self else { return }
+            Task.detached { @MainActor in
+                self.collectionView.collectionViewLayout.invalidateLayout()
+                self.collectionView.scrollToItem(
+                    at: self.viewModel.currentIndexPath,
+                    at: .centeredHorizontally,
+                    animated: false)
+
+                self.collectionView.visibleCells
+                    .compactMap { $0 as? SnapDetailCell }
+                    .forEach { $0.willTransition() }
+            }
+        })
+    }
+
     private func setupActions() {
         closeButton.addAction(
             .init(handler: { [weak self] _ in
@@ -112,6 +133,7 @@ final class SnapDetailViewController: UIViewController {
     private func setupCollectionView() {
         collectionView.backgroundColor = .black
         collectionView.isPagingEnabled = true
+        collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.dataSource = dataSource
         collectionView.delegate = self
@@ -176,9 +198,13 @@ final class SnapDetailViewController: UIViewController {
         if isFirstTime {
             dataSource.apply(snapshot) { [weak self] in
                 guard let self else { return }
-
-                collectionView.scrollToItem(
-                    at: self.viewModel.currentIndexPath, at: .centeredHorizontally, animated: false)
+                Task.detached { @MainActor in
+                    self.collectionView.layoutIfNeeded()
+                    self.collectionView.scrollToItem(
+                        at: self.viewModel.currentIndexPath,
+                        at: .centeredHorizontally,
+                        animated: false)
+                }
             }
         } else {
             dataSource.apply(snapshot)

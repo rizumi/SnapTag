@@ -51,6 +51,10 @@ final class SnapDetailCell: UICollectionViewCell {
         updateContentInset()
     }
 
+    func willTransition() {
+        scrollView.zoomScale = 1.0
+    }
+
     private func adjustImageViewSize() {
         layoutIfNeeded()
 
