@@ -32,6 +32,42 @@ struct TagView: View {
     }
 }
 
+struct AllTagView: View {
+    var backgroundColor: Color = .gray
+
+    var body: some View {
+        Text("all")
+            .lineLimit(1)
+            .padding(8)
+            .background(backgroundColor)
+            .foregroundStyle(Color.white)
+            .cornerRadius(8)
+    }
+}
+
+struct AddTagView: View {
+    var onTap: () -> Void
+
+    var body: some View {
+        Button {
+            onTap()
+        } label: {
+            HStack {
+                Image(systemName: "plus.circle.fill")
+                Text("add")
+            }
+            .padding(8)
+            .background(Color.blue)
+            .foregroundStyle(Color.white)
+            .cornerRadius(8)
+        }
+    }
+}
+
 #Preview {
-    TagView(name: "TagName")
+    VStack {
+        TagView(name: "TagName")
+        AllTagView()
+        AddTagView(onTap: {})
+    }
 }

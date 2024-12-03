@@ -52,17 +52,8 @@ struct SnapUploadView: View {
                     }
 
                     if viewModel.showAddTagButton {
-                        Button {
+                        AddTagView {
                             viewModel.onTapAddTag()
-                        } label: {
-                            HStack {
-                                Image(systemName: "plus.circle.fill")
-                                Text("add")
-                            }
-                            .padding(8)
-                            .background(Color.blue)
-                            .foregroundStyle(Color.white)
-                            .cornerRadius(8)
                         }
                     }
                 }

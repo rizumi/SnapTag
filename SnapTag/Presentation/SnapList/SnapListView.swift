@@ -22,12 +22,7 @@ struct SnapListView: View {
                         Button {
                             viewModel.onSelectedAll()
                         } label: {
-                            Text("all")
-                                .padding(8)
-                                .background(tagColor(nil))
-                                .foregroundStyle(Color.white)
-                                .cornerRadius(8)
-                                .lineLimit(1)
+                            AllTagView(backgroundColor: tagColor(nil))
                         }
 
                         ForEach(viewModel.tags, id: \.id) { tag in
