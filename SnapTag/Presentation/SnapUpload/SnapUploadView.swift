@@ -12,6 +12,8 @@ struct SnapUploadView: View {
     @StateObject var viewModel: SnapUploadViewModel
     @State var selectedItem: PhotosPickerItem?
 
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+
     init(viewModel: SnapUploadViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
@@ -132,9 +134,15 @@ struct SnapUploadView: View {
     }
 
     private func imageHeight(_ geometry: GeometryProxy) -> CGFloat {
-        // iPadは横にサイズが大きく、タグ表示に複数行なくても良いので画像を大きく表示する
-        let isIPad = UIDevice.current.userInterfaceIdiom == .pad
-        return isIPad ? geometry.size.height / 1.5 : geometry.size.height / 2.5
+        // iPadなど横幅が大きい場合にはタグ表示に複数行なくても良いので画像を大きく表示する
+        switch horizontalSizeClass {
+        case .regular:
+            return geometry.size.height / 1.5
+        case .compact:
+            return geometry.size.height / 2.5
+        default:
+            return geometry.size.height / 2.5
+        }
     }
 }
 

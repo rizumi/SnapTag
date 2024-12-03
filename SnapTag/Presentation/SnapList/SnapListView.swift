@@ -9,6 +9,18 @@ import SwiftUI
 
 struct SnapListView: View {
     @StateObject private var viewModel: SnapListViewModel
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+
+    var columnCount: Int {
+        switch horizontalSizeClass {
+        case .regular:
+            return 4
+        case .compact:
+            return 3
+        default:
+            return 3
+        }
+    }
 
     init(viewModel: SnapListViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -41,7 +53,7 @@ struct SnapListView: View {
     private func snapGridView() -> some View {
         ScrollView {
             LazyVGrid(
-                columns: Array(repeating: .init(.flexible(), spacing: 2), count: 3),
+                columns: Array(repeating: .init(.flexible(), spacing: 2), count: columnCount),
                 spacing: 2
             ) {
                 ForEach(viewModel.snaps, id: \.id) { snap in
