@@ -18,26 +18,43 @@ enum PresentationError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .loadFailed:
-            String(localized: "Failed to load")
+            String(
+                localized: "load_failed",
+                defaultValue: "Failed to load")
         case .saveFailed, .imageNotSelected:
-            String(localized: "Failed to save")
+            String(
+                localized: "save_failed",
+                defaultValue: "Failed to save")
         case .deleteFailed:
-            String(localized: "Failed to delete")
+            String(
+                localized: "delete_failed",
+                defaultValue: "Failed to delete")
         case .tagRecommendFailed:
-            String(localized: "Failed to recommend tags")
+            String(
+                localized: "tag_recommend_failed",
+                defaultValue: "Failed to recommend tags")
         case .tagLengthLimit:
-            String(localized: "Failed to add the tag")
+            String(
+                localized: "add_tag_failed",
+                defaultValue: "Failed to add the tag")
         }
     }
 
     var failureReason: String? {
         switch self {
         case .loadFailed, .saveFailed, .deleteFailed:
-            String(localized: "Please try again.")
+            String(
+                localized: "try_again",
+                defaultValue: "Please try again.")
         case .imageNotSelected:
-            String(localized: "Please select photo.")
+            String(
+                localized: "image_not_selected_error_message",
+                defaultValue: "Please select photo.")
         case .tagLengthLimit:
-            String(localized: "Please enter a tag within 10 characters.")
+            String(
+                localized: "tag_length_limit_message",
+                defaultValue: "Please enter a tag within \(Constants.tagCharacterLimit) characters."
+            )
         case .tagRecommendFailed:
             nil
         }

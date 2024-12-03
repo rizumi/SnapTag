@@ -1,16 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "(maximum 10 characters)." : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "(最大10文字)"
-          }
-        }
-      }
-    },
     "Add" : {
       "localizations" : {
         "ja" : {
@@ -27,6 +17,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "タグを追加"
+          }
+        }
+      }
+    },
+    "add_tag_failed" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Failed to add the tag"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タグの追加に失敗しました"
           }
         }
       }
@@ -53,6 +60,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "キャンセル"
+          }
+        }
+      }
+    },
+    "character_limit" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "(maximum %lld characters)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "(最大%lld文字)"
           }
         }
       }
@@ -105,18 +129,15 @@
         }
       }
     },
-    "Failed to add the tag" : {
+    "delete_failed" : {
+      "extractionState" : "extracted_with_value",
       "localizations" : {
-        "ja" : {
+        "en" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "タグの追加に失敗しました"
+            "state" : "new",
+            "value" : "Failed to delete"
           }
-        }
-      }
-    },
-    "Failed to delete" : {
-      "localizations" : {
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -125,32 +146,36 @@
         }
       }
     },
-    "Failed to load" : {
+    "image_not_selected_error_message" : {
+      "extractionState" : "extracted_with_value",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Please select photo."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "写真を選択してください"
+          }
+        }
+      }
+    },
+    "load_failed" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Failed to load"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "読み込みに失敗しました"
-          }
-        }
-      }
-    },
-    "Failed to recommend tags" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "タグの推薦に失敗しました"
-          }
-        }
-      }
-    },
-    "Failed to save" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "保存に失敗しました"
           }
         }
       }
@@ -161,36 +186,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "OK"
-          }
-        }
-      }
-    },
-    "Please enter a tag within 10 characters." : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "タグは10文字以内で入力してください"
-          }
-        }
-      }
-    },
-    "Please select photo." : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "写真を選択してください"
-          }
-        }
-      }
-    },
-    "Please try again." : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "もう一度やり直してください"
           }
         }
       }
@@ -212,6 +207,23 @@
         }
       }
     },
+    "save_failed" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Failed to save"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存に失敗しました"
+          }
+        }
+      }
+    },
     "Select Snap" : {
       "localizations" : {
         "ja" : {
@@ -228,6 +240,57 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "SnapTag"
+          }
+        }
+      }
+    },
+    "tag_length_limit_message" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Please enter a tag within %lld characters."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タグは%lld文字以内で入力してください"
+          }
+        }
+      }
+    },
+    "tag_recommend_failed" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Failed to recommend tags"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タグの推薦に失敗しました"
+          }
+        }
+      }
+    },
+    "try_again" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Please try again."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "もう一度やり直してください"
           }
         }
       }

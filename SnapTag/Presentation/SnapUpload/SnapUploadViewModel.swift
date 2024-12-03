@@ -25,7 +25,6 @@ final class SnapUploadViewModel: ObservableObject {
         selectedImage != nil && tags.count <= 5
     }
 
-    private let maxTagLength = 10
     private let snapRepository: SnapRepositoryProtocol
     private let recommender: TagRecommender
     private let flow: SnapUploadViewFlow
@@ -76,7 +75,7 @@ final class SnapUploadViewModel: ObservableObject {
 
     func addTag() {
         guard !tagText.isEmpty else { return }
-        guard tagText.count <= maxTagLength else {
+        guard tagText.count <= Constants.tagCharacterLimit else {
             errorState = .tagLengthLimit
             tagText = ""
             return
