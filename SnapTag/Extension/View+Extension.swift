@@ -18,10 +18,13 @@ extension View {
                     error != nil
                 },
                 set: { _ in
-                    onDismiss()
                 }),
             error: error,
-            actions: { _ in },
+            actions: { _ in
+                Button("ok") {
+                    onDismiss()
+                }
+            },
             message: { error in
                 Text(error.failureReason ?? "")
             }
