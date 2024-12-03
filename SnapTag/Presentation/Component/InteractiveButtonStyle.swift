@@ -18,3 +18,15 @@ struct InteractiveButtonStyle: ButtonStyle {
                 value: scale)
     }
 }
+
+#Preview {
+    Button {
+    } label: {
+        Text("Button")
+            .frame(maxWidth: .infinity, minHeight: 44)
+            .background(.blue)
+            .foregroundStyle(.white)
+    }
+    .padding(.horizontal, 16)
+    .buttonStyle(InteractiveButtonStyle())
+}

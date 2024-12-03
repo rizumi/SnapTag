@@ -26,3 +26,19 @@ struct SnapDetailTagView: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    let snapRepository = PreviewSnapRepository()
+    let tagA = Tag(id: "a", name: "タグ1")
+    let tagB = Tag(id: "b", name: "タグ2")
+
+    let snap = Snap(id: "", imagePath: "", tags: [tagA, tagB])
+    let flow = SnapDetailViewCoordinator(snap: snap, snaps: [], navigator: .init(), onDelete: nil)
+
+    SnapDetailTagView(
+        viewModel: .init(
+            snap: snap, snaps: [], repository: snapRepository,
+            flow: flow))
+}
+#endif
