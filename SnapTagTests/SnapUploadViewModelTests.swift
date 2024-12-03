@@ -223,6 +223,52 @@ struct SnapUploadViewModelTests {
         #expect(viewModel.tags == ["a", "b", "c", "d"])
     }
 
+    @Test("空文字タグの追加ができること")
+    func testOnTapAddEmptyTag() async throws {
+        // Arrange
+        let repository = SnapRepositoryProtocolMock()
+        let recommender = TagRecommenderMock()
+        let flow = SnapUploadViewFlowMock()
+
+        recommender.recommendTagsHandler = { _ in
+            return ["a", "b", "c"]
+        }
+
+        let viewModel = SnapUploadViewModel(
+            snapRepository: repository, recommender: recommender, flow: flow)
+        await viewModel.onSelectedImage(.init())
+
+        // Act
+        viewModel.tagText = ""
+        viewModel.addTag()
+
+        // Assert
+        #expect(viewModel.tags == ["a", "b", "c"])
+    }
+
+    @Test("重複タグの追加ができること")
+    func testOnTapAddSameTag() async throws {
+        // Arrange
+        let repository = SnapRepositoryProtocolMock()
+        let recommender = TagRecommenderMock()
+        let flow = SnapUploadViewFlowMock()
+
+        recommender.recommendTagsHandler = { _ in
+            return ["a", "b", "c"]
+        }
+
+        let viewModel = SnapUploadViewModel(
+            snapRepository: repository, recommender: recommender, flow: flow)
+        await viewModel.onSelectedImage(.init())
+
+        // Act
+        viewModel.tagText = "b"
+        viewModel.addTag()
+
+        // Assert
+        #expect(viewModel.tags == ["a", "b", "c"])
+    }
+
     @Test("11文字以上のタグが追加できないこと")
     func testOnTapAddTagLimit() async throws {
         // Arrange
