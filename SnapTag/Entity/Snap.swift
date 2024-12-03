@@ -7,6 +7,6 @@
 
 struct Snap: Equatable, Hashable {
     var id: String
-    var imagePath: String
+    var imageName: String
     var tags: [Tag]
 }

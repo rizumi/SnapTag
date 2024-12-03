@@ -13,6 +13,6 @@ extension TagModel {
 
 extension SnapModel {
     func toSnap() -> Snap {
-        return .init(id: id, imagePath: imagePath, tags: tags.map { $0.toTag() })
+        return .init(id: id, imageName: imageName, tags: tags.map { $0.toTag() })
     }
 }

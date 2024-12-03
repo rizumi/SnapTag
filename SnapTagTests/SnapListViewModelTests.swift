@@ -23,10 +23,10 @@ struct SnapListViewModelTests {
         let tagB = Tag(id: "2", name: "b")
         let tagC = Tag(id: "2", name: "c")
 
-        let snapA = Snap(id: "1", imagePath: "", tags: [tagA])
-        let snapB = Snap(id: "2", imagePath: "", tags: [tagA, tagB])
-        let snapC = Snap(id: "3", imagePath: "", tags: [tagB])
-        let snapD = Snap(id: "4", imagePath: "", tags: [tagC])
+        let snapA = Snap(id: "1", imageName: "", tags: [tagA])
+        let snapB = Snap(id: "2", imageName: "", tags: [tagA, tagB])
+        let snapC = Snap(id: "3", imageName: "", tags: [tagB])
+        let snapD = Snap(id: "4", imageName: "", tags: [tagC])
 
         tagRepository.fetchHandler = {
             return [tagA, tagB, tagC]
@@ -56,10 +56,10 @@ struct SnapListViewModelTests {
         let tagB = Tag(id: "2", name: "b")
         let tagC = Tag(id: "2", name: "c")
 
-        let snapA = Snap(id: "1", imagePath: "", tags: [tagA])
-        let snapB = Snap(id: "2", imagePath: "", tags: [tagA, tagB])
-        let snapC = Snap(id: "3", imagePath: "", tags: [tagB])
-        let snapD = Snap(id: "4", imagePath: "", tags: [tagC])
+        let snapA = Snap(id: "1", imageName: "", tags: [tagA])
+        let snapB = Snap(id: "2", imageName: "", tags: [tagA, tagB])
+        let snapC = Snap(id: "3", imageName: "", tags: [tagB])
+        let snapD = Snap(id: "4", imageName: "", tags: [tagC])
 
         tagRepository.fetchHandler = {
             return [tagA, tagB, tagC]
@@ -126,10 +126,10 @@ struct SnapListViewModelTests {
         let tagB = Tag(id: "2", name: "b")
         let tagC = Tag(id: "2", name: "c")
 
-        let snapA = Snap(id: "1", imagePath: "", tags: [tagA])
-        let snapB = Snap(id: "2", imagePath: "", tags: [tagA, tagB])
-        let snapC = Snap(id: "3", imagePath: "", tags: [tagB])
-        let snapD = Snap(id: "4", imagePath: "", tags: [tagC])
+        let snapA = Snap(id: "1", imageName: "", tags: [tagA])
+        let snapB = Snap(id: "2", imageName: "", tags: [tagA, tagB])
+        let snapC = Snap(id: "3", imageName: "", tags: [tagB])
+        let snapD = Snap(id: "4", imageName: "", tags: [tagC])
 
         tagRepository.fetchHandler = {
             throw TagRepositoryError.fetchFailed
@@ -160,10 +160,10 @@ struct SnapListViewModelTests {
         let tagB = Tag(id: "2", name: "b")
         let tagC = Tag(id: "2", name: "c")
 
-        let snapA = Snap(id: "1", imagePath: "", tags: [tagA])
-        let snapB = Snap(id: "2", imagePath: "", tags: [tagA, tagB])
-        let snapC = Snap(id: "3", imagePath: "", tags: [tagB])
-        let snapD = Snap(id: "4", imagePath: "", tags: [tagC])
+        let snapA = Snap(id: "1", imageName: "", tags: [tagA])
+        let snapB = Snap(id: "2", imageName: "", tags: [tagA, tagB])
+        let snapC = Snap(id: "3", imageName: "", tags: [tagB])
+        let snapD = Snap(id: "4", imageName: "", tags: [tagC])
 
         tagRepository.fetchHandler = {
             return [tagA, tagB, tagC]
@@ -195,10 +195,10 @@ struct SnapListViewModelTests {
         let tagB = Tag(id: "2", name: "b")
         let tagC = Tag(id: "2", name: "c")
 
-        let snapA = Snap(id: "1", imagePath: "", tags: [tagA])
-        let snapB = Snap(id: "2", imagePath: "", tags: [tagA, tagB])
-        let snapC = Snap(id: "3", imagePath: "", tags: [tagB])
-        let snapD = Snap(id: "4", imagePath: "", tags: [tagC])
+        let snapA = Snap(id: "1", imageName: "", tags: [tagA])
+        let snapB = Snap(id: "2", imageName: "", tags: [tagA, tagB])
+        let snapC = Snap(id: "3", imageName: "", tags: [tagB])
+        let snapD = Snap(id: "4", imageName: "", tags: [tagC])
 
         tagRepository.fetchHandler = {
             return [tagA, tagB, tagC]

@@ -11,9 +11,9 @@ import UIKit
 
 final class PreviewSnapRepository: SnapRepositoryProtocol {
     func fetch() throws -> [Snap] {
-        let snapA = Snap(id: "a", imagePath: "image1", tags: [])
-        let snapB = Snap(id: "b", imagePath: "image2", tags: [])
-        let snapC = Snap(id: "c", imagePath: "image3", tags: [])
+        let snapA = Snap(id: "a", imageName: "image1", tags: [])
+        let snapB = Snap(id: "b", imageName: "image2", tags: [])
+        let snapC = Snap(id: "c", imageName: "image3", tags: [])
 
         return [snapA, snapB, snapC]
     }

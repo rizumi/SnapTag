@@ -22,9 +22,9 @@ struct SnapDetailViewModelTests {
         let tagB = Tag(id: "2", name: "b")
         let tagC = Tag(id: "2", name: "c")
 
-        let snapA = Snap(id: "A", imagePath: "", tags: [tagA])
-        let snapB = Snap(id: "B", imagePath: "", tags: [tagA, tagB])
-        let snapC = Snap(id: "C", imagePath: "", tags: [tagC])
+        let snapA = Snap(id: "A", imageName: "", tags: [tagA])
+        let snapB = Snap(id: "B", imageName: "", tags: [tagA, tagB])
+        let snapC = Snap(id: "C", imageName: "", tags: [tagC])
         let snaps = [snapA, snapB, snapC]
 
         // Act
@@ -47,9 +47,9 @@ struct SnapDetailViewModelTests {
         let tagB = Tag(id: "2", name: "b")
         let tagC = Tag(id: "2", name: "c")
 
-        let snapA = Snap(id: "A", imagePath: "", tags: [tagA])
-        let snapB = Snap(id: "B", imagePath: "", tags: [tagA, tagB])
-        let snapC = Snap(id: "C", imagePath: "", tags: [tagC])
+        let snapA = Snap(id: "A", imageName: "", tags: [tagA])
+        let snapB = Snap(id: "B", imageName: "", tags: [tagA, tagB])
+        let snapC = Snap(id: "C", imageName: "", tags: [tagC])
         let snaps = [snapA, snapB, snapC]
         let viewModel = SnapDetailViewModel(
             snap: snapB, snaps: snaps,
@@ -69,7 +69,7 @@ struct SnapDetailViewModelTests {
         let repository = SnapRepositoryProtocolMock()
         let flow = SnapDetailViewFlowMock()
 
-        let snapA = Snap(id: "A", imagePath: "", tags: [])
+        let snapA = Snap(id: "A", imageName: "", tags: [])
         let snaps = [snapA]
         let viewModel = SnapDetailViewModel(
             snap: snapA, snaps: snaps,
@@ -93,9 +93,9 @@ struct SnapDetailViewModelTests {
         let tagB = Tag(id: "2", name: "b")
         let tagC = Tag(id: "2", name: "c")
 
-        let snapA = Snap(id: "A", imagePath: "", tags: [tagA])
-        let snapB = Snap(id: "B", imagePath: "", tags: [tagA, tagB])
-        let snapC = Snap(id: "C", imagePath: "", tags: [tagC])
+        let snapA = Snap(id: "A", imageName: "", tags: [tagA])
+        let snapB = Snap(id: "B", imageName: "", tags: [tagA, tagB])
+        let snapC = Snap(id: "C", imageName: "", tags: [tagC])
         let snaps = [snapA, snapB, snapC]
 
         let viewModel = SnapDetailViewModel(
@@ -114,7 +114,7 @@ struct SnapDetailViewModelTests {
         let repository = SnapRepositoryProtocolMock()
         let flow = SnapDetailViewFlowMock()
 
-        let snapA = Snap(id: "A", imagePath: "", tags: [])
+        let snapA = Snap(id: "A", imageName: "", tags: [])
         let snaps = [snapA]
 
         let viewModel = SnapDetailViewModel(
@@ -134,7 +134,7 @@ struct SnapDetailViewModelTests {
         let repository = SnapRepositoryProtocolMock()
         let flow = SnapDetailViewFlowMock()
 
-        let snapA = Snap(id: "A", imagePath: "", tags: [])
+        let snapA = Snap(id: "A", imageName: "", tags: [])
         let snaps = [snapA]
 
         repository.deleteHandler = { _ in

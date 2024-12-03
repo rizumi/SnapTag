@@ -11,7 +11,7 @@ import SwiftData
 @Model
 final class SnapModel {
     @Attribute(.unique) private(set) var id: String = UUID().uuidString
-    private(set) var imagePath: String
+    private(set) var imageName: String
 
     // iOS17ではRelationshipをoptionalにしないとinsert時にcrashするためoptionalにしている
     // 参考: https://forums.developer.apple.com/forums/thread/738961
@@ -20,8 +20,8 @@ final class SnapModel {
 
     private(set) var createdAt: Date = Date()
 
-    init(imagePath: String, tags: [TagModel]) {
-        self.imagePath = imagePath
+    init(imageName: String, tags: [TagModel]) {
+        self.imageName = imageName
         self.tags = tags
     }
 }

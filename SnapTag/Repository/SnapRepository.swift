@@ -51,7 +51,7 @@ final class SnapRepository: SnapRepositoryProtocol {
 
     func save(_ image: UIImage, tagNames: [String]) throws {
         do {
-            let path = try imageStorage.save(image: image, with: UUID().uuidString)
+            let imageName = try imageStorage.save(image: image, with: UUID().uuidString)
             let tagModels: [TagModel] = try tagNames.compactMap { [weak self] name in
                 guard let self else { return nil }
                 let tag = try context.fetch(
@@ -70,7 +70,7 @@ final class SnapRepository: SnapRepositoryProtocol {
                 }
             }
 
-            context.insert(SnapModel(imagePath: path, tags: tagModels))
+            context.insert(SnapModel(imageName: imageName, tags: tagModels))
             try context.save()
         } catch {
             throw SnapRepositoryError.saveFailed
@@ -85,7 +85,7 @@ final class SnapRepository: SnapRepositoryProtocol {
                 where: #Predicate<SnapModel> {
                     $0.id == snapId
                 })
-            try imageStorage.deleteImage(name: snap.imagePath)
+            try imageStorage.deleteImage(name: snap.imageName)
         } catch {
             throw SnapRepositoryError.deleteFailed
         }

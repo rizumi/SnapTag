@@ -48,7 +48,7 @@ struct SnapListView: View {
                         spacing: 2
                     ) {
                         ForEach(viewModel.snaps, id: \.id) { snap in
-                            if let image = viewModel.loadImage(path: snap.imagePath) {
+                            if let image = viewModel.loadImage(path: snap.imageName) {
                                 Button {
                                     viewModel.onSelectSnap(snap)
                                 } label: {

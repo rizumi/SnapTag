@@ -33,7 +33,7 @@ struct SnapDetailTagView: View {
     let tagA = Tag(id: "a", name: "タグ1")
     let tagB = Tag(id: "b", name: "タグ2")
 
-    let snap = Snap(id: "", imagePath: "", tags: [tagA, tagB])
+    let snap = Snap(id: "", imageName: "", tags: [tagA, tagB])
     let flow = SnapDetailViewCoordinator(snap: snap, snaps: [], navigator: .init(), onDelete: nil)
 
     SnapDetailTagView(
