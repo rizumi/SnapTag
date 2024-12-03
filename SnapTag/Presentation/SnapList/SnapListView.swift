@@ -17,53 +17,8 @@ struct SnapListView: View {
     var body: some View {
         ZStack {
             VStack {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        Button {
-                            viewModel.onSelectedAll()
-                        } label: {
-                            AllTagView(backgroundColor: tagColor(nil))
-                        }
-
-                        ForEach(viewModel.tags, id: \.id) { tag in
-                            Button {
-                                viewModel.onSelectedTag(tag)
-                            } label: {
-                                TagView(
-                                    name: tag.name,
-                                    backgroundColor: tagColor(tag))
-                            }
-                        }
-                    }
-                    .padding(.horizontal)
-                }
-                ScrollView {
-                    LazyVGrid(
-                        columns: Array(repeating: .init(.flexible(), spacing: 2), count: 3),
-                        spacing: 2
-                    ) {
-                        ForEach(viewModel.snaps, id: \.id) { snap in
-                            if let image = viewModel.loadImage(path: snap.imageName) {
-                                Button {
-                                    viewModel.onSelectSnap(snap)
-                                } label: {
-                                    Color.gray
-                                        .aspectRatio(1, contentMode: .fill)
-                                        .overlay {
-                                            Image(uiImage: image)
-                                                .resizable()
-                                                .scaledToFill()
-                                                .clipped()
-                                        }
-                                        .clipped()
-                                        .contentShape(Rectangle())
-                                }
-                            }
-                        }
-                    }
-                    .animation(.easeInOut, value: viewModel.snaps)
-                    .padding(.bottom, 80)  // 最後の項目とActionButtonが被らないようにするための余白
-                }
+                tagListView()
+                snapGridView()
             }
 
             FloatingActionButton {
@@ -80,6 +35,61 @@ struct SnapListView: View {
             }
         )
         .navigationTitle("snap_tag")
+    }
+
+    @ViewBuilder
+    private func snapGridView() -> some View {
+        ScrollView {
+            LazyVGrid(
+                columns: Array(repeating: .init(.flexible(), spacing: 2), count: 3),
+                spacing: 2
+            ) {
+                ForEach(viewModel.snaps, id: \.id) { snap in
+                    if let image = viewModel.loadImage(path: snap.imageName) {
+                        Button {
+                            viewModel.onSelectSnap(snap)
+                        } label: {
+                            Color.gray
+                                .aspectRatio(1, contentMode: .fill)
+                                .overlay {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .clipped()
+                                }
+                                .clipped()
+                                .contentShape(Rectangle())
+                        }
+                    }
+                }
+            }
+            .animation(.easeInOut, value: viewModel.snaps)
+            .padding(.bottom, 80)  // 最後の項目とActionButtonが被らないようにするための余白
+        }
+    }
+
+    @ViewBuilder
+    private func tagListView() -> some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack {
+                Button {
+                    viewModel.onSelectedAll()
+                } label: {
+                    AllTagView(backgroundColor: tagColor(nil))
+                }
+
+                ForEach(viewModel.tags, id: \.id) { tag in
+                    Button {
+                        viewModel.onSelectedTag(tag)
+                    } label: {
+                        TagView(
+                            name: tag.name,
+                            backgroundColor: tagColor(tag))
+                    }
+                }
+            }
+            .padding(.horizontal)
+        }
     }
 
     private func tagColor(_ tag: Tag?) -> Color {
