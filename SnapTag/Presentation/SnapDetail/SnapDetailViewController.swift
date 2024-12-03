@@ -69,7 +69,7 @@ final class SnapDetailViewController: UIViewController {
 
         coordinator.animate(alongsideTransition: { [weak self] _ in
             guard let self else { return }
-            Task.detached { @MainActor in
+            Task { @MainActor in
                 self.collectionView.collectionViewLayout.invalidateLayout()
                 self.collectionView.scrollToItem(
                     at: self.viewModel.currentIndexPath,
@@ -198,7 +198,8 @@ final class SnapDetailViewController: UIViewController {
         if isFirstTime {
             dataSource.apply(snapshot) { [weak self] in
                 guard let self else { return }
-                Task.detached { @MainActor in
+                Task { @MainActor in
+                    // layoutIfNeededを呼び出しておかないと一部端末でレイアウトが崩れるケースが存在する
                     self.collectionView.layoutIfNeeded()
                     self.collectionView.scrollToItem(
                         at: self.viewModel.currentIndexPath,
