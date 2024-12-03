@@ -24,7 +24,7 @@ final class SnapUploadViewCoordinator: Coordinator {
     }
 
     func start() {
-        let vc = UIHostingController(
+        let viewController = UIHostingController(
             rootView: SnapUploadView(
                 viewModel: .init(
                     snapRepository: SnapRepository(
@@ -34,7 +34,7 @@ final class SnapUploadViewCoordinator: Coordinator {
                     flow: self)
             )
         )
-        navigator.present(vc, animated: true)
+        navigator.present(viewController, animated: true)
     }
 }
 

@@ -21,7 +21,7 @@ final class SetupViewCoordinator: Coordinator {
     }
 
     func start() {
-        let vc = UIHostingController(
+        let viewController = UIHostingController(
             rootView: SetupView(
                 viewModel: .init(
                     repository: SnapRepository(
@@ -32,7 +32,7 @@ final class SetupViewCoordinator: Coordinator {
                 ))
         )
 
-        navigator.pushViewController(vc, animated: false)
+        navigator.pushViewController(viewController, animated: false)
     }
 }
 

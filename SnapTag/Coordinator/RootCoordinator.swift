@@ -18,6 +18,7 @@ final class RootCoordinator: Coordinator {
         let navigationController = UINavigationController()
         window.rootViewController = navigationController
 
+        // 初回起動の場合、デモ用の画像を読み込むためSetupViewに遷移する
         if AppLaunchChecker().ifFirstLaunch {
             let coordinator = SetupViewCoordinator(navigator: navigationController)
             coordinator.start()

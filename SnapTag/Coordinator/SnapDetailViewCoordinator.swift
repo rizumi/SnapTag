@@ -37,11 +37,11 @@ final class SnapDetailViewCoordinator: Coordinator {
             context: AppModelContainer.shared.modelContext, imageStorage: LocalImageStorage())
         let viewModel = SnapDetailViewModel(
             snap: snap, snaps: snaps, repository: repository, flow: self)
-        let vc = SnapDetailViewController(viewModel: viewModel)
-        vc.modalPresentationStyle = .fullScreen
-        vc.modalTransitionStyle = .crossDissolve
+        let viewController = SnapDetailViewController(viewModel: viewModel)
+        viewController.modalPresentationStyle = .fullScreen
+        viewController.modalTransitionStyle = .crossDissolve
 
-        navigator.present(vc, animated: true)
+        navigator.present(viewController, animated: true)
     }
 }
 

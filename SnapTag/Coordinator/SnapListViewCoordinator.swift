@@ -23,7 +23,7 @@ final class SnapListViewCoordinator: Coordinator {
     }
 
     func start() {
-        let vc = UIHostingController(
+        let viewController = UIHostingController(
             rootView: SnapListView(
                 viewModel: .init(
                     snapRepository: SnapRepository(
@@ -33,8 +33,8 @@ final class SnapListViewCoordinator: Coordinator {
                     flow: self
                 ))
         )
-        vc.modalPresentationStyle = .fullScreen
-        navigator?.pushViewController(vc, animated: false)
+        viewController.modalPresentationStyle = .fullScreen
+        navigator?.pushViewController(viewController, animated: false)
     }
 }
 
