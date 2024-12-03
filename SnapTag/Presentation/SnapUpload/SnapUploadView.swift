@@ -57,7 +57,7 @@ struct SnapUploadView: View {
                         } label: {
                             HStack {
                                 Image(systemName: "plus.circle.fill")
-                                Text("Add")
+                                Text("add")
                             }
                             .padding(8)
                             .background(Color.blue)
@@ -73,7 +73,7 @@ struct SnapUploadView: View {
                 Button {
                     viewModel.showPhotoPicker()
                 } label: {
-                    Text("Select Snap")
+                    Text("select_snap")
                         .frame(maxWidth: .infinity, minHeight: 44)
                         .background(.gray)
                         .foregroundStyle(.white)
@@ -84,7 +84,7 @@ struct SnapUploadView: View {
                 Button {
                     viewModel.onTapSave()
                 } label: {
-                    Text("Save")
+                    Text("save")
                         .frame(maxWidth: .infinity, minHeight: 44)
                         .background(.blue)
                         .foregroundStyle(.white)
@@ -114,7 +114,7 @@ struct SnapUploadView: View {
             }
         )
         .alert(
-            "Add Tag", isPresented: $viewModel.presentedAddTagAlert,
+            "add_tag", isPresented: $viewModel.presentedAddTagAlert,
             actions: {
                 TextField(
                     String(
@@ -126,7 +126,7 @@ struct SnapUploadView: View {
                         viewModel.addTag()
                     }
                 } label: {
-                    Text("OK")
+                    Text("ok")
                 }
             }
         )

@@ -1,8 +1,14 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "Add" : {
+    "add" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11,8 +17,14 @@
         }
       }
     },
-    "Add Tag" : {
+    "add_tag" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Tag"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -38,8 +50,14 @@
         }
       }
     },
-    "All" : {
+    "all" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -180,8 +198,14 @@
         }
       }
     },
-    "OK" : {
+    "ok" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -190,8 +214,7 @@
         }
       }
     },
-    "Save" : {
-      "extractionState" : "manual",
+    "save" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -224,8 +247,14 @@
         }
       }
     },
-    "Select Snap" : {
+    "select_snap" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select Snap"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -234,8 +263,14 @@
         }
       }
     },
-    "SnapTag" : {
+    "snap_tag" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SnapTag"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",

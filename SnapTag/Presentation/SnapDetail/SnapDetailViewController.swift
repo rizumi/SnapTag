@@ -232,7 +232,7 @@ final class SnapDetailViewController: UIViewController {
 
         alert.addAction(
             .init(
-                title: String(localized: "OK"),
+                title: String(localized: "ok"),
                 style: .default,
                 handler: { [weak self] _ in
                     self?.viewModel.onDismissErrorAlert()
