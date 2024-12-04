@@ -10,7 +10,7 @@ import UIKit
 final class ImageCache: @unchecked Sendable {
     static let shared = ImageCache()
 
-    // NSCacheはスレッドセーフなので @unchecked SendableにしてOK
+    // NOTE: NSCacheはスレッドセーフなので @unchecked SendableにしてOK
     // https://developer.apple.com/documentation/foundation/nscache
     private let cache = NSCache<NSString, UIImage>()
 
