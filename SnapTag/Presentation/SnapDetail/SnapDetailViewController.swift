@@ -34,7 +34,7 @@ final class SnapDetailViewController: UIViewController {
                     snap: item,
                     snapRepository: SnapRepository(
                         context: AppModelContainer.shared.modelContext,
-                        imageStorage: LocalImageStorage())))
+                        imageStorage: LocalImageStorage.shared)))
 
             return cell
         }

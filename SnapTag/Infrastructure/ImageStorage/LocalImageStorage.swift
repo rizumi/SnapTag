@@ -8,10 +8,11 @@
 import Foundation
 import UIKit
 
-final class LocalImageStorage: ImageStorage {
+final class LocalImageStorage: ImageStorage, Sendable {
     private let directory: URL
+    static let shared: LocalImageStorage = LocalImageStorage()
 
-    init() {
+    private init() {
         let directoryName = "Images"
         let fileManager = FileManager.default
         self.directory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]

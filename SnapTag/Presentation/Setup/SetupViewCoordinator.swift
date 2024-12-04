@@ -26,7 +26,7 @@ final class SetupViewCoordinator: Coordinator {
                 viewModel: .init(
                     repository: SnapRepository(
                         context: AppModelContainer.shared.modelContext,
-                        imageStorage: LocalImageStorage()),
+                        imageStorage: LocalImageStorage.shared),
                     tagRecommender: CoreMLTagRecommender(),
                     flow: self
                 ))
