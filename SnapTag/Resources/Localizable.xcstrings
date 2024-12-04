@@ -263,6 +263,40 @@
         }
       }
     },
+    "setup_failed" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Failed load preset images"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プリセット画像の読み込みに失敗しました"
+          }
+        }
+      }
+    },
+    "setup_failed_message" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The demo preset images could not be loaded, but you can continue using the app without any issues."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デモ用の初期画像が設定されませんでしたが、アプリはそのままご利用頂けます。"
+          }
+        }
+      }
+    },
     "snap_tag" : {
       "localizations" : {
         "en" : {

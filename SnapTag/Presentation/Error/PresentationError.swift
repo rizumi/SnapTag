@@ -14,6 +14,7 @@ enum PresentationError: LocalizedError {
     case imageNotSelected
     case tagRecommendFailed
     case tagLengthLimit
+    case setupFailed
 
     var errorDescription: String? {
         switch self {
@@ -37,10 +38,14 @@ enum PresentationError: LocalizedError {
             String(
                 localized: "add_tag_failed",
                 defaultValue: "Failed to add the tag")
+        case .setupFailed:
+            String(
+                localized: "setup_failed",
+                defaultValue: "Failed load preset images")
         }
     }
 
-    var failureReason: String? {
+    var recoverySuggestion: String? {
         switch self {
         case .loadFailed, .saveFailed, .deleteFailed:
             String(
@@ -55,9 +60,16 @@ enum PresentationError: LocalizedError {
                 localized: "tag_length_limit_message",
                 defaultValue: "Please enter a tag within \(Constants.tagCharacterLimit) characters."
             )
+        case .setupFailed:
+            String(
+                localized: "setup_failed_message",
+                defaultValue:
+                    "The demo preset images could not be loaded, but you can continue using the app without any issues."
+            )
         case .tagRecommendFailed:
             nil
         }
+
     }
 }
 
@@ -67,7 +79,7 @@ extension PresentationError {
     }
 
     var message: String? {
-        failureReason
+        recoverySuggestion
     }
 }
 

@@ -32,6 +32,7 @@ final class CoreMLTagRecommender: TagRecommender {
         return try await withCheckedThrowingContinuation { continuation in
             let request = VNCoreMLRequest(model: model) { request, error in
                 if let results = request.results as? [VNClassificationObservation] {
+                    // confidanceが閾値を超えたうちの最大3つまで推薦
                     let topResults = results.prefix(3)
                         .filter { $0.confidence >= 0.2 }
                         .map { $0.identifier }

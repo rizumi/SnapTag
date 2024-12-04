@@ -26,7 +26,7 @@ extension View {
                 }
             },
             message: { error in
-                Text(error.failureReason ?? "")
+                Text(error.recoverySuggestion ?? "")
             }
         )
     }

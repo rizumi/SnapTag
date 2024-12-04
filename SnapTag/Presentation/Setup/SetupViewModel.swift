@@ -9,7 +9,9 @@ import Foundation
 import UIKit
 
 @MainActor
-final class SetupViewModel {
+final class SetupViewModel: ObservableObject {
+
+    @Published private(set) var errorState: PresentationError?
 
     private let repository: SnapRepositoryProtocol
     private let tagRecommender: TagRecommender
@@ -30,26 +32,31 @@ final class SetupViewModel {
     /// 初回起動時にデモ用のプリセット画像を保存するための処理
     func setupPresetSnaps() async {
         let images = sampleImages.compactMap { UIImage(named: $0) }
-        await withDiscardingTaskGroup { group in
-            for index in 0..<images.count {
-                group.addTask {
-                    await self.save(images[index])
+        do {
+            try await withThrowingDiscardingTaskGroup { group in
+                for index in 0..<images.count {
+                    group.addTask {
+                        try await self.save(images[index])
+                    }
                 }
             }
-        }
 
+            flow.toSnapList()
+        } catch {
+            errorState = .setupFailed
+        }
+    }
+
+    func onDismissErrorAlert() {
+        errorState = nil
         flow.toSnapList()
     }
 
-    private func save(_ image: UIImage) async {
-        do {
-            if let tag = try await tagRecommender.recommendTags(from: image).first {
-                try repository.save(image, tagNames: [tag])
-            } else {
-                try repository.save(image, tagNames: [])
-            }
-        } catch {
-            print(error.localizedDescription)
+    private func save(_ image: UIImage) async throws {
+        if let tag = try await tagRecommender.recommendTags(from: image).first {
+            try repository.save(image, tagNames: [tag])
+        } else {
+            try repository.save(image, tagNames: [])
         }
     }
 }
