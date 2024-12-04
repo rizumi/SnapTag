@@ -122,9 +122,9 @@ struct SnapListView: View {
 
     private func tagColor(_ tag: Tag?) -> Color {
         if tag == viewModel.selectedTag {
-            return Color.blue
+            return .stPrimary
         } else {
-            return Color.gray
+            return .gray
         }
     }
 

@@ -57,8 +57,8 @@ struct AddTagView: View {
                 Text("add")
             }
             .padding(8)
-            .background(Color.blue)
-            .foregroundStyle(Color.white)
+            .background(.stPrimary)
+            .foregroundStyle(.white)
             .cornerRadius(8)
         }
     }

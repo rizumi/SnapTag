@@ -81,7 +81,7 @@ struct SnapUploadView: View {
                 } label: {
                     Text("save")
                         .frame(maxWidth: .infinity, minHeight: 44)
-                        .background(.blue)
+                        .background(.stPrimary)
                         .foregroundStyle(.white)
                 }
                 .padding(.horizontal, 16)

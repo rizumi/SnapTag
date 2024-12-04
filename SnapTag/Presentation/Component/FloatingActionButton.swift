@@ -23,7 +23,10 @@ struct FloatingActionButton: View {
                         .font(.system(size: 24))
                         .foregroundStyle(.white)
                         .padding()
-                        .background(Circle().fill())
+                        .background(
+                            Circle()
+                                .fill(Color(.stPrimary))
+                        )
                         .shadow(radius: 5)
                 }
                 .padding()

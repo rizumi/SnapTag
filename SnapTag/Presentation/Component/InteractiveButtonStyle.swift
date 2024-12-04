@@ -24,7 +24,7 @@ struct InteractiveButtonStyle: ButtonStyle {
     } label: {
         Text("Button")
             .frame(maxWidth: .infinity, minHeight: 44)
-            .background(.blue)
+            .background(.stPrimary)
             .foregroundStyle(.white)
     }
     .padding(.horizontal, 16)
