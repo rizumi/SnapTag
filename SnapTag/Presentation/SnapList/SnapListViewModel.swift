@@ -14,6 +14,7 @@ final class SnapListViewModel: ObservableObject {
     @Published private(set) var tags: [Tag] = []
     @Published private(set) var selectedTag: Tag? = nil
     @Published private(set) var errorState: PresentationError?
+    @Published var scrollTo: Snap?
 
     private let snapRepository: SnapRepositoryProtocol
     private let tagRepository: TagRepositoryProtocol
@@ -51,11 +52,13 @@ final class SnapListViewModel: ObservableObject {
     func onSelectedTag(_ tag: Tag) {
         selectedTag = tag
         updateSnaps()
+        scrollTo = snaps.first
     }
 
     func onSelectedAll() {
         selectedTag = nil
         updateSnaps()
+        scrollTo = snaps.first
     }
 
     func onTapActionButton() {

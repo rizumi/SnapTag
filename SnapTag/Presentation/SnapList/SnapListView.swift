@@ -51,32 +51,46 @@ struct SnapListView: View {
 
     @ViewBuilder
     private func snapGridView() -> some View {
-        ScrollView {
-            LazyVGrid(
-                columns: Array(repeating: .init(.flexible(), spacing: 2), count: columnCount),
-                spacing: 2
-            ) {
-                ForEach(viewModel.snaps, id: \.id) { snap in
-                    if let image = viewModel.loadImage(path: snap.imageName) {
-                        Button {
-                            viewModel.onSelectSnap(snap)
-                        } label: {
-                            Color.gray
-                                .aspectRatio(1, contentMode: .fill)
-                                .overlay {
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .scaledToFill()
-                                        .clipped()
-                                }
-                                .clipped()
-                                .contentShape(Rectangle())
+        ScrollViewReader { proxy in
+            ScrollView {
+                LazyVGrid(
+                    columns: Array(repeating: .init(.flexible(), spacing: 2), count: columnCount),
+                    spacing: 2
+                ) {
+                    ForEach(viewModel.snaps, id: \.id) { snap in
+                        if let image = viewModel.loadImage(path: snap.imageName) {
+                            Button {
+                                viewModel.onSelectSnap(snap)
+                            } label: {
+                                Color.gray
+                                    .aspectRatio(1, contentMode: .fill)
+                                    .overlay {
+                                        Image(uiImage: image)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .clipped()
+                                    }
+                                    .clipped()
+                                    .contentShape(Rectangle())
+                            }
+                            .id(snap.id)
                         }
                     }
                 }
+                .onChange(
+                    of: viewModel.scrollTo,
+                    { _, newValue in
+                        if let newValue {
+                            withAnimation {
+                                proxy.scrollTo(newValue.id, anchor: .top)
+                            }
+                            viewModel.scrollTo = nil
+                        }
+                    }
+                )
+                .animation(.easeInOut, value: viewModel.snaps)
+                .padding(.bottom, 80)  // 最後の項目とActionButtonが被らないようにするための余白
             }
-            .animation(.easeInOut, value: viewModel.snaps)
-            .padding(.bottom, 80)  // 最後の項目とActionButtonが被らないようにするための余白
         }
     }
 
