@@ -25,13 +25,16 @@ enum SnapRepositoryError: Error {
 final class SnapRepository: SnapRepositoryProtocol {
     private let context: ModelContext
     private let imageStorage: ImageStorage
+    private let cache: ImageCache
 
     init(
         context: ModelContext,
-        imageStorage: ImageStorage
+        imageStorage: ImageStorage,
+        cache: ImageCache = ImageCache.shared
     ) {
         self.context = context
         self.imageStorage = imageStorage
+        self.cache = cache
     }
 
     func fetch() throws -> [Snap] {
@@ -46,7 +49,14 @@ final class SnapRepository: SnapRepositoryProtocol {
     }
 
     func load(name: String) -> UIImage? {
-        return imageStorage.loadImage(name: name)
+        if let cachedImage = cache.getImage(forKey: name) {
+            return cachedImage
+        }
+        if let image = imageStorage.loadImage(name: name) {
+            cache.setImage(image, forKey: name)
+        }
+
+        return nil
     }
 
     func save(_ image: UIImage, tagNames: [String]) throws {
@@ -86,6 +96,7 @@ final class SnapRepository: SnapRepositoryProtocol {
                     $0.id == snapId
                 })
             try imageStorage.deleteImage(name: snap.imageName)
+            cache.removeImage(forKey: snap.imageName)
         } catch {
             throw SnapRepositoryError.deleteFailed
         }
