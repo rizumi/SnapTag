@@ -67,7 +67,7 @@ final class SnapListViewModel: ObservableObject {
     }
 
     func onTapActionButton() {
-        flow.toSnapPicker { [weak self] in
+        flow.toSnapUpload { [weak self] in
             Task {
                 await self?.refresh()
             }

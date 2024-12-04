@@ -11,7 +11,7 @@ import UIKit
 /// @mockable
 @MainActor
 protocol SnapListViewFlow {
-    func toSnapPicker(_ completion: @escaping () -> Void)
+    func toSnapUpload(_ completion: @escaping () -> Void)
     func toSnapDetail(snap: Snap, snaps: [Snap], onDelete: @escaping (Snap) -> Void)
 }
 
@@ -41,7 +41,7 @@ final class SnapListViewCoordinator: Coordinator {
 }
 
 extension SnapListViewCoordinator: SnapListViewFlow {
-    func toSnapPicker(_ completion: @escaping () -> Void) {
+    func toSnapUpload(_ completion: @escaping () -> Void) {
         guard let navigator else { return }
         let coordinator = SnapUploadViewCoordinator(navigator: navigator, completion: completion)
         coordinator.start()

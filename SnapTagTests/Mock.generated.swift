@@ -120,12 +120,12 @@ final class SnapListViewFlowMock: SnapListViewFlow {
     init() { }
 
 
-    private(set) var toSnapPickerCallCount = 0
-    var toSnapPickerHandler: ((@escaping () -> Void) -> ())?
-    func toSnapPicker(_ completion: @escaping () -> Void)  {
-        toSnapPickerCallCount += 1
-        if let toSnapPickerHandler = toSnapPickerHandler {
-            toSnapPickerHandler(completion)
+    private(set) var toSnapUploadCallCount = 0
+    var toSnapUploadHandler: ((@escaping () -> Void) -> ())?
+    func toSnapUpload(_ completion: @escaping () -> Void)  {
+        toSnapUploadCallCount += 1
+        if let toSnapUploadHandler = toSnapUploadHandler {
+            toSnapUploadHandler(completion)
         }
         
     }
