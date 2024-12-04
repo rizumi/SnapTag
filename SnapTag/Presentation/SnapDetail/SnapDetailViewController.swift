@@ -33,7 +33,7 @@ final class SnapDetailViewController: UIViewController {
                 .init(
                     snap: item,
                     snapRepository: SnapRepository(
-                        modelContainer: AppModelContainer.shared,
+                        modelContainer: AppModelContainer.shared.container,
                         imageStorage: LocalImageStorage.shared)))
 
             return cell

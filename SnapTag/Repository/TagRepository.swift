@@ -18,17 +18,17 @@ enum TagRepositoryError: Error {
 }
 
 final class TagRepository: TagRepositoryProtocol {
-    private let modelContainer: AppModelContainer
+    private let modelContainer: ModelContainer
 
     init(
-        modelContainer: AppModelContainer
+        modelContainer: ModelContainer
     ) {
         self.modelContainer = modelContainer
     }
 
     func fetch() async throws -> [Tag] {
         do {
-            let context = await ModelContext(modelContainer.container)
+            let context = ModelContext(modelContainer)
             let tags = try context.fetch(FetchDescriptor<TagModel>())
             return tags.filter { $0.snaps?.isEmpty == false }.map { $0.toTag() }
         } catch {

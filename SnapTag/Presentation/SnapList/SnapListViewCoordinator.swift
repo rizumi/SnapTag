@@ -27,9 +27,10 @@ final class SnapListViewCoordinator: Coordinator {
             rootView: SnapListView(
                 viewModel: .init(
                     snapRepository: SnapRepository(
-                        modelContainer: AppModelContainer.shared,
+                        modelContainer: AppModelContainer.shared.container,
                         imageStorage: LocalImageStorage.shared),
-                    tagRepository: TagRepository(modelContainer: AppModelContainer.shared),
+                    tagRepository: TagRepository(
+                        modelContainer: AppModelContainer.shared.container),
                     flow: self
                 ))
         )
