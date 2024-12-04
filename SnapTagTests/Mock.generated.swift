@@ -51,61 +51,61 @@ final class SnapDetailViewFlowMock: SnapDetailViewFlow {
     }
 }
 
-final class SnapRepositoryProtocolMock: SnapRepositoryProtocol {
+final class SnapRepositoryProtocolMock: SnapRepositoryProtocol, @unchecked Sendable {
     init() { }
 
 
     private(set) var fetchCallCount = 0
-    var fetchHandler: (() throws -> ([Snap]))?
-    func fetch() throws -> [Snap] {
+    var fetchHandler: (() async throws -> ([Snap]))?
+    func fetch() async throws -> [Snap] {
         fetchCallCount += 1
         if let fetchHandler = fetchHandler {
-            return try fetchHandler()
+            return try await fetchHandler()
         }
         return [Snap]()
     }
 
-    private(set) var loadCallCount = 0
-    var loadHandler: ((String) -> (UIImage?))?
-    func load(name: String) -> UIImage? {
-        loadCallCount += 1
-        if let loadHandler = loadHandler {
-            return loadHandler(name)
-        }
-        return nil
-    }
-
     private(set) var saveCallCount = 0
-    var saveHandler: ((UIImage, [String]) throws -> ())?
-    func save(_ image: UIImage, tagNames: [String]) throws  {
+    var saveHandler: ((UIImage, [String]) async throws -> ())?
+    func save(_ image: UIImage, tagNames: [String]) async throws  {
         saveCallCount += 1
         if let saveHandler = saveHandler {
-            try saveHandler(image, tagNames)
+            try await saveHandler(image, tagNames)
         }
         
     }
 
     private(set) var deleteCallCount = 0
-    var deleteHandler: ((Snap) throws -> ())?
-    func delete(_ snap: Snap) throws  {
+    var deleteHandler: ((Snap) async throws -> ())?
+    func delete(_ snap: Snap) async throws  {
         deleteCallCount += 1
         if let deleteHandler = deleteHandler {
-            try deleteHandler(snap)
+            try await deleteHandler(snap)
         }
         
     }
+
+    private(set) var loadImageCallCount = 0
+    var loadImageHandler: ((String) -> (UIImage?))?
+    func loadImage(name: String) -> UIImage? {
+        loadImageCallCount += 1
+        if let loadImageHandler = loadImageHandler {
+            return loadImageHandler(name)
+        }
+        return nil
+    }
 }
 
-final class TagRepositoryProtocolMock: TagRepositoryProtocol {
+final class TagRepositoryProtocolMock: TagRepositoryProtocol, @unchecked Sendable {
     init() { }
 
 
     private(set) var fetchCallCount = 0
-    var fetchHandler: (() throws -> ([Tag]))?
-    func fetch() throws -> [Tag] {
+    var fetchHandler: (() async throws -> ([Tag]))?
+    func fetch() async throws -> [Tag] {
         fetchCallCount += 1
         if let fetchHandler = fetchHandler {
-            return try fetchHandler()
+            return try await fetchHandler()
         }
         return [Tag]()
     }

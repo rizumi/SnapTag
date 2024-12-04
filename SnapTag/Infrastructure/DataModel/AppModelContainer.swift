@@ -1,5 +1,5 @@
 //
-//  ModelContainer.swift
+//  AppModelContainer.swift
 //  SnapTag
 //
 //  Created by izumi on 2024/11/21.
@@ -7,16 +7,14 @@
 
 import SwiftData
 
+@MainActor
 final class AppModelContainer {
-    @MainActor static let shared: AppModelContainer = AppModelContainer()
-    private var modelContainer: ModelContainer!
-    lazy var modelContext: ModelContext = {
-        ModelContext(modelContainer)
-    }()
+    static let shared: AppModelContainer = AppModelContainer()
+    private(set) var container: ModelContainer
 
     private init() {
         do {
-            modelContainer = try ModelContainer(for: SnapModel.self, TagModel.self)
+            container = try ModelContainer(for: SnapModel.self, TagModel.self)
         } catch {
             print("Failed to initialize ModelContainer: \(error)")
             fatalError()

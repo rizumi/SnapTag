@@ -104,7 +104,7 @@ struct SnapDetailViewModelTests {
 
         // Act + Assert
         #expect(viewModel.tags == [tagA.name])
-        viewModel.deleteSnap()
+        await viewModel.deleteSnap()
         #expect(viewModel.tags == [tagA.name, tagB.name])
     }
 
@@ -122,7 +122,7 @@ struct SnapDetailViewModelTests {
             repository: repository, flow: flow)
 
         // Act
-        viewModel.deleteSnap()
+        await viewModel.deleteSnap()
 
         // Assert
         #expect(flow.dismissCallCount == 1)
@@ -146,7 +146,7 @@ struct SnapDetailViewModelTests {
             repository: repository, flow: flow)
 
         // Act
-        viewModel.deleteSnap()
+        await viewModel.deleteSnap()
 
         // Assert
         #expect(viewModel.errorState != nil)

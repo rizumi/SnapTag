@@ -34,7 +34,8 @@ final class SnapDetailViewCoordinator: Coordinator {
 
     func start() {
         let repository = SnapRepository(
-            context: AppModelContainer.shared.modelContext, imageStorage: LocalImageStorage.shared)
+            modelContainer: AppModelContainer.shared.container,
+            imageStorage: LocalImageStorage.shared)
         let viewModel = SnapDetailViewModel(
             snap: snap, snaps: snaps, repository: repository, flow: self)
         let viewController = SnapDetailViewController(viewModel: viewModel)

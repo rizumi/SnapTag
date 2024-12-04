@@ -9,11 +9,11 @@ import SwiftData
 import UIKit
 
 /// @mockable
-protocol SnapRepositoryProtocol {
-    func fetch() throws -> [Snap]
-    func load(name: String) -> UIImage?
-    func save(_ image: UIImage, tagNames: [String]) throws
-    func delete(_ snap: Snap) throws
+protocol SnapRepositoryProtocol: Sendable {
+    func fetch() async throws -> [Snap]
+    func save(_ image: UIImage, tagNames: [String]) async throws
+    func delete(_ snap: Snap) async throws
+    func loadImage(name: String) -> UIImage?
 }
 
 enum SnapRepositoryError: Error {
@@ -23,24 +23,25 @@ enum SnapRepositoryError: Error {
 }
 
 final class SnapRepository: SnapRepositoryProtocol {
-    private let context: ModelContext
+    private let modelContainer: ModelContainer
     private let imageStorage: ImageStorage
     private let cache: ImageCache
 
     init(
-        context: ModelContext,
+        modelContainer: ModelContainer,
         imageStorage: ImageStorage,
         cache: ImageCache = ImageCache.shared
     ) {
-        self.context = context
+        self.modelContainer = modelContainer
         self.imageStorage = imageStorage
         self.cache = cache
     }
 
-    func fetch() throws -> [Snap] {
+    func fetch() async throws -> [Snap] {
         do {
             // 今は一度にまとめてfetchしているが、プロダクトとして運用する場合にはページングに対応した方が良い
             let sort = SortDescriptor(\SnapModel.createdAt, order: .reverse)
+            let context = ModelContext(modelContainer)
             let models = try context.fetch(FetchDescriptor<SnapModel>(sortBy: [sort]))
             return models.map { $0.toSnap() }
         } catch {
@@ -48,23 +49,12 @@ final class SnapRepository: SnapRepositoryProtocol {
         }
     }
 
-    func load(name: String) -> UIImage? {
-        if let cachedImage = cache.getImage(forKey: name) {
-            return cachedImage
-        }
-        if let image = imageStorage.loadImage(name: name) {
-            cache.setImage(image, forKey: name)
-            return image
-        }
-
-        return nil
-    }
-
-    func save(_ image: UIImage, tagNames: [String]) throws {
+    func save(_ image: UIImage, tagNames: [String]) async throws {
         do {
+            // 画像名はユニークであれば良いのでUUIDを用いる
             let imageName = try imageStorage.save(image: image, with: UUID().uuidString)
-            let tagModels: [TagModel] = try tagNames.compactMap { [weak self] name in
-                guard let self else { return nil }
+            let context = ModelContext(modelContainer)
+            let tagModels: [TagModel] = try tagNames.compactMap { name in
                 let tag = try context.fetch(
                     FetchDescriptor<TagModel>(
                         predicate: #Predicate {
@@ -88,9 +78,10 @@ final class SnapRepository: SnapRepositoryProtocol {
         }
     }
 
-    func delete(_ snap: Snap) throws {
+    func delete(_ snap: Snap) async throws {
         do {
             let snapId = snap.id
+            let context = ModelContext(modelContainer)
             try context.delete(
                 model: SnapModel.self,
                 where: #Predicate<SnapModel> {
@@ -101,5 +92,17 @@ final class SnapRepository: SnapRepositoryProtocol {
         } catch {
             throw SnapRepositoryError.deleteFailed
         }
+    }
+
+    func loadImage(name: String) -> UIImage? {
+        if let cachedImage = cache.getImage(forKey: name) {
+            return cachedImage
+        }
+        if let image = imageStorage.loadImage(name: name) {
+            cache.setImage(image, forKey: name)
+            return image
+        }
+
+        return nil
     }
 }

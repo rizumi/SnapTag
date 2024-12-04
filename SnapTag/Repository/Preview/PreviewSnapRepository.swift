@@ -18,7 +18,7 @@ final class PreviewSnapRepository: SnapRepositoryProtocol {
         return [snapA, snapB, snapC]
     }
 
-    func load(name: String) -> UIImage? {
+    func loadImage(name: String) -> UIImage? {
         return UIImage(named: name)
     }
 

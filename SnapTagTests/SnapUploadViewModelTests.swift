@@ -89,7 +89,7 @@ struct SnapUploadViewModelTests {
         await viewModel.onSelectedImage(.init())
 
         // Act
-        viewModel.onTapSave()
+        await viewModel.onTapSave()
 
         // Assert
         #expect(flow.dismissCallCount == 1)
@@ -112,7 +112,7 @@ struct SnapUploadViewModelTests {
         await viewModel.onSelectedImage(.init())
 
         // Act
-        viewModel.onTapSave()
+        await viewModel.onTapSave()
 
         // Assert
         #expect(viewModel.errorState == .saveFailed)
@@ -129,7 +129,7 @@ struct SnapUploadViewModelTests {
             snapRepository: repository, recommender: recommender, flow: flow)
 
         // Act
-        viewModel.onTapSave()
+        await viewModel.onTapSave()
 
         // Assert
         #expect(viewModel.errorState == .imageNotSelected)

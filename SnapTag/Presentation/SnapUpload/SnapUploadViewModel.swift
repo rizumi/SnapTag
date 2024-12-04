@@ -5,7 +5,6 @@
 //  Created by izumi on 2024/11/21.
 //
 
-import Combine
 import Foundation
 import SwiftUI
 import UIKit
@@ -29,8 +28,6 @@ final class SnapUploadViewModel: ObservableObject {
     private let recommender: TagRecommender
     private let flow: SnapUploadViewFlow
 
-    private var cancellables: Set<AnyCancellable> = []
-
     init(
         snapRepository: SnapRepositoryProtocol,
         recommender: TagRecommender,
@@ -45,14 +42,14 @@ final class SnapUploadViewModel: ObservableObject {
         presentedPhotosPicker = true
     }
 
-    func onTapSave() {
+    func onTapSave() async {
         guard let image = selectedImage else {
             errorState = .imageNotSelected
             return
         }
 
         do {
-            try snapRepository.save(image, tagNames: tags)
+            try await snapRepository.save(image, tagNames: tags)
             flow.dismiss(isCompleted: true)
         } catch let error as RepositoryError {
             errorState = error.toPresentationError()

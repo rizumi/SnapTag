@@ -54,9 +54,9 @@ final class SetupViewModel: ObservableObject {
 
     private func save(_ image: UIImage) async throws {
         if let tag = try await tagRecommender.recommendTags(from: image).first {
-            try repository.save(image, tagNames: [tag])
+            try await repository.save(image, tagNames: [tag])
         } else {
-            try repository.save(image, tagNames: [])
+            try await repository.save(image, tagNames: [])
         }
     }
 }

@@ -33,10 +33,12 @@ final class SnapListViewModel: ObservableObject {
         self.flow = flow
     }
 
-    func refresh() {
+    func refresh() async {
         do {
-            allSnaps = try snapRepository.fetch()
-            tags = try tagRepository.fetch()
+            async let allSnaps = try await snapRepository.fetch()
+            async let tags = try await tagRepository.fetch()
+
+            (self.allSnaps, self.tags) = try await (allSnaps, tags)
             updateSnaps()
         } catch let error as RepositoryError {
             errorState = error.toPresentationError()
@@ -46,7 +48,7 @@ final class SnapListViewModel: ObservableObject {
     }
 
     func loadImage(name: String) -> UIImage? {
-        return snapRepository.load(name: name)
+        return snapRepository.loadImage(name: name)
     }
 
     func onSelectedTag(_ tag: Tag) {
@@ -63,24 +65,27 @@ final class SnapListViewModel: ObservableObject {
 
     func onTapActionButton() {
         flow.toSnapPicker { [weak self] in
-            self?.refresh()
+            Task {
+                await self?.refresh()
+            }
         }
     }
 
     func onSelectSnap(_ snap: Snap) {
         flow.toSnapDetail(snap: snap, snaps: snaps) { [weak self] snap in
             guard let self else { return }
+            Task {
+                if let index = allSnaps.firstIndex(of: snap) {
+                    allSnaps.remove(at: index)
 
-            if let index = allSnaps.firstIndex(of: snap) {
-                allSnaps.remove(at: index)
+                    // 写真が削除されタグが0件になった場合選択中の状態をすべてに戻す
+                    tags = (try? await tagRepository.fetch()) ?? tags
+                    if let selectedTag = selectedTag, !tags.contains(selectedTag) {
+                        self.selectedTag = nil
+                    }
 
-                // 写真が削除されタグが0件になった場合選択中の状態をすべてに戻す
-                tags = (try? tagRepository.fetch()) ?? tags
-                if let selectedTag = selectedTag, !tags.contains(selectedTag) {
-                    self.selectedTag = nil
+                    updateSnaps()
                 }
-
-                updateSnaps()
             }
         }
     }
