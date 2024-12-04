@@ -96,16 +96,16 @@ final class SnapRepositoryProtocolMock: SnapRepositoryProtocol, @unchecked Senda
     }
 }
 
-final class TagRepositoryProtocolMock: TagRepositoryProtocol {
+final class TagRepositoryProtocolMock: TagRepositoryProtocol, @unchecked Sendable {
     init() { }
 
 
     private(set) var fetchCallCount = 0
-    var fetchHandler: (() throws -> ([Tag]))?
-    func fetch() throws -> [Tag] {
+    var fetchHandler: (() async throws -> ([Tag]))?
+    func fetch() async throws -> [Tag] {
         fetchCallCount += 1
         if let fetchHandler = fetchHandler {
-            return try fetchHandler()
+            return try await fetchHandler()
         }
         return [Tag]()
     }

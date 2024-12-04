@@ -10,10 +10,7 @@ import SwiftData
 @MainActor
 final class AppModelContainer {
     static let shared: AppModelContainer = AppModelContainer()
-    private(set) var container: ModelContainer!
-    lazy var modelContext: ModelContext = {
-        ModelContext(container)
-    }()
+    private(set) var container: ModelContainer
 
     private init() {
         do {

@@ -9,8 +9,8 @@ import Foundation
 import SwiftData
 
 /// @mockable
-protocol TagRepositoryProtocol {
-    func fetch() throws -> [Tag]
+protocol TagRepositoryProtocol: Sendable {
+    func fetch() async throws -> [Tag]
 }
 
 enum TagRepositoryError: Error {
@@ -18,16 +18,17 @@ enum TagRepositoryError: Error {
 }
 
 final class TagRepository: TagRepositoryProtocol {
-    private let context: ModelContext
+    private let modelContainer: AppModelContainer
 
     init(
-        context: ModelContext
+        modelContainer: AppModelContainer
     ) {
-        self.context = context
+        self.modelContainer = modelContainer
     }
 
-    func fetch() throws -> [Tag] {
+    func fetch() async throws -> [Tag] {
         do {
+            let context = await ModelContext(modelContainer.container)
             let tags = try context.fetch(FetchDescriptor<TagModel>())
             return tags.filter { $0.snaps?.isEmpty == false }.map { $0.toTag() }
         } catch {
