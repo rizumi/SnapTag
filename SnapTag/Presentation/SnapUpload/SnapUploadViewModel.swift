@@ -5,7 +5,6 @@
 //  Created by izumi on 2024/11/21.
 //
 
-import Combine
 import Foundation
 import SwiftUI
 import UIKit
@@ -28,8 +27,6 @@ final class SnapUploadViewModel: ObservableObject {
     private let snapRepository: SnapRepositoryProtocol
     private let recommender: TagRecommender
     private let flow: SnapUploadViewFlow
-
-    private var cancellables: Set<AnyCancellable> = []
 
     init(
         snapRepository: SnapRepositoryProtocol,
