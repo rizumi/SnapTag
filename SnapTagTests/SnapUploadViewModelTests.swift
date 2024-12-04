@@ -154,6 +154,7 @@ struct SnapUploadViewModelTests {
 
         // Assert
         #expect(viewModel.tags == ["a", "b", "c"])
+        #expect(viewModel.isRecommendingTags == false)
     }
 
     @Test("タグ推薦に失敗した場合エラーが設定されること")
@@ -176,6 +177,7 @@ struct SnapUploadViewModelTests {
         // Assert
         #expect(viewModel.tags == [])
         #expect(viewModel.errorState == .tagRecommendFailed)
+        #expect(viewModel.isRecommendingTags == false)
     }
 
     @Test("指定のタグが削除できること")
