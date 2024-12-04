@@ -18,10 +18,6 @@ final class PreviewSnapRepository: SnapRepositoryProtocol {
         return [snapA, snapB, snapC]
     }
 
-    func loadImage(name: String) -> UIImage? {
-        return UIImage(named: name)
-    }
-
     func save(_ image: UIImage, tagNames: [String]) throws {
     }
 

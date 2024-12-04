@@ -17,6 +17,7 @@ struct SnapListViewModelTests {
         // Arrange
         let snapRepository = SnapRepositoryProtocolMock()
         let tagRepository = TagRepositoryProtocolMock()
+        let imageLoader = ImageLoaderProtocolMock()
         let flow = SnapListViewFlowMock()
 
         let tagA = Tag(id: "1", name: "a")
@@ -37,7 +38,10 @@ struct SnapListViewModelTests {
 
         // Act
         let viewModel = SnapListViewModel(
-            snapRepository: snapRepository, tagRepository: tagRepository, flow: flow)
+            snapRepository: snapRepository,
+            tagRepository: tagRepository,
+            imageLoader: imageLoader,
+            flow: flow)
         await viewModel.refresh()
 
         // Assert
@@ -50,6 +54,7 @@ struct SnapListViewModelTests {
         // Arrange
         let snapRepository = SnapRepositoryProtocolMock()
         let tagRepository = TagRepositoryProtocolMock()
+        let imageLoader = ImageLoaderProtocolMock()
         let flow = SnapListViewFlowMock()
 
         let tagA = Tag(id: "1", name: "a")
@@ -68,7 +73,10 @@ struct SnapListViewModelTests {
             return [snapA, snapB, snapC, snapD]
         }
         let viewModel = SnapListViewModel(
-            snapRepository: snapRepository, tagRepository: tagRepository, flow: flow)
+            snapRepository: snapRepository,
+            tagRepository: tagRepository,
+            imageLoader: imageLoader,
+            flow: flow)
         await viewModel.refresh()
 
         tagRepository.fetchHandler = {
@@ -91,6 +99,7 @@ struct SnapListViewModelTests {
         // Arrange
         let snapRepository = SnapRepositoryProtocolMock()
         let tagRepository = TagRepositoryProtocolMock()
+        let imageLoader = ImageLoaderProtocolMock()
         let flow = SnapListViewFlowMock()
 
         let tagA = Tag(id: "1", name: "a")
@@ -106,7 +115,10 @@ struct SnapListViewModelTests {
 
         // Act
         let viewModel = SnapListViewModel(
-            snapRepository: snapRepository, tagRepository: tagRepository, flow: flow)
+            snapRepository: snapRepository,
+            tagRepository: tagRepository,
+            imageLoader: imageLoader,
+            flow: flow)
         await viewModel.refresh()
 
         // Assert
@@ -120,6 +132,7 @@ struct SnapListViewModelTests {
         // Arrange
         let snapRepository = SnapRepositoryProtocolMock()
         let tagRepository = TagRepositoryProtocolMock()
+        let imageLoader = ImageLoaderProtocolMock()
         let flow = SnapListViewFlowMock()
 
         let tagA = Tag(id: "1", name: "a")
@@ -140,7 +153,10 @@ struct SnapListViewModelTests {
 
         // Act
         let viewModel = SnapListViewModel(
-            snapRepository: snapRepository, tagRepository: tagRepository, flow: flow)
+            snapRepository: snapRepository,
+            tagRepository: tagRepository,
+            imageLoader: imageLoader,
+            flow: flow)
         await viewModel.refresh()
 
         // Assert
@@ -154,6 +170,7 @@ struct SnapListViewModelTests {
         // Arrange
         let snapRepository = SnapRepositoryProtocolMock()
         let tagRepository = TagRepositoryProtocolMock()
+        let imageLoader = ImageLoaderProtocolMock()
         let flow = SnapListViewFlowMock()
 
         let tagA = Tag(id: "1", name: "a")
@@ -173,7 +190,10 @@ struct SnapListViewModelTests {
         }
 
         let viewModel = SnapListViewModel(
-            snapRepository: snapRepository, tagRepository: tagRepository, flow: flow)
+            snapRepository: snapRepository,
+            tagRepository: tagRepository,
+            imageLoader: imageLoader,
+            flow: flow)
 
         // Act
         await viewModel.refresh()
@@ -189,6 +209,7 @@ struct SnapListViewModelTests {
         // Arrange
         let snapRepository = SnapRepositoryProtocolMock()
         let tagRepository = TagRepositoryProtocolMock()
+        let imageLoader = ImageLoaderProtocolMock()
         let flow = SnapListViewFlowMock()
 
         let tagA = Tag(id: "1", name: "a")
@@ -208,7 +229,10 @@ struct SnapListViewModelTests {
         }
 
         let viewModel = SnapListViewModel(
-            snapRepository: snapRepository, tagRepository: tagRepository, flow: flow)
+            snapRepository: snapRepository,
+            tagRepository: tagRepository,
+            imageLoader: imageLoader,
+            flow: flow)
 
         // Act
         await viewModel.refresh()

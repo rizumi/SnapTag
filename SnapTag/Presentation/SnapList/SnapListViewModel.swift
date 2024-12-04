@@ -18,6 +18,7 @@ final class SnapListViewModel: ObservableObject {
 
     private let snapRepository: SnapRepositoryProtocol
     private let tagRepository: TagRepositoryProtocol
+    private let imageLoader: ImageLoaderProtocol
 
     private let flow: SnapListViewFlow
 
@@ -26,10 +27,12 @@ final class SnapListViewModel: ObservableObject {
     init(
         snapRepository: SnapRepositoryProtocol,
         tagRepository: TagRepositoryProtocol,
+        imageLoader: ImageLoaderProtocol,
         flow: SnapListViewFlow
     ) {
         self.snapRepository = snapRepository
         self.tagRepository = tagRepository
+        self.imageLoader = imageLoader
         self.flow = flow
     }
 
@@ -48,7 +51,7 @@ final class SnapListViewModel: ObservableObject {
     }
 
     func loadImage(name: String) -> UIImage? {
-        return snapRepository.loadImage(name: name)
+        return imageLoader.load(name: name)
     }
 
     func onSelectedTag(_ tag: Tag) {

@@ -133,9 +133,12 @@ struct SnapListView: View {
 #if DEBUG
 #Preview {
     let snapRepository = PreviewSnapRepository()
-    let tagRepo = PreviewTagRepository()
+    let tagRepository = PreviewTagRepository()
+    let imageLoader = PreviewImageLoader()
     let flow = SnapListViewCoordinator(navigator: .init())
     SnapListView(
-        viewModel: .init(snapRepository: snapRepository, tagRepository: tagRepo, flow: flow))
+        viewModel: .init(
+            snapRepository: snapRepository, tagRepository: tagRepository, imageLoader: imageLoader,
+            flow: flow))
 }
 #endif

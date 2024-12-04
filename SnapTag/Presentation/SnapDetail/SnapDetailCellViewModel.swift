@@ -11,17 +11,17 @@ import UIKit
 final class SnapDetailCellViewModel {
 
     private let snap: Snap
-    private let snapRepository: SnapRepositoryProtocol
+    private let imageLoader: ImageLoaderProtocol
 
     var image: UIImage? {
-        return snapRepository.loadImage(name: snap.imageName)
+        return imageLoader.load(name: snap.imageName)
     }
 
     init(
         snap: Snap,
-        snapRepository: SnapRepositoryProtocol
+        imageLoader: ImageLoaderProtocol
     ) {
         self.snap = snap
-        self.snapRepository = snapRepository
+        self.imageLoader = imageLoader
     }
 }
