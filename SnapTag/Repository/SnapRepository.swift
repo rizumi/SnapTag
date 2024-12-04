@@ -54,6 +54,7 @@ final class SnapRepository: SnapRepositoryProtocol {
         }
         if let image = imageStorage.loadImage(name: name) {
             cache.setImage(image, forKey: name)
+            return image
         }
 
         return nil
