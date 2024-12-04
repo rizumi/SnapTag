@@ -51,6 +51,7 @@ final class SnapRepository: SnapRepositoryProtocol {
 
     func save(_ image: UIImage, tagNames: [String]) async throws {
         do {
+            // 画像名はユニークであれば良いのでUUIDを用いる
             let imageName = try imageStorage.save(image: image, with: UUID().uuidString)
             let context = ModelContext(modelContainer)
             let tagModels: [TagModel] = try tagNames.compactMap { name in
