@@ -41,25 +41,31 @@ struct SnapUploadView: View {
                     }
                 }
 
-                LazyVGrid(
-                    columns: [GridItem(.adaptive(minimum: 160))], alignment: .leading,
-                    spacing: 8
-                ) {
-                    ForEach(viewModel.tags, id: \.self) { tag in
-                        TagView(name: tag) {
-                            withAnimation {
-                                viewModel.onTapDeleteTag(tag)
+                if viewModel.isRecommendingTags {
+                    ProgressView()
+                        .padding()
+                } else {
+                    LazyVGrid(
+                        columns: [GridItem(.adaptive(minimum: 160))], alignment: .leading,
+                        spacing: 8
+                    ) {
+                        ForEach(viewModel.tags, id: \.self) { tag in
+                            TagView(name: tag) {
+                                withAnimation {
+                                    viewModel.onTapDeleteTag(tag)
+                                }
+                            }
+                        }
+
+                        if viewModel.showAddTagButton {
+                            AddTagView {
+                                viewModel.onTapAddTag()
                             }
                         }
                     }
+                    .padding()
 
-                    if viewModel.showAddTagButton {
-                        AddTagView {
-                            viewModel.onTapAddTag()
-                        }
-                    }
                 }
-                .padding()
 
                 Spacer()
 

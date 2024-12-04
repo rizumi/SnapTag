@@ -19,6 +19,7 @@ final class SnapUploadViewModel: ObservableObject {
     @Published private(set) var selectedImage: UIImage?
     @Published private(set) var tags: [String] = []
     @Published private(set) var errorState: PresentationError?
+    @Published private(set) var isRecommendingTags: Bool = false
 
     var showAddTagButton: Bool {
         selectedImage != nil && tags.count <= 5
@@ -93,6 +94,11 @@ final class SnapUploadViewModel: ObservableObject {
     }
 
     func onSelectedImage(_ image: UIImage) async {
+        isRecommendingTags = true
+        defer {
+            isRecommendingTags = false
+        }
+
         do {
             selectedImage = image
             tags = try await recommender.recommendTags(from: image)
