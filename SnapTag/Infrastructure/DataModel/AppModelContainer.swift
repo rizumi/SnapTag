@@ -10,7 +10,7 @@ import SwiftData
 @MainActor
 final class AppModelContainer {
     static let shared: AppModelContainer = AppModelContainer()
-    private(set) var container: ModelContainer
+    let container: ModelContainer
 
     private init() {
         do {
