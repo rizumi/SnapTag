@@ -65,16 +65,6 @@ final class SnapRepositoryProtocolMock: SnapRepositoryProtocol, @unchecked Senda
         return [Snap]()
     }
 
-    private(set) var loadCallCount = 0
-    var loadHandler: ((String) -> (UIImage?))?
-    func loadImage(name: String) -> UIImage? {
-        loadCallCount += 1
-        if let loadHandler = loadHandler {
-            return loadHandler(name)
-        }
-        return nil
-    }
-
     private(set) var saveCallCount = 0
     var saveHandler: ((UIImage, [String]) async throws -> ())?
     func save(_ image: UIImage, tagNames: [String]) async throws  {
@@ -93,6 +83,16 @@ final class SnapRepositoryProtocolMock: SnapRepositoryProtocol, @unchecked Senda
             try await deleteHandler(snap)
         }
         
+    }
+
+    private(set) var loadImageCallCount = 0
+    var loadImageHandler: ((String) -> (UIImage?))?
+    func loadImage(name: String) -> UIImage? {
+        loadImageCallCount += 1
+        if let loadImageHandler = loadImageHandler {
+            return loadImageHandler(name)
+        }
+        return nil
     }
 }
 

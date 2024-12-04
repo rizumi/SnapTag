@@ -11,9 +11,9 @@ import UIKit
 /// @mockable
 protocol SnapRepositoryProtocol: Sendable {
     func fetch() async throws -> [Snap]
-    func loadImage(name: String) -> UIImage?
     func save(_ image: UIImage, tagNames: [String]) async throws
     func delete(_ snap: Snap) async throws
+    func loadImage(name: String) -> UIImage?
 }
 
 enum SnapRepositoryError: Error {
@@ -47,18 +47,6 @@ final class SnapRepository: SnapRepositoryProtocol {
         } catch {
             throw SnapRepositoryError.fetchFailed
         }
-    }
-
-    func loadImage(name: String) -> UIImage? {
-        if let cachedImage = cache.getImage(forKey: name) {
-            return cachedImage
-        }
-        if let image = imageStorage.loadImage(name: name) {
-            cache.setImage(image, forKey: name)
-            return image
-        }
-
-        return nil
     }
 
     func save(_ image: UIImage, tagNames: [String]) async throws {
@@ -103,5 +91,17 @@ final class SnapRepository: SnapRepositoryProtocol {
         } catch {
             throw SnapRepositoryError.deleteFailed
         }
+    }
+
+    func loadImage(name: String) -> UIImage? {
+        if let cachedImage = cache.getImage(forKey: name) {
+            return cachedImage
+        }
+        if let image = imageStorage.loadImage(name: name) {
+            cache.setImage(image, forKey: name)
+            return image
+        }
+
+        return nil
     }
 }
