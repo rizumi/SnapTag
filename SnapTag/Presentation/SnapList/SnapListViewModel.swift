@@ -46,7 +46,7 @@ final class SnapListViewModel: ObservableObject {
     }
 
     func loadImage(name: String) -> UIImage? {
-        return snapRepository.load(name: name)
+        return snapRepository.loadImage(name: name)
     }
 
     func onSelectedTag(_ tag: Tag) {

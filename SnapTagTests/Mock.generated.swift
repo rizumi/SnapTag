@@ -67,7 +67,7 @@ final class SnapRepositoryProtocolMock: SnapRepositoryProtocol, @unchecked Senda
 
     private(set) var loadCallCount = 0
     var loadHandler: ((String) -> (UIImage?))?
-    func load(name: String) -> UIImage? {
+    func loadImage(name: String) -> UIImage? {
         loadCallCount += 1
         if let loadHandler = loadHandler {
             return loadHandler(name)

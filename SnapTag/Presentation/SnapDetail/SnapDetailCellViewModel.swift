@@ -14,7 +14,7 @@ final class SnapDetailCellViewModel {
     private let snapRepository: SnapRepositoryProtocol
 
     var image: UIImage? {
-        return snapRepository.load(name: snap.imageName)
+        return snapRepository.loadImage(name: snap.imageName)
     }
 
     init(
