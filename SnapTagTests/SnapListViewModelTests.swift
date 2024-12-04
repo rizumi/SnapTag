@@ -38,7 +38,7 @@ struct SnapListViewModelTests {
         // Act
         let viewModel = SnapListViewModel(
             snapRepository: snapRepository, tagRepository: tagRepository, flow: flow)
-        viewModel.refresh()
+        await viewModel.refresh()
 
         // Assert
         #expect(viewModel.tags == [tagA, tagB, tagC])
@@ -69,7 +69,7 @@ struct SnapListViewModelTests {
         }
         let viewModel = SnapListViewModel(
             snapRepository: snapRepository, tagRepository: tagRepository, flow: flow)
-        viewModel.refresh()
+        await viewModel.refresh()
 
         tagRepository.fetchHandler = {
             return [tagA, tagC]
@@ -79,7 +79,7 @@ struct SnapListViewModelTests {
         }
 
         // Act
-        viewModel.refresh()
+        await viewModel.refresh()
 
         // Assert
         #expect(viewModel.tags == [tagA, tagC])
@@ -107,7 +107,7 @@ struct SnapListViewModelTests {
         // Act
         let viewModel = SnapListViewModel(
             snapRepository: snapRepository, tagRepository: tagRepository, flow: flow)
-        viewModel.refresh()
+        await viewModel.refresh()
 
         // Assert
         #expect(viewModel.snaps == [])
@@ -141,7 +141,7 @@ struct SnapListViewModelTests {
         // Act
         let viewModel = SnapListViewModel(
             snapRepository: snapRepository, tagRepository: tagRepository, flow: flow)
-        viewModel.refresh()
+        await viewModel.refresh()
 
         // Assert
         #expect(viewModel.snaps == [])
@@ -176,7 +176,7 @@ struct SnapListViewModelTests {
             snapRepository: snapRepository, tagRepository: tagRepository, flow: flow)
 
         // Act
-        viewModel.refresh()
+        await viewModel.refresh()
         viewModel.onSelectedTag(tagA)
 
         // Assert
@@ -211,7 +211,7 @@ struct SnapListViewModelTests {
             snapRepository: snapRepository, tagRepository: tagRepository, flow: flow)
 
         // Act
-        viewModel.refresh()
+        await viewModel.refresh()
         viewModel.onSelectedTag(tagA)
         viewModel.onSelectedAll()
 

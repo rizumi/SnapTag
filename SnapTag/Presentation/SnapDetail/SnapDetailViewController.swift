@@ -33,7 +33,7 @@ final class SnapDetailViewController: UIViewController {
                 .init(
                     snap: item,
                     snapRepository: SnapRepository(
-                        context: AppModelContainer.shared.modelContext,
+                        modelContainer: AppModelContainer.shared,
                         imageStorage: LocalImageStorage.shared)))
 
             return cell
@@ -243,7 +243,9 @@ final class SnapDetailViewController: UIViewController {
                 title: String(localized: "delete"),
                 style: .destructive,
                 handler: { [weak self] _ in
-                    self?.viewModel.deleteSnap()
+                    Task {
+                        await self?.viewModel.deleteSnap()
+                    }
                 }))
 
         alert.addAction(.init(title: String(localized: "cancel"), style: .cancel))

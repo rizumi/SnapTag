@@ -38,7 +38,9 @@ struct SnapListView: View {
             }
         }
         .onFirstAppear {
-            viewModel.refresh()
+            Task {
+                await viewModel.refresh()
+            }
         }
         .errorAlert(
             error: viewModel.errorState,

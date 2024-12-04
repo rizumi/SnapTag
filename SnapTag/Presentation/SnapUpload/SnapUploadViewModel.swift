@@ -42,14 +42,14 @@ final class SnapUploadViewModel: ObservableObject {
         presentedPhotosPicker = true
     }
 
-    func onTapSave() {
+    func onTapSave() async {
         guard let image = selectedImage else {
             errorState = .imageNotSelected
             return
         }
 
         do {
-            try snapRepository.save(image, tagNames: tags)
+            try await snapRepository.save(image, tagNames: tags)
             flow.dismiss(isCompleted: true)
         } catch let error as RepositoryError {
             errorState = error.toPresentationError()

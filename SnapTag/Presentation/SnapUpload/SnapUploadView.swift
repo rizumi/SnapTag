@@ -75,7 +75,9 @@ struct SnapUploadView: View {
                 .buttonStyle(InteractiveButtonStyle())
 
                 Button {
-                    viewModel.onTapSave()
+                    Task {
+                        await viewModel.onTapSave()
+                    }
                 } label: {
                     Text("save")
                         .frame(maxWidth: .infinity, minHeight: 44)

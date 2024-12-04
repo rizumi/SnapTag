@@ -51,10 +51,10 @@ final class SnapDetailViewModel: ObservableObject {
         presentedDeleteConfirmDialog = true
     }
 
-    func deleteSnap() {
+    func deleteSnap() async {
         do {
             let snap = snaps[currentIndex]
-            try repository.delete(snap)
+            try await repository.delete(snap)
             snaps.remove(at: currentIndex)
             flow.onDelete(snap)
 

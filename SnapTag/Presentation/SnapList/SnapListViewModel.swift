@@ -33,9 +33,9 @@ final class SnapListViewModel: ObservableObject {
         self.flow = flow
     }
 
-    func refresh() {
+    func refresh() async {
         do {
-            allSnaps = try snapRepository.fetch()
+            allSnaps = try await snapRepository.fetch()
             tags = try tagRepository.fetch()
             updateSnaps()
         } catch let error as RepositoryError {
@@ -63,7 +63,9 @@ final class SnapListViewModel: ObservableObject {
 
     func onTapActionButton() {
         flow.toSnapPicker { [weak self] in
-            self?.refresh()
+            Task {
+                await self?.refresh()
+            }
         }
     }
 
