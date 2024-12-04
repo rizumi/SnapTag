@@ -10,6 +10,7 @@ import UIKit
 
 @MainActor
 final class SnapListViewModel: ObservableObject {
+
     @Published private(set) var snaps: [Snap] = []
     @Published private(set) var tags: [Tag] = []
     @Published private(set) var selectedTag: Tag? = nil

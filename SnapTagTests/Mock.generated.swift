@@ -26,7 +26,7 @@ final class ImageLoaderProtocolMock: ImageLoaderProtocol {
     }
 }
 
-final class TagRecommenderMock: TagRecommender {
+final class TagRecommenderMock: TagRecommender, @unchecked Sendable {
     init() { }
 
 

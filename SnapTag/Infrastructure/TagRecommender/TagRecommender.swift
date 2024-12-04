@@ -8,7 +8,6 @@
 import UIKit
 
 /// @mockable
-@MainActor
-protocol TagRecommender {
+protocol TagRecommender: Sendable {
     func recommendTags(from image: UIImage) async throws -> [String]
 }
