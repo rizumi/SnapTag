@@ -82,7 +82,7 @@ final class SnapListViewModel: ObservableObject {
                 if let index = allSnaps.firstIndex(of: snap) {
                     allSnaps.remove(at: index)
 
-                    // 写真が削除されタグが0件になった場合選択中の状態をすべてに戻す
+                    // 写真が削除されタグが0件になった場合、タグ選択をリセットする
                     tags = (try? await tagRepository.fetch()) ?? tags
                     if let selectedTag = selectedTag, !tags.contains(selectedTag) {
                         self.selectedTag = nil

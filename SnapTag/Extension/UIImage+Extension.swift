@@ -9,19 +9,17 @@ import UIKit
 
 extension UIImage {
     func resizedIfNeeded(maxSize: CGSize) -> UIImage? {
-        let originalSize = self.size
-
-        if originalSize.width <= maxSize.width && originalSize.height <= maxSize.height {
+        if size.width <= maxSize.width && size.height <= maxSize.height {
             return self
         }
 
-        let ratioW = maxSize.width / originalSize.width
-        let ratioH = maxSize.height / originalSize.height
+        let ratioW = maxSize.width / size.width
+        let ratioH = maxSize.height / size.height
         let scaleRatio = min(ratioW, ratioH)
 
         let newSize = CGSize(
-            width: originalSize.width * scaleRatio,
-            height: originalSize.height * scaleRatio
+            width: size.width * scaleRatio,
+            height: size.height * scaleRatio
         )
 
         let renderer = UIGraphicsImageRenderer(size: newSize)
