@@ -25,6 +25,8 @@ struct SnapUploadView: View {
                     Button("cancel") {
                         viewModel.onTapCancel()
                     }
+                    .foregroundStyle(.stPrimary)
+
                     Spacer()
                 }
                 .padding(.horizontal)
