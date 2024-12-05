@@ -16,7 +16,7 @@ protocol SnapListViewFlow {
 }
 
 final class SnapListViewCoordinator: Coordinator {
-    private var navigator: UINavigationController?
+    private let navigator: UINavigationController
 
     init(navigator: UINavigationController) {
         self.navigator = navigator
@@ -35,19 +35,17 @@ final class SnapListViewCoordinator: Coordinator {
                     flow: self
                 ))
         )
-        navigator?.pushViewController(viewController, animated: false)
+        navigator.pushViewController(viewController, animated: false)
     }
 }
 
 extension SnapListViewCoordinator: SnapListViewFlow {
     func toSnapUpload(_ completion: @escaping () -> Void) {
-        guard let navigator else { return }
         let coordinator = SnapUploadViewCoordinator(navigator: navigator, completion: completion)
         coordinator.start()
     }
 
     func toSnapDetail(snap: Snap, snaps: [Snap], onDelete: @escaping (Snap) -> Void) {
-        guard let navigator else { return }
         let coordinator = SnapDetailViewCoordinator(
             snap: snap, snaps: snaps,
             navigator: navigator, onDelete: onDelete)
