@@ -11,7 +11,7 @@ struct SnapListView: View {
     @StateObject private var viewModel: SnapListViewModel
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
-    var columnCount: Int {
+    private var columnCount: Int {
         switch horizontalSizeClass {
         case .regular:
             return 4
