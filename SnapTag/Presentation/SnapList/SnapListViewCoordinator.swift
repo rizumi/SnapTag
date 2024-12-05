@@ -35,7 +35,6 @@ final class SnapListViewCoordinator: Coordinator {
                     flow: self
                 ))
         )
-        viewController.modalPresentationStyle = .fullScreen
         navigator?.pushViewController(viewController, animated: false)
     }
 }
