@@ -127,7 +127,7 @@ struct SnapUploadView: View {
                     .submitLabel(.done)
                 Button {
                     withAnimation {
-                        viewModel.addTag()
+                        viewModel.onSubmitTagText()
                     }
                 } label: {
                     Text("ok")

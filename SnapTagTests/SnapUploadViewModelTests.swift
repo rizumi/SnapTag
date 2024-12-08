@@ -203,7 +203,7 @@ struct SnapUploadViewModelTests {
     }
 
     @Test("タグの追加ができること")
-    func testOnTapAddTag() async throws {
+    func testAddTag() async throws {
         // Arrange
         let repository = SnapRepositoryProtocolMock()
         let recommender = TagRecommenderMock()
@@ -219,14 +219,14 @@ struct SnapUploadViewModelTests {
 
         // Act
         viewModel.tagText = "d"
-        viewModel.addTag()
+        viewModel.onSubmitTagText()
 
         // Assert
         #expect(viewModel.tags == ["a", "b", "c", "d"])
     }
 
     @Test("空文字タグの追加ができないこと")
-    func testOnTapAddEmptyTag() async throws {
+    func testAddEmptyTag() async throws {
         // Arrange
         let repository = SnapRepositoryProtocolMock()
         let recommender = TagRecommenderMock()
@@ -242,14 +242,14 @@ struct SnapUploadViewModelTests {
 
         // Act
         viewModel.tagText = ""
-        viewModel.addTag()
+        viewModel.onSubmitTagText()
 
         // Assert
         #expect(viewModel.tags == ["a", "b", "c"])
     }
 
     @Test("重複タグの追加ができないこと")
-    func testOnTapAddSameTag() async throws {
+    func testAddSameTag() async throws {
         // Arrange
         let repository = SnapRepositoryProtocolMock()
         let recommender = TagRecommenderMock()
@@ -265,14 +265,14 @@ struct SnapUploadViewModelTests {
 
         // Act
         viewModel.tagText = "b"
-        viewModel.addTag()
+        viewModel.onSubmitTagText()
 
         // Assert
         #expect(viewModel.tags == ["a", "b", "c"])
     }
 
     @Test("11文字以上のタグが追加できないこと")
-    func testOnTapAddTagLimit() async throws {
+    func testAddTagLimit() async throws {
         // Arrange
         let repository = SnapRepositoryProtocolMock()
         let recommender = TagRecommenderMock()
@@ -288,7 +288,7 @@ struct SnapUploadViewModelTests {
 
         // Act
         viewModel.tagText = "12345678901"
-        viewModel.addTag()
+        viewModel.onSubmitTagText()
 
         // Assert
         #expect(viewModel.tags == ["a", "b", "c"])

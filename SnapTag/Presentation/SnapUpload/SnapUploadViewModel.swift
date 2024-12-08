@@ -71,7 +71,7 @@ final class SnapUploadViewModel: ObservableObject {
         presentedAddTagAlert = true
     }
 
-    func addTag() {
+    func onSubmitTagText() {
         if tagText.isEmpty { return }
         if tags.contains(tagText) { return }
         guard tagText.count <= Constants.tagCharacterLimit else {
