@@ -123,8 +123,9 @@ struct SnapUploadView: View {
                     String(
                         localized: "character_limit",
                         defaultValue: "(maximum \(Constants.tagCharacterLimit) characters)"),
-                    text: $viewModel.tagText)
-                    .submitLabel(.done)
+                    text: $viewModel.tagText
+                )
+                .submitLabel(.done)
                 Button {
                     withAnimation {
                         viewModel.onSubmitTagText()
