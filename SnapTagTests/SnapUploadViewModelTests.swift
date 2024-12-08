@@ -225,7 +225,7 @@ struct SnapUploadViewModelTests {
         #expect(viewModel.tags == ["a", "b", "c", "d"])
     }
 
-    @Test("空文字タグの追加ができること")
+    @Test("空文字タグの追加ができないこと")
     func testOnTapAddEmptyTag() async throws {
         // Arrange
         let repository = SnapRepositoryProtocolMock()
@@ -248,7 +248,7 @@ struct SnapUploadViewModelTests {
         #expect(viewModel.tags == ["a", "b", "c"])
     }
 
-    @Test("重複タグの追加ができること")
+    @Test("重複タグの追加ができないこと")
     func testOnTapAddSameTag() async throws {
         // Arrange
         let repository = SnapRepositoryProtocolMock()

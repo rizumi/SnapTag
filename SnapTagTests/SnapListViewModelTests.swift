@@ -202,6 +202,7 @@ struct SnapListViewModelTests {
         // Assert
         #expect(viewModel.selectedTag == tagA)
         #expect(viewModel.snaps == [snapA, snapB])
+        #expect(viewModel.scrollTo == snapA)
     }
 
     @Test("すべてを選択時にタグ選択がリセットされること")
@@ -242,5 +243,6 @@ struct SnapListViewModelTests {
         // Assert
         #expect(viewModel.selectedTag == nil)
         #expect(viewModel.snaps == [snapA, snapB, snapC, snapD])
+        #expect(viewModel.scrollTo == snapA)
     }
 }

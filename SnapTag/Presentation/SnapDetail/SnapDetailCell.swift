@@ -8,6 +8,7 @@
 import UIKit
 
 final class SnapDetailCell: UICollectionViewCell {
+
     private let imageView = UIImageView()
     @IBOutlet weak var scrollView: UIScrollView! {
         didSet {
@@ -16,11 +17,6 @@ final class SnapDetailCell: UICollectionViewCell {
             scrollView.minimumZoomScale = 1.0
             scrollView.addSubview(imageView)
         }
-    }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
     }
 
     override func prepareForReuse() {
