@@ -17,7 +17,7 @@ final class SetupViewModel: ObservableObject {
     private let tagRecommender: TagRecommender
     private let flow: SetupViewFlow
 
-    private let sampleImages = ["image1", "image2", "image3", "image4"]
+    private let sampleImages = ["image1", "image2", "image3", "image4", "image5"]
 
     init(
         repository: SnapRepositoryProtocol,

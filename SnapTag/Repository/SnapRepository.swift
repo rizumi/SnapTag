@@ -62,6 +62,7 @@ final class SnapRepository: SnapRepositoryProtocol {
                     )
                 )
 
+                // 同名のタグが既にある場合はそれを使い、ない場合に新規生成を行う。
                 if let tag = tag.first {
                     return tag
                 } else {
