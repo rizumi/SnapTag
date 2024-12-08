@@ -22,7 +22,7 @@ final class SnapUploadViewModel: ObservableObject {
     @Published private(set) var isRecommendingTags: Bool = false
 
     var showAddTagButton: Bool {
-        selectedImage != nil && tags.count <= 5
+        selectedImage != nil && tags.count < Constants.tagLimit
     }
 
     private let snapRepository: SnapRepositoryProtocol
