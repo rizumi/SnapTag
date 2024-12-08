@@ -33,12 +33,8 @@ final class SetupViewModel: ObservableObject {
     func setupPresetSnaps() async {
         let images = sampleImages.compactMap { UIImage(named: $0) }
         do {
-            try await withThrowingDiscardingTaskGroup { group in
-                for index in 0..<images.count {
-                    group.addTask {
-                        try await self.save(images[index])
-                    }
-                }
+            for index in 0..<images.count {
+                try await self.save(images[index])
             }
 
             flow.toSnapList()
