@@ -8,4 +8,7 @@ Deployment Target iOS17
 
 ## 実行手順
 
-SnapTag.xcodeprojをOpenしてSnapTag targetをBuild & Runしてください。
+1. SnapTag.xcodeprojをXcodeで開きます。
+1. SnapTagターゲットをBuild & Runしてください。
+
+推奨環境: iOS18以上の端末での実行を推奨します。
