@@ -1,4 +1,5 @@
 # SnapTag
+![build status](https://github.com/rizumi/SnapTag/actions/workflows/ios_test.yml/badge.svg)
 
 ## 開発環境
 
