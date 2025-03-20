@@ -1,10 +1,3 @@
-//
-//  SetupViewModel.swift
-//  SnapTag
-//
-//  Created by izumi on 2024/12/01.
-//
-
 import Foundation
 import UIKit
 

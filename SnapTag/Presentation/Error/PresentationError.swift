@@ -1,10 +1,3 @@
-//
-//  PresentationError.swift
-//  SnapTag
-//
-//  Created by izumi on 2024/12/02.
-//
-
 import Foundation
 
 enum PresentationError: LocalizedError {

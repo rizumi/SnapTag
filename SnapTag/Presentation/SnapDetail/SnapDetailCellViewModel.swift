@@ -1,10 +1,3 @@
-//
-//  SnapDetailCellViewModel.swift
-//  SnapTag
-//
-//  Created by izumi on 2024/11/29.
-//
-
 import UIKit
 
 @MainActor

@@ -1,10 +1,3 @@
-//
-//  AppLaunchChecker.swift
-//  SnapTag
-//
-//  Created by izumi on 2024/12/01.
-//
-
 import Foundation
 
 final class AppLaunchChecker {

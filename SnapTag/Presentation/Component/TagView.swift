@@ -1,10 +1,3 @@
-//
-//  TagView.swift
-//  SnapTag
-//
-//  Created by izumi on 2024/12/01.
-//
-
 import SwiftUI
 
 struct TagView: View {

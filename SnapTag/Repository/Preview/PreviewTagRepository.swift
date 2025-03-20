@@ -1,10 +1,3 @@
-//
-//  PreviewTagRepository.swift
-//  SnapTag
-//
-//  Created by izumi on 2024/12/02.
-//
-
 #if DEBUG
 
 import UIKit

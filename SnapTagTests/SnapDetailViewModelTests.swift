@@ -1,10 +1,3 @@
-//
-//  SnapDetailViewModelTests.swift
-//  SnapTagTests
-//
-//  Created by izumi on 2024/11/30.
-//
-
 import Testing
 
 @testable import SnapTag

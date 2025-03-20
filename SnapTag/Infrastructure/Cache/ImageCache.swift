@@ -1,10 +1,3 @@
-//
-//  ImageCache.swift
-//  SnapTag
-//
-//  Created by izumi on 2024/12/04.
-//
-
 import UIKit
 
 final class ImageCache: @unchecked Sendable {

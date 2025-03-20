@@ -1,10 +1,3 @@
-//
-//  RootCoordinator.swift
-//  SnapTag
-//
-//  Created by izumi on 2024/11/30.
-//
-
 import UIKit
 
 final class RootCoordinator: Coordinator {

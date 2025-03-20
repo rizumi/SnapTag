@@ -1,10 +1,3 @@
-//
-//  FirstAppearModifier.swift
-//  SnapTag
-//
-//  Created by izumi on 2024/11/30.
-//
-
 import SwiftUI
 
 struct FirstAppearModifier: ViewModifier {

@@ -1,10 +1,3 @@
-//
-//  Snap.swift
-//  SnapTag
-//
-//  Created by izumi on 2024/11/20.
-//
-
 import Foundation
 import SwiftData
 

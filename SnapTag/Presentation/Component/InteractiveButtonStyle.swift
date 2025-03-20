@@ -1,10 +1,3 @@
-//
-//  InteractiveButtonStyle.swift
-//  SnapTag
-//
-//  Created by izumi on 2024/11/23.
-//
-
 import SwiftUI
 
 struct InteractiveButtonStyle: ButtonStyle {

@@ -1,10 +1,3 @@
-//
-//  PreviewImageLoader.swift
-//  SnapTag
-//
-//  Created by izumi on 2024/12/05.
-//
-
 #if DEBUG
 
 import UIKit

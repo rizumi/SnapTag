@@ -1,10 +1,3 @@
-//
-//  ImageStorage.swift
-//  SnapTag
-//
-//  Created by izumi on 2024/11/22.
-//
-
 import Foundation
 import UIKit
 

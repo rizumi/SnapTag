@@ -1,10 +1,3 @@
-//
-//  UIImage+Extension.swift
-//  SnapTag
-//
-//  Created by izumi on 2024/11/23.
-//
-
 import UIKit
 
 extension UIImage {

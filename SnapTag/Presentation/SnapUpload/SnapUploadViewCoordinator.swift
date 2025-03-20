@@ -1,10 +1,3 @@
-//
-//  SnapUploadViewCoordinator.swift
-//  SnapTag
-//
-//  Created by izumi on 2024/11/22.
-//
-
 import SwiftUI
 import UIKit
 
