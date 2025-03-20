@@ -1,15 +1,16 @@
 # SnapTag
 ![build status](https://github.com/rizumi/SnapTag/actions/workflows/ios_test.yml/badge.svg)
 
-## 開発環境
+SnapTagは写真をタグ付けして管理が行えるサンプルアプリケーションです。  
+サーバーなどに依存せずスタンドアロンで動作します。  
+写真登録時にCore MLを用いてタグの推薦を行います。  
 
-Xcode 16.1  
-Swift 6  
-Deployment Target iOS17  
+## Environment
+- Xcode 16.1
+- Swift 6.0
+- iOS 17.0+
 
-## 実行手順
+## Architecture
+MVVM + SwiftUI / UIKitハイブリッド構成で構築しています
 
-1. SnapTag.xcodeprojをXcodeで開きます。
-1. SnapTagターゲットをBuild & Runしてください。
-
-推奨環境: iOS18以上の端末での実行を推奨します。
+![Architecture](./images/architecture.png)
