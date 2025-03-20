@@ -5,6 +5,8 @@ SnapTagは写真をタグ付けして管理が行えるサンプルアプリケ�
 サーバーなどに依存せずスタンドアロンで動作します。  
 写真登録時にCore MLを用いてタグの推薦を行います。  
 
+<img width=220 src=./images/screenshot1.png> <img width=220 src=./images/screenshot2.png>
+
 ## Environment
 - Xcode 16.1
 - Swift 6.0
